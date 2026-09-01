@@ -78,3 +78,36 @@ Legend: ✅ title/authors/venue confirmed · ⚠️ found but details still to c
 | *Before the Model Learns the Bug: Fuzzing RLVR Verifiers* | arXiv **2606.01066**. | authors TBC |
 | *The Sparse Vector Technique, Revisited* | arXiv **2010.00917**. | authors TBC |
 | Zhu, Wang — *Improving Sparse Vector Technique with Renyi Differential Privacy* | NeurIPS 2020. Yu-Xiang Wang is a workshop organizer — worth citing. | authors TBC |
+
+---
+
+## Round 7 additions — the user-level spine
+
+Each row below was verified by fetching the arXiv abstract page and reading title, full author
+list and date, or by reading the fetched full text directly. These are the load-bearing citations
+for `ideas/10`, so the verification bar is the highest in this file.
+
+| Ref | Detail | Status |
+|---|---|---|
+| Ponomareva, Xu, McMahan, Kairouz, Rosenblatt, Cohen-Addad, Guzmán, McKenna, Andrew, Bie, Yu, Kurakin, Zadimoghaddam, Vassilvitskii, Terzis — *How to DP-fy Your Data: A Practical Guide to Generating Synthetic Data With Differential Privacy* | arXiv **2512.03238**, 2 Dec 2025. **The object of study.** §5.3.2 "User-level privacy unit adjustments" recommends normalising each user's vote counts to unit ℓ₂ norm. §5.1 flags PE and DP inference as harder to adjust to user level than DP-SGD; §7.2 gives the beyond-group-privacy improvement for DP-SGD only; §5.1 asserts without analysis that all described algorithms can be adjusted to user or group level. §5.7 names streaming PE as unexplored. §5.1 "Sub-unit level of privacy" restates idea E via Brown et al. 2022. Table 10 rates PE's resilience to distribution gaps as Low and recommends it for <1K samples and ε<1. | ✅ full author list + date verified |
+| González, Fanti, Ramdas — *Private Evolution Converges* | arXiv **2506.08312**, 10 Jun 2025, **NeurIPS 2025**. Convergence to the private empirical distribution; ℓ₂ sensitivity 2/n under add/remove-one-sample. App. C.3: in practice `n_s ≠ n` and setting `n_s` correctly is critical for convergence. "Limitations and future work": the analysed `Variation_API` is not the practical one; rate suffers curse of dimensionality. **Zero occurrences of "user-level".** | ✅ authors + venue verified |
+| Liu, Suresh, Zhu, Kairouz, Gruteser — *Algorithms for bounding contribution for histogram estimation under user-level privacy* | arXiv **2206.03008**. User-level histogram estimation via per-user clipping: 2-approximation to the best contribution bound (bounded domain), log-approximation (unbounded), explicit bias–variance characterisation of the threshold, post-processing debiasing under mild distributional assumptions. **The strongest antecedent and the main novelty threat** — see `lit/03` for the three ways PE differs (generated domain, histogram-as-selection-signal, feedback loop). | ✅ authors verified |
+| Charles, Ganesh, McKenna, McMahan, Mitchell, Pillutla, Rush — *Fine-tuning large language models with user-level differential privacy* | 2024. DP-SGD-ELS (example-level sampling + contribution bounding) and DP-SGD-ULS (user-level sampling + per-user clipping); Mixture-of-Gaussians accounting beats group privacy. **The training-side template our paper is the inference-side analogue of.** | ⚠️ arXiv id to confirm before submission |
+| Wang, Chen, Du, Xiao, Zhang, Yan — *Secret-Protected Evolution for Differentially Private Synthetic Text Generation* (SecPE) | arXiv **2510.10990**, 13 Oct 2025. Secret-aware protection replacing uniform DP guarantees; clustering-based voting for large speedups. Mentions user-level DP only in related work. **Occupies the constructive half of idea E.** | ✅ authors + date verified |
+| He, Vershynin, Zhu — *Online Differentially Private Synthetic Data Generation* | arXiv **2402.08012**, 12 Feb 2024. Continual-release synthetic data, near-optimal 1-Wasserstein rates. Cited to price J2 honestly. | ✅ authors + date verified |
+| Bagdasaryan, Poursaeed, Shmatikov — *Differential Privacy Has Disparate Impact on Model Accuracy* | NeurIPS 2019. Cited by the DP-fy guide for DP-generated text running short. The lineage for `ideas/10` Claim 3. | ⚠️ confirm exact venue string |
+| Brown, Lee, Mireshghallah, Shokri, Tramèr — *What Does it Mean for a Language Model to Preserve Privacy?* | 2022. The secret-as-privacy-unit argument the guide's sub-unit paragraph rests on. Mireshghallah is a workshop organizer. | ⚠️ confirm author list + venue |
+| Amin, Kulesza, Muñoz Medina, Vassilvitskii — bounding user contributions | Cited by 2206.03008 as originating the bias–variance question for contribution bounds. | ⚠️ confirm id + venue |
+| Ganesh et al. (2025); Cohen-Addad et al. (2025) | Contribution-bounding selection under multi-attribution: sequential greedy with an LP upper bound, and a scalable distributed hypergraph formulation. Relevant only if we discuss multi-owner records. | ⚠️ ids TBC |
+
+### Verified negative results (worth as much as the positives)
+
+Counted case-insensitive occurrences of "user-level" in fetched full text: **0** in Aug-PE
+(2403.01749), Private Evolution Converges (2506.08312), Tab-PE (2606.08259), DP-ICL (2305.01639),
+2508.20452, and 2509.25729. 4 in SecPE (related work only). 54 in the DP-fy guide. The asymmetry is
+itself citable evidence for the paper's framing.
+
+### Still to do before writing
+- [ ] Resolve every ⚠️ above; the CFP desk-rejects on citation errors.
+- [ ] Confirm the DP-fy guide's exact section numbers for the two passages we lean on, since we
+      cite them by location.
