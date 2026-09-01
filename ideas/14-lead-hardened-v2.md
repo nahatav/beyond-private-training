@@ -108,6 +108,22 @@ natively (`NearestNeighbors.compute_histogram`), so E1's harness can reuse real 
 the `p=1` and `p=2` endpoints rather than being built from scratch; only intermediate `p` (e.g. 1.5)
 needs a small custom patch. Lower engineering risk than `notes/08` assumed.
 
+## Round-9 additions (opus precedent review — see `ideas/18`)
+
+- **Free, highest-leverage strengthening:** make **Claim 3 a small formal contraction result** (toy
+  2-region / 2-user model: the homogeneous user's mass under `p=2` contracts toward 0 across rounds;
+  under `p=1` it is a fixed point). This shores up the one fragile novelty distinction (the feedback
+  loop) and beats any extra experiment — and needs no compute.
+- **Add a fourth novelty distinction (d):** the operation is a **vote-vector ℓ_p normalisation, no
+  data dropped** — not Amin/Liu's scalar clip-count. Pre-empts "you just redid Liu 2206.03008."
+- **Cite-and-distinguish (or read as reinvention):** Amin et al. **ICML 2019** (origin of the
+  bias-variance-of-contribution-bounds framing), Liu **2206.03008**, **FedNova** (2007.07481, general
+  normalisation→target shift), Ganev **2109.11429** (Claim-3 disparate-impact precedent). Full list
+  and rebuttals in `lit/02` (round-9 addendum) and `ideas/18` §2.
+- **Compute guard-rails (`ideas/18` §1):** run E1/E2/E3 on a local open-weight generator (no paid
+  API), RunPod A6000/4090, **`n_s ≤ 2k`, `T ≈ 10`** — never at Aug-PE's full Yelp scale. Full lead is
+  $12–30; budget is a non-issue.
+
 ## What did not change
 
 Propositions 1–3, the normalisation family, the diversity-floored mechanism, Claim 3's structure,
