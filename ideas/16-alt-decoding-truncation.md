@@ -1,5 +1,34 @@
 # Second paper — default decoding silently breaks the LLM-as-exponential-mechanism guarantee
 
+> ## ⚠️ ROUND-9 CORRECTION — DEMOTED TO "REFRAME-OR-DROP". DO NOT WRITE AS-IS.
+>
+> An opus precedent-check fetched **InvisibleInk (2507.02974)** in full and found it states this
+> file's headline fact **verbatim**, as the motivation for its Top-k+ decoding:
+> *"a token … can 'jump out' of the top-k set … its probability … goes from a non-zero value to a
+> zero value, leading to a privacy loss of … = ∞."*
+>
+> So the central claim below — *"neither Amin et al. nor InvisibleInk nor the DP-fy guide states
+> this"* — **is false.** Shipping it would be exactly the "significant unsubstantiated claim" the CFP
+> auto-rejects on. The round-8 sonnet scout that produced this file mis-assessed InvisibleInk; the
+> opus round caught it.
+>
+> The top-k-vs-top-p hair-split does **not** rescue the novelty: the ε=∞ argument is identical for a
+> token leaving the nucleus, and every finite-ε fix is already occupied — **Top-k+** (2507.02974),
+> **DPS-MOZO** (2501.19287, truncates to a *public* top-k set), the **subsampled exponential
+> mechanism** (Lantz, Boyd, Page, AISec 2015; data-independent set), and Tobaben et al. (2411.04680,
+> public label space). **There is no cheap novel positive theorem left** (the only open lemma — exact
+> finite ε of renormalised top-p + uniform floor as a function of nucleus mass — is a minor smoothing
+> re-derivation of known mixing bounds, too thin for this venue).
+>
+> **What survives:** a practitioner config-audit ("HF/vLLM ship `top_p=0.9`; a deployment following
+> the guide's citation trail inherits an unaccounted violation") — useful, but a **corollary of
+> InvisibleInk's stated result, not a contribution.** If pursued at all, it must **cite InvisibleInk
+> as the known ε=∞ result** and claim only the audit + empirical leak-size — and even then it is the
+> weakest item in the portfolio. Fast-track second paper is now **`ideas/17` (Tab-PE)**; see
+> `ideas/18` for the reranking. The text below is preserved as the round-8 version for the record.
+
+---
+
 The strongest independent candidate the review produced. Same winning shape as the lead — *a named,
 credible source states or nearly states the fix, but nobody checks whether it transfers to the
 deployed mechanism* — but on a **different mechanism** (private prediction, not Private Evolution), so
