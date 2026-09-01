@@ -88,3 +88,40 @@ don't" is expected. Needs a surprising empirical hook (see idea board).
 - *PrivORL: DP Synthetic Dataset for Offline RL* — arXiv 2512.07342 (diffusion, requires training).
 - PE has images, text, tabular, simulators (DPSDA "APIs 3"). Tool-use traces are unclaimed.
 **Verdict: open, but a "new modality for PE" paper is heavy to build and low-surprise.**
+
+---
+
+# Sweep #2 — hunting specifically for niche, non-mainstream ground
+
+Trigger: the v3 direction (LLM-generated DP code) is announced as future work in DPrivBench, so
+other groups plausibly have it in flight. Re-searched for thin corners rather than hot surfaces.
+
+## Newly dead
+- **Individual / Renyi privacy filters for retrieval-based inference.** *Private-RAG: Answering
+  Multiple Queries with LLMs while Keeping Your Data Private*, arXiv **2511.07637**, by
+  **Ruihan Wu, Erchi Wang, Zhiyuan Zhang, Yu-Xiang Wang** — four workshop organizers. Also
+  *Beyond Per-Question Privacy: Multi-Query DP for RAG Systems* (OpenReview),
+  *DP Datastore Generation for Retrieval-Augmented Inference* (arXiv 2606.01413).
+- **Per-record / outlier empirical privacy of DP synthetic data.** *Risk-Equalized DP Synthetic
+  Data: Protecting Outliers by Controlling Record-Level Influence* (arXiv 2602.10232);
+  *Phantoms and Disclosures* (arXiv 2606.16952); *Advancing the SOTA in Empirical Privacy
+  Auditing* (arXiv 2606.10481).
+- **Deletion propagation / right-to-be-forgotten in inference pipelines.** *Agentic Unlearning*
+  (arXiv 2602.17692); *Always-On Agents* survey (arXiv 2606.30306) already does dependency-aware
+  deletion of derived artifacts.
+
+## Confirmed open — the user-level privacy unit in inference-time DP
+Checked every PE-family paper for any mention of users contributing multiple samples. None has one.
+- PE-1 images 2305.15560 - Aug-PE text 2403.01749 - APIs-3 simulators 2502.05505 -
+  APIs-4 tabular 2606.08259 - PE-means 2606.00342 - MAPLE 2603.19258 - PE Converges 2506.08312.
+- *Private Evolution Converges* states the accounting explicitly: NN histogram with **l2
+  sensitivity 2/n** under add/remove-one-sample adjacency, composed over T Gaussian mechanisms
+  (citing Dong et al. 2022 Cor. 3.3). Confirmed: **no user-level discussion anywhere.**
+- User-level DP is mature on the training side and simply never crossed over:
+  Levy et al., *Learning with User-Level Privacy*, NeurIPS 2021 (arXiv 2102.11845);
+  Ghazi et al., *User-Level DP With Few Examples Per User*, arXiv 2309.12500;
+  *Mind the Privacy Unit! User-Level DP for LM Fine-Tuning*, arXiv 2406.14322 (fine-tuning only).
+- Aug-PE's own benchmarks are user-structured: Yelp 1.9M reviews (reviewer ids), **OpenReview
+  8,396 ICLR-2023 reviews (~3-6 per reviewer)**, PubMed 75,316 abstracts (per author).
+
+**Verdict: open, small-population, and the motivating example uses the PE authors' own benchmarks.**
