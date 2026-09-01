@@ -1,5 +1,9 @@
 # Idea H — the lead, repositioned: user-level PE changes what PE estimates
 
+> **Round 8 update:** the thesis and Propositions 1–3 stand, but the framing is amended by
+> `ideas/14` (retarget the primary exhibit onto the shipped `microsoft/DPSDA` `client`-level code)
+> and the portfolio is reranked in `ideas/13`. Read those alongside this file.
+
 Supersedes the framing in `ideas/09`. The technical machinery survives intact; the *claim* moves,
 because `lit/03` found that the DP-fy guide (arXiv 2512.03238) already states a user-level recipe
 for PE. Attacking the gap is no longer available. Attacking the recipe is, and it is better.

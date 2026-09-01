@@ -39,6 +39,9 @@ Do not propose these. Each is an organizer's or speaker's own current line.
 | Unlearning + DP, per-instance privacy | Eli Chien (organizer) | Langevin Unlearning; *Do LLMs Really Forget?* |
 | DP reconstruction bounds | Saeed Mahloujifar (speaker) | Bounding Training Data Reconstruction in DP-SGD |
 | PE metadata augmentation | Eli Chien (organizer) | MAPLE, arXiv 2603.19258 |
+| Private RAG / retrieval top-k — **the whole line** | Ruihan Wu + Kamalika Chaudhuri (organizers) | arXiv **2412.04697** (in addition to 2511.07637) — round-8 finding |
+| DP-ICL with nearest-neighbour retrieval | Antti Koskela (organizer) | arXiv **2511.04332** (Koskela, Kulkarni, Zumot) |
+| "LLM helps humans implement DP" (scaffolding) | Yu-Xiang Wang (organizer) | **DPCheatSheet**, arXiv **2509.12590** |
 
 **Operating rule:** the good ideas adjacent to these lines are already theirs. Aim one step to the
 side — close enough that they care, far enough that they are not writing it.

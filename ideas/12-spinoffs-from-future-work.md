@@ -1,5 +1,9 @@
 # Spin-offs harvested from other people's future-work sections
 
+> **Round 8 update:** J1 is corrected and strengthened in `ideas/15` (adds PATE as a verified third
+> instance); J2's parking *reasoning* is corrected there too (user-level streaming is not a green
+> field — 2212.09980). Use `ideas/15` for the current form.
+
 Three items, ranked. The first is free and generalises the lead beyond PE; the second is a genuine
 open problem someone should do but not in six days; the third is recorded to be left alone.
 

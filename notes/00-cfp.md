@@ -16,9 +16,9 @@
 
 ## Format
 - NeurIPS LaTeX template, **≤4 pages** excluding references/appendix. No checklist needed.
-- Double-blind on OpenReview. ≥3 reviews guaranteed.
-- Prior work accepted at conferences after Dec 2025 allowed, but **deprioritized for orals** — novel/ongoing work preferred.
-- **Strict LLM policy:** hallucinated/fabricated references → desk reject. Every citation must be verified.
+- Double-blind on OpenReview. ≥3 reviews guaranteed. **PC members review ≤3 submissions each** (small PC; reviewer bandwidth is tight). *(Verified against the live CFP, round 8.)*
+- Prior work accepted at conferences after Dec 2025 allowed, but **deprioritized for orals** — novel/ongoing work preferred. NeurIPS 2026 **main-conference submissions** are also eligible (regular track, and separately fast-track).
+- **Strict LLM policy:** fabricated references, AI-generated citations, **or significant unsubstantiated claims** → auto-reject without review. *(Round 8 correction: the policy targets unsubstantiated claims, not only citations — the internal review pass must catch overclaiming too.)* Every citation must be verified.
 
 ## Thesis of the workshop
 Training-time DP (DP-SGD) is computationally prohibitive for foundation models. The field has

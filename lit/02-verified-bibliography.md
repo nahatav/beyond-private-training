@@ -111,3 +111,46 @@ itself citable evidence for the paper's framing.
 - [ ] Resolve every ⚠️ above; the CFP desk-rejects on citation errors.
 - [ ] Confirm the DP-fy guide's exact section numbers for the two passages we lean on, since we
       cite them by location.
+
+---
+
+## Round 8 additions and resolutions (six-agent review)
+
+Full detail and framing in `notes/10`; folded here because `lit/02` is the canonical citation home.
+All ✅ rows were verified this round by full-text or GitHub fetch; ⚠️ rows still need it.
+
+### Resolved from earlier ⚠️
+| Ref | Resolution | Status |
+|---|---|---|
+| DP-fy guide 2512.03238 | Now published: **JAIR Vol. 86, Art. 17 (2026)** — cite as JAIR, not only arXiv. | ✅ |
+| Brown, Lee, Mireshghallah, Shokri, Tramèr | arXiv **2202.05520**, **FAccT 2022** (order confirmed against the arXiv page). | ✅ |
+| Bagdasaryan, Poursaeed, Shmatikov | **NeurIPS 2019, pp. 15453–15462**. | ✅ |
+| DP-ICL nearest-neighbour 2511.04332 | Authors = **Koskela, Kulkarni, Zumot** (Koskela is an organizer). | ✅ |
+
+### New load-bearing refs (verified this round)
+| Ref | Detail | Status |
+|---|---|---|
+| **`microsoft/DPSDA` — `vote_normalization_level="client"`** | Shipped ℓ₂ per-user vote normalisation in `pe/histogram/nearest_neighbors.py`; noise added at fixed scale in `pe/dp/gaussian.py`, blind to the mode. Commit `25cdf854a22f...`, 2025-02-20, *"add the support of client-level DP,"* by **Zinan Lin**. The lead's primary exhibit (`ideas/14`). Re-verify against live `main` before submission. | ✅ (GitHub fetch) |
+| Papernot, Song, Mironov, Raghunathan, Talwar, Erlingsson — *Scalable Private Learning with PATE* | **ICLR 2018, arXiv 1802.08908**. Third record-neutral-parameter instance (teacher count K), `ideas/15`. | ✅ authors/venue |
+| Tab-PE / APIs-4 tabular — 2606.08259 | "We assume class distributions are known"; Alg. 2 sets `N(c)=N·|D_priv(c)|/|D_priv|` with no DP noise. `ideas/17`. | ✅ full text |
+| MAPLE 2603.19258 | Confirmed **text-only**; future work names images/tabular/multimedia as unaddressed. | ✅ full text |
+| Amin, Bie, Kong, Kurakin, Ponomareva, Syed, Terzis, Vassilvitskii — *Private prediction for large-scale synthetic text generation* | arXiv **2407.12108** (Jul 2024). Exponential mechanism via softmax; no mention of top-p/top-k/full-support. `ideas/16`. | ✅ full-text grep |
+| Vinod, Pillutla, Thakurta — *InvisibleInk* | arXiv **2507.02974**, **NeurIPS 2025**. Top-k+ decoding (data-independent size); does not cover default top-p. `ideas/16`. | ✅ full text |
+| Kurakin et al. — *Harnessing LLMs to generate private synthetic text* | arXiv **2306.01684**. "No top-p" is a fidelity choice after DP-SGD fine-tuning (post-processing), not an inference-time privacy requirement. | ✅ |
+| Awan, Rao — *Privacy-Aware Rejection Sampling* | arXiv **2108.00965**, **JMLR 24 (2023)**. Rejection-sampler runtime leaks unless acceptance prob is data-independent. Plan-B (refusals). | ✅ |
+| George, Ramesh, Singh, Tyagi — *Continual Mean Estimation Under User-Level Privacy* | arXiv **2212.09980**, IEEE JSAIT (Feb 2024). Streaming + user-level (multi-participation) already exists → corrects J2's parking reason (`ideas/15`). | ✅ authors/venue |
+| Hayes, Mahloujifar, Balle — *Bounding Training Data Reconstruction in DP-SGD* | arXiv **2302.07225**, **NeurIPS 2023**. F's antecedent (pairs bound + matching attack). | ✅ |
+| Koga, Wu, Zhang, Chaudhuri — *Privacy-Preserving RAG with DP* | arXiv **2412.04697**. Organizer-owned (Wu + Chaudhuri) → whole private-RAG line off-limits. | ✅ authors |
+| DPCheatSheet — 2509.12590 (Chu, Tian, Yu-Xiang Wang, Jin) | Organizer (Yu-Xiang Wang) co-author; "LLM helps humans do DP" corner. | ✅ |
+| StatDP — 1805.10277 (already above) | Sound black-box DP tester; the grader for the constructive-falsification Plan-B (`notes/10`). | ✅ |
+| ToxicChat 2310.17389 (Findings EMNLP 2023); RealToxicityPrompts 2009.11462 (Findings EMNLP 2020) | Public moderation benchmarks for the refusals Plan-B. | ✅ |
+| Swanberg, McKenna, Roth, Cheu, Kairouz — 2502.06555 | Contains a genuine zero-private-data ("Gemini, no DP") tabular baseline → weakens standalone idea B. | ✅ full text |
+| Quantamination — 2604.26505 | Batch dynamic-quantization cross-tenant leak; kills the batch-numerics idea. | ✅ |
+| Dead-ground (topics 1/3): MAGPIE 2510.15186, AgentLeak 2602.11510, TAMAS 2511.05269, MuPPET 2606.23217, PiSAs 2607.05318; SnapAudit 2511.13502, ContextLeak 2512.16059 | Saturated surfaces; do not enter. | ✅ (search) |
+
+### Still ⚠️ (fetch before citing)
+- Charles et al. 2024 exact arXiv id; Amin/Kulesza/Muñoz-Medina/Vassilvitskii; Ganesh/Cohen-Addad.
+- arXiv **2601.22320** (MF for continual mean estimation) — title/premise from search only.
+- arXiv **2202.10517** (Individualized PATE) — from search summaries only.
+- SuperDP **2603.26215** PLDI-2026 acceptance — ACM DL record only, not on the arXiv page.
+- The exact PATE "taints at most one teacher" sentence — re-confirm from the paper's own text before quoting.
