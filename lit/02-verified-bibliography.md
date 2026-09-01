@@ -149,8 +149,50 @@ All ✅ rows were verified this round by full-text or GitHub fetch; ⚠️ rows 
 | Dead-ground (topics 1/3): MAGPIE 2510.15186, AgentLeak 2602.11510, TAMAS 2511.05269, MuPPET 2606.23217, PiSAs 2607.05318; SnapAudit 2511.13502, ContextLeak 2512.16059 | Saturated surfaces; do not enter. | ✅ (search) |
 
 ### Still ⚠️ (fetch before citing)
-- Charles et al. 2024 exact arXiv id; Amin/Kulesza/Muñoz-Medina/Vassilvitskii; Ganesh/Cohen-Addad.
+- ~~Charles et al. 2024 exact arXiv id~~ → **resolved, 2407.07737** (round 9). ~~Amin/Kulesza/Muñoz-Medina/Vassilvitskii~~ → **resolved, ICML 2019 PMLR v97:263–271** (round 9). Ganesh/Cohen-Addad still open.
 - arXiv **2601.22320** (MF for continual mean estimation) — title/premise from search only.
 - arXiv **2202.10517** (Individualized PATE) — from search summaries only.
 - SuperDP **2603.26215** PLDI-2026 acceptance — ACM DL record only, not on the arXiv page.
 - The exact PATE "taints at most one teacher" sentence — re-confirm from the paper's own text before quoting.
+
+---
+
+## Round 9 additions (opus precedent review)
+
+Detail in `ideas/18`. These are the estimand-shift lineage the lead must cite-and-distinguish, plus
+corrections. ✅ = fetched to a primary source this round.
+
+### Estimand-shift / normalisation lineage (cite-and-distinguish in the lead)
+| Ref | Detail | Status |
+|---|---|---|
+| **Amin, Kulesza, Muñoz-Medina, Vassilvitskii — *Bounding User Contributions: A Bias-Variance Trade-off in DP*** | **ICML 2019, PMLR v97:263–271** (no arXiv id — cite PMLR). The **origin** of "a contribution bound changes the estimand (bias), not just the variance." Scalar cap, fixed domain, one-shot → lineage, not a scoop. | ✅ dblp |
+| **Charles, Ganesh, McKenna, McMahan, Mitchell, Pillutla, Rush — *Fine-Tuning LLMs with User-Level DP*** | **arXiv 2407.07737** (Jul 2024). Resolves the long-standing ⚠️ id. Training-side template; complement, not scoop. | ✅ |
+| **Wang, Liu, Liang, Joshi, Poor — *Tackling the Objective Inconsistency Problem* (FedNova)** | **arXiv 2007.07481, NeurIPS 2020.** General "normalised aggregation converges to a mismatched objective" — cite-and-distinguish (optimisation objective, not a DP measure; no diversity tilt). | ✅ |
+| Google federated **location heatmaps** | **arXiv 2111.02356.** Normalises each user's contribution to bounded ℓ₁ = the lead's `p=1` (user-uniform) endpoint, as pure sensitivity control. **Supports** the lead; nobody there notices ℓ₂ tilts toward diversity. | ✅ |
+| Chua et al. — *Mind the Privacy Unit!* (2406.14322, COLM 2024); Levy et al. (2102.11845, NeurIPS 2021); Ghazi et al. (2309.12500, NeurIPS 2023) | User-level DP-SGD; none frames contribution bounding as an estimand shift. Cite as complements. | ✅ |
+| **2502.04749** — *Bounding User Contributions for User-Level DP Mean Estimation* (2025) | Same Amin/Liu lineage; surfaced but **not fetched** — flag, do not lean on. | ⚠️ |
+
+### Disparate-impact lineage (for Claim 3)
+| Ref | Detail | Status |
+|---|---|---|
+| **Ganev, Oprisanu, De Cristofaro — *Robin Hood and Matthew Effects*** | **arXiv 2109.11429.** DP distorts subgroup *sizes* in synthetic data — the most dangerous Claim-3 precedent. Rebuttal: DP-**noise** effect (vanishes ε→∞), one-shot, no functional form, no PE, no loop. **⚠️ venue (ICML 2022?) re-confirm before citing.** | ⚠️ venue |
+| **Andrey, Perrot, Le Bars, Tommasi — *Disparate Impact in Synthetic Data Generation*** | **arXiv 2606.13105** (Jun 2026). Concurrent; PGM-based, no functional form, no PE. Cite as concurrent. | ✅ |
+
+### Private-prediction / decoding line (context for the demoted `ideas/16`)
+| Ref | Detail | Status |
+|---|---|---|
+| **InvisibleInk — 2507.02974** | **States the ε=∞-under-truncation fact verbatim** as the Top-k+ motivation. This **falsifies `ideas/16`'s** "nobody states this" claim — see the round-9 correction there. | ✅ full text |
+| DPS-MOZO — Flemings, Gan, Li, Razaviyayn, Annavaram, **2501.19287** | DP-ICL by mixing few-shot+zero-shot; truncates to a **public** top-k set (a data-independent finite-ε fix). | ✅ |
+| Subsampled Exponential Mechanism — Lantz, Boyd, Page | **AISec 2015.** EM over a data-independent sampled set — the classical truncation fix. | ✅ |
+| SubMix (2201.00971); PMixED (2403.15638) | Mixture / Rényi private next-token prediction — private-prediction context. | ⚠️ search-level |
+
+### Corrections & flags
+- **`ideas/16` demoted** to reframe-or-drop — its headline is falsified by InvisibleInk (above).
+- **StatDP** (`cmla-psu/statdp`) is **Python-3.8, ~4 commits, effectively unmaintained**; **DP-Sniper**
+  (`eth-sri/dp-sniper`, S&P 2021) returns a witness+ε. Getting either onto current Python is the
+  constructive-falsification Plan-B's real risk (engineering time, not compute) — resolve before use.
+- **Tab-PE = 2606.08259** authors confirmed: Tran, Backurs, **Zinan Lin** (invited speaker), Reis,
+  Xiong, Yekhanin. Footnote 11 + Alg. 2 verified; **App. D.11 / App. B.1 not yet fetched** — decisive
+  for `ideas/17`, read before writing.
+- Verified GPU rates (2026-09-01) for `notes/08`: RunPod A6000/4090 ≈ $0.33–0.34/hr; Modal A100-40
+  $2.10/hr + $30/mo free. Aug-PE full Yelp run = 27–139 GPU-hr/config (the budget landmine).
