@@ -20,7 +20,7 @@ smaller than it looks.
 |---|---|---|---|---|
 | **AIWILD** — 3rd Workshop on Agents in the Wild (NeurIPS, Sydney) | **Sep 5** (extended from Aug 29) | 9pp regular / **4pp short**, non-archival, WIP welcome | **Allowed** — "papers under review or recently accepted at other venues" | **Clean — the only one.** CFP names "Agent safety, alignment, **control**, and oversight" verbatim. Published `2606.30449`, a probes-fail-on-pre-action-monitoring paper. Re-verified 2026-09-02: Sep 5 AoE extension, 9pp/4pp tracks and the concurrent-submission clause all confirmed on the workshop's own page. The same page **discourages** submissions from the NeurIPS/ICLR/ICML main tracks. |
 | **SLM-Agents** (NeurIPS, Paris) | **Sep 6** (extended from Sep 5) | 4pp short / 6pp long, non-archival | **Restrictive** — barred if under review at or accepted to NeurIPS 2026 main | ⚠️ Moderate mismatch. CFP names "quantization, pruning" and "safety, robustness", but the centre of gravity is on-device efficiency; **would grade a monitor result on efficiency merit, not safety merit.** |
-| **InfPriv** — Beyond Private Training (NeurIPS, Sydney) | **Sep 7** | 4pp, non-archival | — | Privacy only. Home of the PE paper (`ideas/14`). |
+| **InfPriv** — Beyond Private Training (NeurIPS, Sydney) | **Sep 7** | 4pp, non-archival | — | Privacy only. Home of the PE paper (`ideas/14`). ★ **ACTIVE — see `notes/15`.** `ideas/24`'s venue plan jumped Sep 5 → Sep 19 and dropped this row without deciding anything. Round 13 decided not to send *C1* to AIWILD; it never re-decided InfPriv. The paper is written, twice-reviewed, ~$30, and the alternative is no submission until roughly November. |
 | **EvoRobust** — Self-Evolving Diversity-Driven Search for Robust AI (NeurIPS, Sydney) | **Sep 12** | **4pp** (5pp camera-ready), non-archival | **Allowed** | ⚠️ Moderate. Robustness-literate, but the spine is quality-diversity *search*; likely no AI-control background. |
 | **VERICODEGEN** — AI for Verifiable Coding (NeurIPS, Atlanta) | **Sep 13** (abstract **Sep 11**, not Sep 12) | competition track 4–9pp; research track format unstated ⚠️ | Not stated ⚠️ | ⚠️ Severe. Proof assistants, model checkers, SAT/SMT. Would grade against formal-verification standards. |
 | **AI for Peace** (NeurIPS, Paris) | **Sep 14** | Google Form call for *presentations*, non-archival | — | Not a paper venue. |
@@ -39,10 +39,15 @@ page. OpenReview itself is behind a CAPTCHA and was **not** bypassed. **Do not p
 
 ## Re-check dates
 
-- **Sep 19** — **SaTML 2027 workshops.** ★ **Primary target for the round-13 lead (`ideas/24`).**
-  SaTML runs workshops for the first time in 2027. Proposals closed Aug 28; **organizers are notified
-  Sep 18**, so paper CFPs cannot exist before then. This is the highest-value follow-up outside
-  NeurIPS. Re-verified on satml.org 2026-09-02.
+- **Sep 19** — **SaTML 2027 workshops.** ★ Primary target for the C9 lead (`ideas/24`, amended by
+  `ideas/25`). SaTML runs workshops for the first time in 2027. Proposals closed Aug 28; **organizers
+  are notified Sep 18**, so paper CFPs cannot exist before then. Re-verified on satml.org 2026-09-02.
+  **⚠️ Sep 19 is a notification date, not a deadline.** `ideas/24` scheduled C9 against it as though
+  it were one. Paper deadlines follow the CFPs, and for a conference running in early 2027 they are
+  plausibly **6–10 weeks out** — an inference from the conference timeline, *not verified*, to be
+  confirmed on satml.org on Sep 19. Consequence: C9's "~9 days" binds nothing, the only real pressure
+  is scoop pressure, and the surplus budget should buy a second scenario domain (`ideas/25` §5).
+  Also run **G2** that day — it is unrunnable until the organizer list exists (`notes/11`).
 - **~Sep 25** — **AAAI-27 workshop list** (proposals closed Aug 28, organizer notification Sep 25;
   workshops Feb 22–23, 2027).
 - **Unscheduled** — ICLR 2027 workshops; only the proposal group exists so far.
