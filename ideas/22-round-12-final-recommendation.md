@@ -110,6 +110,70 @@ shape that killed three ideas. **Mandatory:** random-direction placebo at matche
 
 ---
 
+## C7 — Monitorable latent slots inherit concept-bottleneck leakage
+
+**Claim.** `2608.04928` (Ferreira, Aziz, Titov) proposes, in its own future work, "reserving a subset
+of latent slots to be **directly supervised for monitorability**." That is a **concept bottleneck**,
+and it will fail the way concept bottlenecks are known to fail: the model routes the safety-relevant
+information *around* the supervised slots, so probe accuracy on those slots stays high while **causal
+control drops to zero**.
+
+**Experiment.** Train small latent-CoT models (Qwen 0.5B/1.5B, Coconut-style) on the hint-reliance
+setup with *k* supervised slots. Measure three quantities that the safety framing conflates:
+(a) **probe accuracy** on the supervised slots; (b) **causal accuracy** — intervene on the slots and
+check the answer actually follows; (c) **leakage** — probe accuracy recoverable from the
+*unsupervised* slots. Then apply light adversarial pressure (RL against the slot probe) and re-measure.
+
+**Both directions publish.** Leakage appears ⇒ you have pre-empted a fix a frontier-adjacent group has
+publicly announced, with the mechanism named and a citable prior literature. No leakage ⇒
+monitorability-supervised latent slots are a real architecture and you own the first result.
+
+**G1 — passes, and unusually: the outside collision *is* the contribution.** Nearest neighbours are
+**Concept Bottleneck Models** (Koh et al. 2020) with the leakage literature (Mahinpei et al. 2021;
+Margeloiu et al. 2021), and **Self-Explaining Neural Networks** (Alvarez-Melis & Jaakkola 2018) /
+ProtoPNet-style interpretability-by-architecture. The architecture is claimed outside; the
+safety-relevant negative result is not. The point of the paper is that safety proposed a bottleneck
+without inheriting the bottleneck literature's known failure mode.
+
+**Sharpest objection.** "Concept-bottleneck leakage is already known." Answer it in the introduction,
+not the rebuttal: cite Mahinpei and Margeloiu explicitly and frame the contribution as the transfer.
+
+**Cost.** Light fine-tuning of ≤1.5B models, ~250 A6000-hours ≈ **$85–100**. The highest engineering
+risk on the board — it is the only candidate requiring a trained latent-CoT model.
+
+---
+
+## C9 — Situation-controlled pre-action benchmark
+
+**Claim.** `2606.30449`'s finding that probes "read the situation, not the action" holds because **no
+existing dataset varies the action with the situation held fixed**. Build matched pairs — identical
+prefix and situation, divergent next action — and re-test the published probe families.
+
+**Experiment.** Construct matched action-divergent pairs on agentic tool-use traces under
+**pre-registered pair-construction criteria**, then evaluate the probe families `2606.30449` tested,
+plus the four it named as untested: sparse-autoencoder features, sequence-level probes, larger
+nonlinear classifiers, and probes trained across many tool-action scenarios.
+
+**Both directions publish.** Signal survives ⇒ pre-action monitoring is rescued and you own the
+benchmark. Signal vanishes ⇒ a single-source negative becomes a robust one, established on the
+original authors' own named open items.
+
+**G1 — passes narrowly.** Nearest neighbours: WILDS/Waterbirds-style **group-shift benchmarks** (same
+logic, but no agentic action-vs-situation construction) and **counterfactual data augmentation** for
+shortcut removal (a *training* remedy, not an evaluation testbed).
+
+**Sharpest objection.** "You built the confound you are measuring." This is why the pair-construction
+criteria must be pre-registered before any probe is run — the design is the contribution and it is
+also the attack surface.
+
+**Cost.** ~**$120**, ~9 days.
+
+**⚠️ Competitor flag.** `2606.30449` was published **at AIWILD**, our primary venue. That makes this a
+same-venue direct-successor paper — good for fit, but its authors are the obvious competitor for
+exactly this follow-up, and they have the head start.
+
+---
+
 ## The venue problem, stated plainly
 
 **AIWILD (Sep 5 AoE) is the only venue whose reviewers read AI-control metrics natively.** It is
