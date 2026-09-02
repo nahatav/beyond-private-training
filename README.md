@@ -5,25 +5,30 @@ Working repo for a short workshop paper. **The brief changed twice.** It began a
 post-training, mech interp. Round 12 added a second objective: the paper must be relevant to
 *general* AI safety research, not only acceptable at a workshop.
 
-**State as of 2026-09-02 (round 14).** Two tracks, and they do not compete for the same hours.
+**State as of 2026-09-02 (round 14).** **EvoRobust, Sep 12 AoE, is the target.** The repo had ruled
+it out from its title; the fetched CFP names *"human oversight and controllability"* of tool-using
+agents and *"continuously evolving safety benchmarks, automated test case generation, coverage
+metrics"* in two of five topic areas ([`notes/13`](notes/13-venue-calendar.md)). Ten days, 4pp,
+non-archival, dual submission allowed — so it does **not** consume the SaTML target.
 
-**Now → Sep 7: ship the InfPriv paper** (`ideas/10` + `ideas/14`, checklist in [`notes/15`](notes/15-infpriv-ship-checklist.md)).
-It is designed, twice-adversarially-reviewed, ~$30, and has an unconditional floor in Propositions
-1–3. Round 13 decided not to send *C1* to AIWILD and never re-decided this; `ideas/24`'s venue plan
-dropped the Sep 7 row without arguing against it. The alternative is no submission until ~November.
+The lead is **C9 — the situation-controlled pre-action benchmark**, whose design is corrected in
+[`ideas/25`](ideas/25-round-14-c9-design-flaw.md): `ideas/24`'s version was *still* unfalsifiable,
+because reading state at an offset *before* the divergence point is chance by the same determinism
+argument used to kill the version before it. The read position moves strictly after first divergence
+and becomes the swept independent variable. **Sep 3 is a fork** — the owed R8 sweep plus the first
+data load in fourteen rounds decides between C9 and the C4 fallback
+([`ideas/26`](ideas/26-evorobust-reranked-board.md)).
 
-**After that: C9 — the situation-controlled pre-action benchmark**, still the safety lead, but
-**amended by [`ideas/25`](ideas/25-round-14-c9-design-flaw.md)**: its reframed design was *still*
-unfalsifiable, because reading state at an offset *before* the divergence point is chance by the
-same determinism argument `ideas/24` used to kill the previous version. The read position moves
-strictly after first divergence and becomes the swept independent variable. **AIWILD on Sep 5 passes
-deliberately, with no submission.**
+**AIWILD on Sep 5 passes deliberately.** The **InfPriv** paper (Sep 7, `notes/15`) is designed,
+reviewed and ~$30 — but it is a privacy result, not a safety one, and the brief is safety. Shipping
+it costs five days of focus against a live scoop clock. Recorded as a live option, not the plan.
 
 ## Start here
 
 | If you want… | Read |
 |---|---|
-| **What to do this week** | [`notes/15`](notes/15-infpriv-ship-checklist.md) — the InfPriv ship checklist, with the Sep 3 branch decision |
+| **What to do this week** | [`ideas/26`](ideas/26-evorobust-reranked-board.md) — the board re-scored for EvoRobust, and the Sep 3 fork |
+| The InfPriv option, if taken | [`notes/15`](notes/15-infpriv-ship-checklist.md) — ship checklist, Sep 7, ~$30 |
 | The safety lead, current | [`ideas/25`](ideas/25-round-14-c9-design-flaw.md) — C9's design flaw, the fix, and the gates it still owes |
 | The recommendation it amends | [`ideas/24`](ideas/24-round-13-final-recommendation.md) — lead, venue plan, what changed |
 | Why the round-12 board collapsed | [`ideas/23`](ideas/23-round-13-adversarial-review.md) — candidate-by-candidate teardown with the evidence |
