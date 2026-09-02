@@ -21,7 +21,7 @@ smaller than it looks.
 | **AIWILD** — 3rd Workshop on Agents in the Wild (NeurIPS, Sydney) | **Sep 5** (extended from Aug 29) | 9pp regular / **4pp short**, non-archival, WIP welcome | **Allowed** — "papers under review or recently accepted at other venues" | **Clean — the only one.** CFP names "Agent safety, alignment, **control**, and oversight" verbatim. Published `2606.30449`, a probes-fail-on-pre-action-monitoring paper. Re-verified 2026-09-02: Sep 5 AoE extension, 9pp/4pp tracks and the concurrent-submission clause all confirmed on the workshop's own page. The same page **discourages** submissions from the NeurIPS/ICLR/ICML main tracks. |
 | **SLM-Agents** (NeurIPS, Paris) | **Sep 6** (extended from Sep 5) | 4pp short / 6pp long, non-archival | **Restrictive** — barred if under review at or accepted to NeurIPS 2026 main | ⚠️ Moderate mismatch. CFP names "quantization, pruning" and "safety, robustness", but the centre of gravity is on-device efficiency; **would grade a monitor result on efficiency merit, not safety merit.** |
 | **InfPriv** — Beyond Private Training (NeurIPS, Sydney) | **Sep 7** | 4pp, non-archival | — | Privacy only. Home of the PE paper (`ideas/14`). ★ **ACTIVE — see `notes/15`.** `ideas/24`'s venue plan jumped Sep 5 → Sep 19 and dropped this row without deciding anything. Round 13 decided not to send *C1* to AIWILD; it never re-decided InfPriv. The paper is written, twice-reviewed, ~$30, and the alternative is no submission until roughly November. |
-| **EvoRobust** — Self-Evolving Diversity-Driven Search for Robust AI (NeurIPS, Sydney) | **Sep 12** | **4pp** (5pp camera-ready), non-archival | **Allowed** | ⚠️ Moderate. Robustness-literate, but the spine is quality-diversity *search*; likely no AI-control background. |
+| **EvoRobust** — Self-Evolving Diversity-Driven Search for Robust AI **Systems** (NeurIPS, Sydney) | **Sep 12** | **4pp** (5pp camera-ready), non-archival, 50MB | **Allowed** — "under review… or recently accepted without published proceedings" | ★★ **RE-GRADED 2026-09-02, CFP fetched — the old ⚠️ was read off the title.** Five topic areas, and **two name our objects**: *"**Agentic Safety & Interactive Robustness**: safety of tool-using agents, long-horizon failures, multi-agent risks, **human oversight and controllability**"* and *"**Benchmarks and Governance**: continuously evolving safety benchmarks, **automated test case generation**, coverage metrics"*. Also "Safety Scenario Search & Failure Discovery" (novel failure modes, evolutionary safety evaluation), "Novelty Search & Quality-Diversity for Robustness" (behavioral repertoires of failures **and defenses**), "Multi-Objective Trustworthy AI". Speakers include **Maksym Andriushchenko** (adaptive attacks, AgentHarm), **David Wagner**, **Hamed Hassani**, **Bo Han**; organizers include **Moosavi-Dezfooli** (adversarial robustness) alongside evolutionary-computation people (**Yew-Soon Ong**, Escalera). Not AI-control natives, but robustness-literate and adaptive-attack-literate. **Best open safety venue on the calendar.** |
 | **VERICODEGEN** — AI for Verifiable Coding (NeurIPS, Atlanta) | **Sep 13** (abstract **Sep 11**, not Sep 12) | competition track 4–9pp; research track format unstated ⚠️ | Not stated ⚠️ | ⚠️ Severe. Proof assistants, model checkers, SAT/SMT. Would grade against formal-verification standards. |
 | **AI for Peace** (NeurIPS, Paris) | **Sep 14** | Google Form call for *presentations*, non-archival | — | Not a paper venue. |
 | **ICLR 2027** | abstract **Sep 18** / full **Sep 25** | full archival conference paper | — | A 4-page measurement is not an ICLR paper. |
@@ -48,6 +48,20 @@ page. OpenReview itself is behind a CAPTCHA and was **not** bypassed. **Do not p
   confirmed on satml.org on Sep 19. Consequence: C9's "~9 days" binds nothing, the only real pressure
   is scoop pressure, and the surplus budget should buy a second scenario domain (`ideas/25` §5).
   Also run **G2** that day — it is unrunnable until the organizer list exists (`notes/11`).
+### Venues the "canonical" calendar was missing, resolved 2026-09-02
+
+The round-12/13 sweeps built this table from a filtered view and missed live rows. Checked against
+the OpenReview-synced tracker and then each workshop's own page:
+
+| Venue | Tracker | Verdict |
+|---|---|---|
+| **AgenticLS** | Sep 20 07:00 UTC = **Sep 19 AoE** | ❌ **Out of scope.** *Agentic AI for **Biological Discovery*** — proteins, genomes, single cells, lab robotics. Not an agent-safety venue despite the name. |
+| **PriGM** | Sep 9 12:00 UTC = **Sep 8 AoE** ⚠️ (own site says Sep 5 22:00 UTC — the NeuralArtifacts stale-page pattern again) | ❌ **Not a privacy venue.** *2nd Workshop on **Principles of Generative Modeling***. "Pri" = Principles. Theory of generative models; DP synthetic data is not named in scope. Does **not** give the PE paper a second window after InfPriv. |
+| NeuralArtifacts | Sep 7 11:59 UTC = **Sep 6 AoE** | Confirms the extension the workshop's own page never propagated. Still do not plan around it. |
+
+**Lesson 5, added:** the tracker's *list* is more complete than any sweep we have run, even though its
+*timezones* are wrong. Use it for coverage and the workshop's own page for dates — never the reverse.
+
 - **~Sep 25** — **AAAI-27 workshop list** (proposals closed Aug 28, organizer notification Sep 25;
   workshops Feb 22–23, 2027).
 - **Unscheduled** — ICLR 2027 workshops; only the proposal group exists so far.
