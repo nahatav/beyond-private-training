@@ -277,6 +277,13 @@ Construct and report your own splits; do not cite those numbers.
 
 ## Round 12 — the metric disjunction between AI control and the guardrail literature
 
+> **⚠️ THE CENTRAL NEGATIVE IN THIS SECTION IS FALSE. See the round-13 section below.** The queries
+> below are transport-clean and were genuinely run twice; they are also **abstract-scoped**, and the
+> claim they were used to support is about what papers *report* in their results sections. Granite
+> Guardian (`2412.07724`) publishes ROC curves and a nine-guard fixed-FPR leaderboard. The rows are
+> kept because the *AI-control side* of the table is still accurate and still useful, and because
+> `notes/12` R8 was bought with this mistake. **Do not cite the guardrail-side negatives.**
+
 Surfaced by the round-12 sweep, then **independently re-verified locally** via the arXiv API on
 2026-09-02. These negatives are load-bearing for candidate C6 in `ideas/21`, so they were run twice.
 
@@ -284,10 +291,10 @@ Surfaced by the round-12 sweep, then **independently re-verified locally** via t
 
 | Query | totalResults | Note |
 |---|---|---|
-| `abs:"fixed false positive rate" AND abs:"large language model"` | **0** | Nobody frames LLM evaluation at a fixed FPR. |
-| `abs:"guard model" AND (abs:"ROC" OR abs:"AUROC")` | **0** | **No published ROC/AUROC for any safety guard model.** |
+| `abs:"fixed false positive rate" AND abs:"large language model"` | **0** | ❌ **False as stated.** `2412.07724` §5.1: "we also compute recall and AUC at fixed false positive rates (FPr) of 0.1, 0.01, and 0.001." |
+| `abs:"guard model" AND (abs:"ROC" OR abs:"AUROC")` | **0** | ❌ **The inference drawn from this was false.** `2412.07724` publishes ROC curves (Fig. 8) and AUC/AUPRC tables; its *abstract* says none of these words. |
 | `all:"guardrail" AND all:"audit budget"` | **0** | The control-native constraint never reaches the guardrail literature. |
-| `abs:"guard" AND abs:"pAUC"` | **0** | — |
+| `abs:"guard" AND abs:"pAUC"` | **0** | ❌ **Same failure.** `2412.07724` App. D reports "partial AUC and TPr values across different FPr thresholds." |
 | `all:"partial AUC" AND (all:"guardrail" OR all:"safety monitor" OR all:"moderation")` | **1** | And it is **1310.0900**, a *2013 pedestrian-detection* paper. |
 | `abs:"audit budget" AND abs:"monitor"` | **6** | **All six are AI-control papers** — 2606.06529, 2602.04930, 2607.06596, 2607.14570, 2605.26047, 2506.05296. Not one guardrail paper. |
 
@@ -308,7 +315,7 @@ auditing-budget constraints).
 | Llama Guard 3-1B-INT4 | **2411.17713** | F1 + FPR at one operating point |
 | WildGuard | **2406.18495** | F1 at the model's own binary decode threshold |
 | ShieldGemma | **2407.21772** | AU-PRC |
-| Granite Guardian | **2412.07724** | AUC (0.871 harmful, 0.854 RAG-hallucination) |
+| Granite Guardian | **2412.07724** | ❗ **AUC *is* area under the ROC curve — this row falsified C6 and was recorded in the same round the claim was written.** Full detail in the round-13 section: ROC curves, AUPRC, and partial AUC + TPR at FPr 0.1/0.01/0.001 across nine guards. |
 | GuardReasoner | **2501.18492** | F1 averaged over 13 benchmarks |
 | Qwen3Guard | **2510.14276** | F1; its tri-class label yields exactly **two** operating points — strict mode "classifies controversial cases as unsafe", loose mode "treats them as safe" |
 | Benchmarking Open-Source Guards | **2605.28830** | **Recall, and refuses FPR control on principle:** "recall is the critical metric for safety applications, as missing harmful content poses greater risk than false positives" |
@@ -338,3 +345,68 @@ Keynote **Eugene Yan** (Anthropic); panel **Jennifer Wortman Vaughan** (MSR NYC)
 (Georgia Tech), **Vijai Mohan** (GDM). No published ownership of the threshold/operating-point line
 found among them — **G2 appears clear**, but the community is active here, so re-check before
 submission.
+
+---
+
+## Round 13 additions — the adversarial review (`ideas/23`, `ideas/24`)
+
+Every row below was confirmed by fetching `arxiv.org/abs/<id>` for title, full author list and date;
+rows marked ✅+HTML additionally had `arxiv.org/html/<id>` fetched, tag-stripped and searched, because
+a claim about the paper's *contents* is load-bearing (R1). The round-12 board's own core citations
+were never entered here — that gap is closed below.
+
+### The C6 kill
+
+| Ref | Detail | Status |
+|---|---|---|
+| Padhi, Nagireddy, Cornacchia, Chaudhury, Pedapati, Dognin, Murugesan, Miehling, Santillán Cooper, Fraser, Zizzo, Hameed, Purcell et al. — *Granite Guardian* | arXiv **2412.07724** (2024-12-10). **The paper that kills C6.** §5.1 names AUPRC, "the area under the ROC curve (AUC)", F1, recall and precision, then: "we also compute **recall and AUC at fixed false positive rates (FPr) of 0.1, 0.01, and 0.001**… to evaluate performance under low FPr constraints (Aerni et al., 2024)." Figure 8 plots **ROC curves**. §6: "Real-time applications have a strong need for low FPr. Thus, threshold-based metrics (e.g., AUC and AUPRC) can mislead the quality evaluation of the model." **Table 11** reports AUC, AUC@0.1/0.01/0.001 and TPr@0.1/0.01/0.001 for **nine open guards** — Llama-Guard-7B / 2-8B / 3-1B / 3-8B, ShieldGemma-2B / 9B / 27B, Granite-Guardian-2B / 8B — using probability scores "suitably adapt[ed]" from each baseline. App. D text uses the phrase **"partial AUC"**. | ✅ +HTML |
+| Aerni, Zhang, Tramèr — *Evaluations of Machine Learning Privacy Defenses are Misleading* | arXiv **2404.17399** (2024-04-26). The low-FPR evaluation discipline Granite Guardian imports, from privacy auditing. **This is the outside neighbour C6's G1 should have named** — and it was sitting in the reference list of the paper that falsified C6. | ✅ |
+| Kezins, Ekka, Berrang, Arnaboldi — *Beyond Red-Teaming: Formal Guarantees of LLM Guardrail Classifiers* | arXiv **2605.10901** (2026-05-11). Certifies guardrail classifiers in pre-activation space; 42 occurrences of "threshold"; reports "coverage collapse" to 55% "at the optimal threshold" for BERT, recovered only "by adopting an extremely conservative pessimistic threshold." Threshold/operating-point discipline for guardrails, from the verification side. | ✅ +HTML |
+| Kumar, Birur, Baswa, Agarwal, Harshangi — *No Free Lunch with Guardrails* | arXiv **2504.00441** (2025-04-01). Security-vs-usability tradeoff across Azure Content Safety, Bedrock Guardrails, OpenAI Moderation, Guardrails AI, NeMo and Enkrypt. | ✅ |
+| Chu, Wang, Huang — *TWGuard: LLM Safety Guardrails for Localized Linguistic Contexts* | arXiv **2604.16542** (2026-04-17). 20 occurrences of FPR, 11 of AUPRC in full text — further evidence the guardrail literature reports FPR routinely. | ✅ +HTML |
+
+### The C1 pre-emption
+
+| Ref | Detail | Status |
+|---|---|---|
+| **Sahil Raut — *Eval-awareness steering detects the test, not the sabotage*** | **LessWrong, 2026-06-25.** Not on arXiv — see R9. Llama-3.1-8B; diff-in-means direction on a **format-controlled 2×2** eval/deploy dataset; steering α ∈ [−2,+2]; **ablation arm projecting the direction out**; noise injection as output-independent ground truth; **24 random-direction placebo controls**. Detects eval framing at ~0.81 AUROC; steering swing **−1.77pp** vs a pre-registered 5pp threshold; "does not beat the empirical null of 24 random directions (**p = 0.20**)"; per-item sandbagging prediction **0.542 AUROC**. Conclusion: "the direction directs the situational framing, not the capability-withholding behaviour." | ✅ page read |
+| Devbunova — *Is Evaluation Awareness Just Format Sensitivity?* | arXiv **2603.19426** (2026-03-19). Controlled 2×2 + diagnostic rewrites; probes "primarily track benchmark-canonical structure and fail to generalize to free-form prompts independent of linguistic style." | ✅ |
+| Nayan, Kumar, Girmal, Anilkumar, Vaidyanathan, Nader Palacio, Ghosh, Srinivasan — *Evaluation Awareness Is Not One Capability* | arXiv **2606.23583** (2026-06-22). 37 open-weight models, 7 families, 8 experiments. "probes retain AUROC 0.98 under rewrites that drive behavior below chance, and multi-layer steering causally moves three downstream tasks **while random controls do not**"; the three axes are weakly coupled (1/15 correlations significant). The "benchmark illusion." | ✅ |
+| **Chaudhary — *In-Context Environments Induce Evaluation-Awareness in Language Models*** | arXiv **2603.03824** (2026-03-04), single author. **`ideas/21` mischaracterised this** as "about *inducing* eval-awareness, not probing it." It reports "CoT causal intervention confirms that **99.3% of sandbagging is causally driven by verbalized eval-aware reasoning**, ruling out shallow instruction-following" — a mediation result on C1's **claim**. Note the artifact `MaheepChaudhary/eval-aware-evasion` already in the ledger is this author's line. | ✅ |
+| Mody, Agarwal, Mittal, Mahato — *Minimizing Targeted Activations: Input-Only Suppression of Evaluation-Awareness Latents* | arXiv **2607.25907** (2026-07-28). Source of the "a placebo suppresses as hard as the real direction" constraint. | ✅ |
+| Zhuang, Aranguri — *Not All Eval-Awareness Is Equal: Capabilities Framing Predicts Compliance* | arXiv **2608.27340** (2026-08-27). Qwen3-32B on FORTRESS; capabilities-framing predicts compliance with a **+24 to +46 pp** gap over safety-framing; 10 of 11 CoT prefills shift compliance as predicted. "aggregate suppression rates can move while the safety-relevant component does not." | ✅ |
+| Boxo, Neelappa, Raval — *Linear probes rely on textual evidence* | arXiv **2509.21344** (v1 2025-09-16, v2 2026-03-09). Sandbagging / Sycophancy / Bias; filtering costs 10–30 AUROC points; model organisms give **0.57 vs 0.94** (Sandbagging) and **0.57 vs 0.74** (Bias). **❌ No code, no data, no artifact statement** — the only GitHub links in the full text are LaTeXML and arXiv-feedback boilerplate. Its §C.5 organism is *passphrase-dependent sandbagging*, trained by the authors. Blocks C1 and C3 (R10). Its §7.2 names AO / attention probes / SAEs as future work — that is C3. | ✅ +HTML |
+
+### The C8 constraint
+
+| Ref | Detail | Status |
+|---|---|---|
+| Szablewski, Konar-Steenberg, Fornasiere, Menon, Heimersheim — *The Model Organism Lottery* | arXiv **2607.01033** (2026-07-01). **54 MOs** on `OLMo2-1B` **and** `gemma-3-1b-it`, **seven techniques** incl. post-hoc SFT, post-hoc DPO and integrated DPO into the OLMo post-training phase; benchmarks activation oracles, activation steering, logit lens and SAEs; controls for quirk-expression strength. Findings: interpretability depends on objective/behaviour/architecture/data pipeline; "substantial variance remains even after controlling for differences in the strength of target behaviour expression"; "integrated training often yields **less** interpretable MOs." §6 verbatim, and the sentence C8 is built on: "quirks instilled during **pre-training, SFT, or RLVR** may produce qualitatively different signatures. We expect that progressively earlier instillation would make quirks progressively harder to detect, as the training signal becomes even more diffuse and entangled with the broader learning process." §6 also states the models are "**likely too small** to support more sophisticated behaviours" and that reliance on the single CakeBake quirk is a limitation. | ✅ +HTML |
+| Zhang, Rando, Evtimov, Chi, Smith, Carlini, Tramèr, Ippolito — *Persistent Pre-Training Poisoning of LLMs* | arXiv **2410.13722** (2024-10-17), ICLR 2025. Studies **instillation stage** and survival through post-training — a nearer outside neighbour to C8 than the "data fraction" framing `ideas/22` gave the poisoning literature. | ✅ (venue from proceedings listing) |
+| Bouaziz, Videau, Usunier, El-Mhamdi — *Winter Soldier: Backdooring Language Models at Pre-Training with Indirect Data Poisoning* | arXiv **2506.14913** (2025-06-17). Pre-training-stage instillation, <0.005% poisoned tokens. | ✅ |
+
+### The C7 neighbours
+
+| Ref | Detail | Status |
+|---|---|---|
+| Ferreira, Aziz, Titov — *Does Out-of-Sight Equal Out-of-Mind in CoT Monitorability?* | arXiv **2608.04928** (2026-08-05). Hint-reliance monitorability across explicit → weakly- → **strongly-supervised latent CoT**. Monitorability depends more on task properties and access level than on reasoning mode. §7 future work, verbatim and complete: "…via explicit-latent reasoning hybrids…, or, given that hint-reliance signal is retained in activations, **by reserving a subset of latent slots to be directly supervised for monitorability**; and (ii) whether latent reasoning states still expose hint-reliance **under optimization pressures such as RL, and which probes resist it**." **Both halves of C7 are the authors' own stated next step.** Also cites Wei et al. (2026), who "train an auxiliary decoder jointly with the model, supervising each latent state." | ✅ +HTML |
+| Sun, Oikarinen, Ustun, Weng — *Concept Bottleneck Large Language Models* (CB-LLM) | arXiv **2412.07992** (2024-12-11), ICLR 2025. **The neighbour C7's G1 missed.** Builds a **hybrid concept-bottleneck layer plus an unsupervised layer** for LLMs — the free-slot escape hatch already exists in the nearest LLM architecture, precisely because a pure bottleneck loses information. Makes C7's leakage direction the expected answer rather than a discovery. | ✅ |
+
+### The C9 neighbours
+
+| Ref | Detail | Status |
+|---|---|---|
+| Fomin, David, LeVi — *Internal-State Probes Read the Situation, Not the Action* | arXiv **2606.30449** (2026-06-29). C9's premise. Three methods, three model families; Qwen direction separates fine-tune from base at AUC 1.000 yet crosses threshold on **0/143** audited pre-assistant contexts; best future-behaviour probe 0.801 AUC and **+5.1pp** over majority; cross-domain transfer non-positive on 5/6 ordered pairs. Already builds "a shared-prefix minimal pair" for the Gemma case. **Published at AIWILD — same-venue competitor.** Code `maxf-zn/misalignment_monitoring` ✅ HTTP 200, pushed 2026-07-02. | ✅ |
+| Gardner, Artzi, Basmova, Berant, Bogin, Chen, Dasigi, Dua, Elazar, Gottumukkala, Gupta, Hajishirzi, Ilharco, Khashabi, Lin, Liu, Liu, Mulcaire, Ning, Singh, Smith, Subramanian, Tsarfaty, Wallace, Zhang, Zhou — *Evaluating Models' Local Decision Boundaries via Contrast Sets* | arXiv **2004.02709** (2020-04-06). **Contrast sets** — the canonical minimal-perturbation *evaluation* construction. This is C9's method under its established name, and `ideas/22` named neither it nor its literature. Must lead C9's related work. | ✅ |
+| Pona, Kazemi, Du, Watson, Paoletti — *Abstract Counterfactuals for Language Model Agents* | arXiv **2506.02946** (2025-06-03). Counterfactual construction over **agent actions** above the token level, explicitly because LM-agent action spaces are "implicit in the strings they output"; token-level **and latent-space** interventions. C9's pair-construction machinery, already framed for this object. | ✅ |
+| Ning, Jones, Zhang, Ye, Ruan, Li, Gupta, Sun — *When Actions Go Off-Task* (MisActBench) | arXiv **2602.08995** (2026-02-09). Realistic computer-use-agent trajectories with **human-annotated action-level alignment labels**; ships DeAction, a pre-execution guardrail. The nearest existing action-level labelled resource. | ✅ |
+
+### Standing obligations from this round
+
+- [ ] C9's related work must open with `2004.02709`, `2506.02946` and `2602.08995`, and must state that
+      `2606.30449` already built a shared-prefix minimal pair. The contribution is the **agentic
+      action-versus-situation construction under pre-registered criteria**, not matched pairs.
+- [ ] `2410.10414` (guard-model calibration) is still ⚠️ authors TBC in the round-12 section and is no
+      longer load-bearing now that C6 is dead — resolve or drop it.
+- [ ] `2509.21173`'s **ICML 2026** attribution is unconfirmed (`notes/14`); the arXiv abstract page
+      carries no venue field. Resolve or downgrade before any citation.

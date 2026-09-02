@@ -118,3 +118,62 @@ Gate **G2** in `notes/11`. An idea sitting on an organizer's own research line i
 merit. This killed the MIA-on-safety-classifiers idea (Mireshghallah is an InfPriv organizer) and the
 entire private-RAG line (Wu + Chaudhuri). Check the committee list for every venue under
 consideration, not just the primary target.
+
+---
+
+## R8 — An `abs:` query cannot certify a claim about what papers *report*
+
+**Why:** round 13 killed candidate C6, whose headline was "no guardrail paper has ever published an
+ROC curve for a guard model." Granite Guardian (`2412.07724`, Dec 2024) publishes ROC curves in
+Figure 8, reports partial AUC and TPR at **fixed FPR of 0.1 / 0.01 / 0.001** across nine open guards
+in Table 11, and argues in §6 that threshold-free metrics mislead because "real-time applications
+have a strong need for low FPr." Its **abstract** contains none of "ROC", "AUROC", "pAUC", "audit
+budget" or "fixed false positive rate". The searches were transport-clean, positive-controlled, and
+looking in the wrong place.
+
+**The rule.** A negative about *reporting practice* — "nobody measures M", "no one plots C", "the
+field never fixes parameter P" — is only citable after you have **opened the top ~10 papers in the
+target subfield and searched their results sections and appendices**, and recorded which ones you
+opened. Fetch `arxiv.org/html/<id>`, strip tags, grep. Metric vocabulary lives in §5 and Appendix D,
+never in the abstract.
+
+**The tell we ignored.** Gate G4 already cited `2608.16190` using **pAUC@10%FPR on monitors**. That
+should have made `abs:"guard" AND abs:"pAUC" → 0` implausible on its face. When a zero-result
+contradicts something the repo already knows, the query is wrong, not the literature.
+
+**Corollary — exact stems fail too.** `abs:"evaluation awareness" AND abs:"probe" AND abs:"ablat"`
+returned 0 while at least three papers do the thing, because they write "steering", "controlled
+rewrites" and "random controls" instead of "ablation". Search the concept, not the morpheme.
+
+---
+
+## R9 — Search LessWrong and the Alignment Forum before claiming novelty in AI safety
+
+**Why:** round 13 gutted candidate C1. `ideas/21` called a matched-norm random-direction placebo
+C1's mandatory design constraint and credibility differentiator. Sahil Raut had run exactly that —
+diff-in-means eval-awareness direction, format-controlled 2×2 dataset, **ablation arm plus 24 random
+direction placebo controls** — and published the null on **LessWrong, 2026-06-25** ("does not beat
+the empirical null of 24 random directions, p = 0.20"; per-item sandbagging AUROC 0.542). arXiv
+cannot see it. Reviewers at safety venues have read it.
+
+**The rule.** A large fraction of empirical AI-safety work — MATS outputs, LASR streams, independent
+replications, negative results — lands on LessWrong or the Alignment Forum first and often only.
+Before any novelty claim in this domain, search both, plus the relevant lab blogs. A workshop
+reviewer treating a well-read LessWrong post as prior art is behaving correctly.
+
+---
+
+## R10 — Score A5 on an HTTP 200, not on the absence of a stated gate
+
+**Why:** `ideas/22` scored C1 "~$10, ~30 GPU-hours, **no training**, public artifacts confirmed live",
+A5 = 5/5. The full text of `2509.21344` contains **no code release, no data release and no artifact
+statement** — its only GitHub links are LaTeXML and arXiv-feedback boilerplate. Reproducing its 0.94
+needs its prompt sets; reproducing its 0.57 needs its passphrase-dependent sandbagging model organism,
+which the authors trained. `ideas/21` had already recorded that ("the dramatic number requires
+*retraining a model organism*") and the score was never reconciled with the correction.
+
+**The rule.** "Artifacts confirmed live" means a named repo or dataset returning HTTP 200, with a
+`pushed_at` date, recorded in the candidate's own row. Extend R6 to code: **dataset friction and
+missing harnesses kill more ideas than GPU hours.** And when a correction elsewhere in the repo
+contradicts a score, the score is stale — reconcile it in the same commit that records the
+correction.

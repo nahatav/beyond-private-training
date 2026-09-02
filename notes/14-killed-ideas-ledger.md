@@ -26,6 +26,7 @@ cheapest mistake available.
 | **Localised deception probes** | `2604.14865` (Segment-Level Coherence) already published the "require multiple evidence tokens, not isolated spikes" objective; generic multiple-instance-learning localisation outside safety | Killed by a round-12 sweep on its own proposal. |
 | **Adversarial probe-evasion training** | The adaptive-attack canon (Carlini/Tramèr); `2505.14300` already ran red-team evasion plus an ensemble defence | Killed by a round-12 sweep on its own proposal. |
 | **Label-free lineage calibration for monitors** | The phenomenon is thoroughly published as cross-generator generalisation failure in machine-generated-text detection; `2607.06596` already re-published it inside safety | Killed by a round-12 sweep on its own proposal. |
+| **Guard models cannot be operated at a low audit budget** (C6) | `2412.07724` **Granite Guardian** — ROC curves (Fig. 8); partial AUC + TPR at **fixed FPR 0.1 / 0.01 / 0.001** across **nine open guards** (Table 11, incl. 4× Llama Guard and 3× ShieldGemma); §6 argues threshold-free metrics mislead because "real-time applications have a strong need for low FPr"; cites `2404.17399` (Aerni et al.) for the low-FPR discipline. Adjacent: `2605.10901`, `2604.16542`, `2504.00441` | Killed in round 13. The proposed deliverable was published **Dec 2024**. Our negatives were transport-clean and space-wrong: Granite Guardian's *abstract* contains none of ROC/AUROC/pAUC/audit budget. See **R8**. |
 | **Standalone LLM-written-DP-code auditing** | Saturated | — |
 | Unaccounted model selection in PE; agentic compositional leakage; serving-layer / KV-cache / speculative-decoding / batch-numerics side channels (`2604.26505` Quantamination); CoT privacy; GUI-agent privacy | see `ideas/11`, `notes/10`, `lit/01` | — |
 
@@ -35,6 +36,9 @@ cheapest mistake available.
 |---|---|
 | **Ensembles vs adaptive prompt injection on trusted monitors** | Two AI-control papers point at it (`2510.09462` proposes ensembling; `2605.15377` states "We did not red-team our ensembles against an adaptive adversary"). But `2504.18333` **already recommends "multi model committees"** and reports **50.5–62.6% transferability**; `2403.17710` (CCS 2024) shows judge defences insufficient; `2606.25487` flips judges 57–100%. Plus the adversarial-ML prior that ensembles fail against adaptive attacks. The answer is substantially predicted. |
 | **Legibility-protocol comments as an injection channel** | `2606.19235` (CodeSentinel) already covers instructions hidden "in comments, strings, identifiers, or decoy code"; `2510.09462` already showed adaptive injection subverts control protocols. What survives is only that a published protocol *mandates* the channel. |
+| **Sandbagging probe vs eval-awareness** (C1) | Pre-empted four ways. **Raut, LessWrong 2026-06-25** ran the ablation arm with **24 random-direction placebo controls** and got the null (p = 0.20; per-item sandbagging AUROC 0.542) — the placebo was our claimed differentiator. `2603.19426` owns the format-confound control; `2606.23583` owns representation-vs-behaviour decoupling with random controls over 37 models; `2603.03824` reports **99.3% of sandbagging causally driven by verbalized eval-aware reasoning**. Separately **G3 fails**: `2509.21344` releases no code or data. What survives is a reframe (representation-level mediation vs behaviour-level null), which still needs a trained model organism. |
+| **The instillation-depth ladder** (C8) | Three of its four rungs are already in `2607.01033`'s own table (54 MOs, OLMo2-1B **and** gemma-3-1b-it, seven techniques incl. post-hoc SFT, post-hoc DPO and integrated DPO; AO/steering/logit-lens/SAE; expression-strength controlled). Its documented "substantial variance… even after controlling for expression strength" breaks a 4-point monotonicity test with one quirk; "switching the base model sometimes changes rankings" breaks the gemma replication; its own "likely too small" limitation contradicts our B3 = 5. Untested rungs are pre-training/SFT/RLVR — pre-training is out of budget and is the same group's obvious next paper. |
+| **Non-linear white-box monitors** (C3) | Occupied: `2607.01033` already benchmarked activation oracles, steering, logit lens and SAEs across its MO suite. The residual textual-evidence axis needs `2509.21344`'s unreleased artifacts. |
 | **Context grafting vs RMU** | Not scooped (`"grafting"`+`"unlearning"` → 0) but **scoop-resistance 1/5**: `2608.29458`'s conclusion names it as their own open problem, and that three-author group shipped two papers on the same day. Run it immediately or not at all. |
 
 ## Tier 3 — alive, parked (survived review, not currently the lead)
@@ -63,6 +67,19 @@ Recording these because acting on a mis-remembered number is as costly as a hall
   Construct and report your own splits.
 - **`lit/01`'s "CoT privacy dead" verdict** targeted *PII-in-CoT only*. It does **not** extend to CoT
   monitoring as a safety mechanism — a different object.
+- **`2603.03824` was mischaracterised.** `ideas/21` recorded it as "about *inducing* eval-awareness
+  in-context, not probing it" and used it to support C1's empty-claim finding. Its abstract states that
+  "CoT causal intervention confirms that **99.3% of sandbagging is causally driven by verbalized
+  eval-aware reasoning**" — a mediation result on C1's **claim**, not merely its setup.
+- **`2509.21173` has no confirmed venue.** This ledger attributed it to **ICML 2026**; the arXiv abstract
+  page carries no venue field. ⚠️ on the venue until confirmed. Title and content are real (*Less Precise
+  Can Be More Reliable*, >700k evaluation runs).
+- **Both Compression-Tax outcome-robustness kills are VLM papers.** `2509.21173` is CLIP/VLM zero-shot
+  classification; `2607.24440` is Qwen2-VL under image degradation. Using them against an *LLM-monitor*
+  claim is a cross-modality inference. The Compression Tax stays dead — `2607.09786` kills it directly and
+  in-modality — but these two are not equally strong and should not be listed as if they were.
+- **`2509.21344` releases no code or data.** Its only GitHub links are LaTeXML and arXiv-feedback
+  boilerplate. Recorded below as ❌, not as an available harness.
 - **`2607.06596`** contains **zero** occurrences of quantiz*/8-bit/FP16/AWQ/GPTQ. A search engine
   attributed a quantization finding to it; that attribution was false.
 
@@ -79,4 +96,6 @@ Dead ideas leave usable infrastructure. Reuse rather than rebuild:
 | `cais/Zephyr_RMU` (HF) | ✅ loads, fits a 4090 in bf16; the WMDP RMU baseline |
 | `clarifying-EM/model-organisms-for-EM` (GitHub) | ✅ maintained; **no HF org models** — weights live elsewhere |
 | `arrrlex/models-under-pressure`, `MaheepChaudhary/eval-aware-evasion` | ✅ HTTP 200 |
+| `maxf-zn/misalignment_monitoring` (GitHub) | ✅ HTTP 200, last push 2026-07-02. `2606.30449`'s release — the C9 starting point. |
+| `2509.21344` probe / model-organism code | ❌ **no release.** No code, no data, no artifact statement in the paper. Blocks C1 and C3. |
 | `ApolloResearch/deception-detection` (GitHub) | ⚠️ exists but last push 2025-02-11 (~19 months stale); expect `transformers` drift; no license file |
