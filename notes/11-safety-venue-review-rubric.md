@@ -76,3 +76,40 @@ effect real). Prioritize in that order. More points on an existing curve buy not
 Public datasets only · no experiments involving real people · nothing person-specific reported
 (`notes/08`). Verify every citation by fetching the source; a fabricated reference is a desk-reject
 (`lit/02` protocol).
+
+---
+
+## Amendment, round 14 — gates are run, not inherited
+
+Added 2026-09-02 after `ideas/25` found that the surviving lead had never been put through the
+instrument that killed the candidates around it (`notes/12` R11).
+
+**Three states, not two.** A gate row may read **pass** (the check was run and the candidate
+survived), **fail**, or **unrunnable** (the check cannot be performed yet). A blank, a tick inherited
+from a previous round, or a silence is **none of these** and must not be reported as a pass. Round 13
+recorded C9 as "`G1` rewritten, not failed" and said nothing about G2 or G4; both were unrun.
+
+**A gate does not transfer across a reframe.** When a candidate's framing changes — C9 moved from
+"rescue pre-action monitoring" to an evaluation-methodology claim — every gate is re-run against the
+*new* headline. The old ticks were earned by a claim that no longer exists.
+
+### C9 gate status, as of round 14
+
+| Gate | Status | Note |
+|---|---|---|
+| G1 — verified novelty | **pass**, rewritten | `2004.02709` contrast sets, `2506.02946`, `2602.08995`. Corrected in `ideas/23`. |
+| G2 — organizer collision | **unrunnable** | SaTML 2027 workshop organizers are notified Sep 18. `2606.30449`'s group is the plausible occupant of any agent-monitoring workshop. Re-run on Sep 19 before committing to the venue. |
+| G3 — data and harness | **pass on the target's side**, own side unrun | `maxf-zn/misalignment_monitoring` HTTP 200, pushed 2026-07-02. Nothing has been cloned or loaded. R6 says hour one is the load; it has not happened. |
+| G4 — the obvious competing axis | **owed** | The competing explanation is probe family and training scale — `2606.30449` name four untested families. Run as a competing arm, not folded into the experiment. |
+| G5 — relevance floor | **pass** | B1 and B3 both ≥ 3. |
+| R8 — reporting-practice negative | **owed** | C9's headline is a claim about construction practice. Sweep list in `ideas/25` §4. |
+
+### A3 re-scored under the artifact framing
+
+`ideas/24` inherited C9's outcome-robustness from `ideas/22`, which R5 forbids. Re-scored: "signal
+vanishes" is now the **expected** outcome (`2606.30449`'s bridge probe is already AUC ≤ 0.632 with
+negative leave-one-condition-out lift), and "signal survives" contradicts the group that owns the
+likeliest venue. The artifact framing is a legitimate hedge against that, but it moves the entire
+weight onto **B5**, and a one-domain one-model benchmark is a weak adoption bid. This is the reason
+the surplus budget goes to a **second scenario domain first** (`ideas/25` §5), ahead of the extra
+probe families `ideas/24` listed.
