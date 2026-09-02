@@ -1,5 +1,11 @@
 # Round 12 final — ranked candidates and the recommendation
 
+> **⚠️ SUPERSEDED by [`ideas/24`](24-round-13-final-recommendation.md) on 2026-09-02.** The round-13
+> adversarial review ([`ideas/23`](23-round-13-adversarial-review.md)) **killed C6** — Granite Guardian
+> `2412.07724` Table 11 already publishes partial AUC and TPR at fixed FPR 0.1/0.01/0.001 across nine
+> open guards — and removed both the novelty and the executability from **C1**. The scores in the board
+> below are stale. Kept for the reasoning and the method note, not for its conclusions.
+
 Six sweeps returned (AI control, CoT monitoring, deception/sandbagging, monitor operating points,
 white-box monitoring, venues). Scored against `notes/11`: acceptance `A/30` and general-safety
 relevance `B/25`, **reported separately, never averaged**, per the two-objective brief.
