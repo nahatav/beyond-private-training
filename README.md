@@ -5,8 +5,32 @@ Working repo for a short workshop paper. **The brief changed twice.** It began a
 post-training, mech interp. Round 12 added a second objective: the paper must be relevant to
 *general* AI safety research, not only acceptable at a workshop.
 
-**State as of 2026-09-02 (round 14). The plan is [`notes/16`](notes/16-fork-and-branches.md): one gate
-day, then three branches.**
+**State as of 2026-09-02 (round 15). Read [`ideas/27`](ideas/27-round-15-external-preemption.md) first.**
+
+> ### ⛔ Round 15 killed two of the three branches before the gate day started
+> Round 15 did the one thing fourteen rounds never did: **it looked outside the eight targets Stage A
+> was going to grep.** Everything below was fetched with a positive control recorded (`lit/02`).
+>
+> - **C9's headline is occupied three times over.** `2606.09890` **PreAct-Bench** (3 Jun) publishes
+>   C9's construction rationale verbatim, its metric and its residual-stream probe arm, over 1,000
+>   paired trajectories in five domains. `2507.12428` defines and *sweeps* C9's x-axis and already runs
+>   its text-only baseline. `2606.30449`'s bridge probe ran at **two prefill fractions** — the first
+>   two points of C9's own curve.
+> - **Stage A could not have found any of them.** All eight of its targets are *inside* AI safety and
+>   are *benchmark* papers; two of the three pre-emptions are *monitoring* papers. **Gate A returns
+>   CLEAR and routes to green on an occupied claim.** New rule **R14**.
+> - **Branch C fails G2 outright.** `2510.09462` is *Adaptive Attacks on Trusted Monitors Subvert AI
+>   Control Protocols* — not "proposes ensembling" — and **Andriushchenko, an EvoRobust invited
+>   speaker, is a co-author**. The citation was never opened: an R1 violation on the one reference
+>   carrying the branch billed as *"the highest-probability path on the board."*
+> - **Branch A is dead too:** its content is `2606.30449`'s published number plus a tautology, at their
+>   venue — and Stage D already buys the priority claim for free.
+> - **~25 venues were misfiled as closed** (`notes/13`). Sep 5 AoE is *three days out*. **IAB —
+>   Interpreting Agent Behavior** is open and is a better topical fit than EvoRobust.
+>
+> **What survives:** sampling-divergence as the anchor — *how much of pre-action predictability is the
+> situation, and how much is the particular sampled continuation.* Narrow, real, and named by
+> `2606.30449` as its own gap. **~35% at EvoRobust with a second domain.** See `ideas/27` §8–9.
 
 **Step 1 — Sep 3 is a fork.** Four checks, in order, on the thing this repo has never done: load
 `maxf-zn/misalignment_monitoring`, reproduce `2606.30449`'s identity-cosine floor, run the owed R8
@@ -33,7 +57,8 @@ not the plan.
 
 | If you want… | Read |
 |---|---|
-| **What to do this week** | [`notes/16`](notes/16-fork-and-branches.md) — **the plan**: the Sep 3 gate day and the three branches |
+| **What changed, and why two branches died** | [`ideas/27`](ideas/27-round-15-external-preemption.md) — **read first**: the three pre-emptions, the G2 fail, the gate arithmetic, the reframe |
+| **What to do this week** | [`notes/16`](notes/16-fork-and-branches.md) — the runbook, **superseded in part** by `ideas/27` |
 | Why these candidates | [`ideas/26`](ideas/26-evorobust-reranked-board.md) — the board re-scored for EvoRobust |
 | The InfPriv option, if taken | [`notes/15`](notes/15-infpriv-ship-checklist.md) — ship checklist, Sep 7, ~$30 |
 | The safety lead, current | [`ideas/25`](ideas/25-round-14-c9-design-flaw.md) — C9's design flaw, the fix, and the gates it still owes |

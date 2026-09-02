@@ -9,10 +9,29 @@ State as of **2026-09-02**. Supersedes the venue tables scattered through `ideas
 confirmed independently: AIWILD Sep 6 13:00 UTC = Sep 5 AoE; InfPriv Sep 8 12:00 UTC = Sep 7 AoE;
 EvoRobust Sep 13 12:29 UTC = Sep 12 AoE; VERICODEGEN Sep 14 11:59 UTC = Sep 13 AoE.
 
-**Consequence: every tracker row reading "Sep 6, 11:59 UTC" is really Sep 5 AoE and is closed.**
-That is roughly 25 workshops — ATTRIB, ODI, IAB, Meta-Agents, FAST, Agentic Web, SaTQuML,
-AI-Native Academia, TTCL, CWM, BeNTo, PTA and others. The tracker's apparently-open set is far
-smaller than it looks.
+**Consequence: every tracker row reading "Sep 6, 11:59 UTC" is really Sep 5 AoE.** That is roughly
+25 workshops — ATTRIB, ODI, IAB, Meta-Agents, FAST, Agentic Web, SaTQuML, AI-Native Academia, TTCL,
+CWM, BeNTo, PTA and others.
+
+> ### ⛔ CORRECTED 2026-09-02 (round 15) — this cohort is NOT closed
+> The sentence above originally ended *"and is closed,"* and the table at the foot of this file files
+> all ~25 under **Closed**. **Sep 5 AoE is three days in the future, not in the past.** The same
+> document lists **AIWILD at that identical instant** as the live Branch A target, so the calendar
+> asserted open and closed for one deadline on one page.
+>
+> The timezone correction is right; the conclusion drawn from it is not. AoE is *later* than the UTC
+> timestamp, so the correction **opens** these rows by ~12 hours — it does not shut them. Reading
+> "Sep 6 UTC" as past on Sep 2 is a plain date error wearing a timezone argument's clothes.
+>
+> **`IAB — Interpreting Agent Behavior` (NeurIPS 2026, Sydney) is open, deadline Sep 6 11:59 UTC**
+> (`iab-agents.github.io`, ✅ fetched). *Interpretability applied to agent behaviour* is a **better
+> topical fit for a probing paper than EvoRobust**, whose PC is evolutionary-computation and CV
+> robustness (`ideas/27` §5). It was written off without its CFP being fetched — the exact failure
+> **R13** was written to prevent, one round earlier.
+>
+> **Owed:** fetch the CFP topic list, page limit, archival status and organizer list for IAB and for
+> the rest of this cohort before treating any of them as unavailable. Ruling a venue out is the
+> stronger claim (R13) and none of these ~25 rows has the evidence for it.
 
 ## Open, with a deadline on or after Sep 5
 
@@ -83,7 +102,7 @@ the OpenReview-synced tracker and then each workshop's own page:
 | InterpScience — Interpretability as a Science | Sep 1 | — |
 | PriLOM — Privacy in the Era of Large Opaque Models | Sep 4 | — |
 | ODI — On-Device Intelligence | Sep 5 | Quantization's home venue. |
-| ATTRIB, IAB, Meta-Agents, FAST, Pre-to-Post, FLLMPT, Agentic Web, SaTQuML, TTCL, CWM, BeNTo, PTA, AI-Native Academia | Sep 5 | The UTC/AoE cohort above. |
+| ~~ATTRIB, IAB, Meta-Agents, FAST, Pre-to-Post, FLLMPT, Agentic Web, SaTQuML, TTCL, CWM, BeNTo, PTA, AI-Native Academia~~ | ~~Sep 5~~ | ⛔ **MISFILED — see the corrected box above.** Deadline is **Sep 5 AoE = three days out**, not past. **IAB is open and is a strong fit.** Do not treat this row as closed. |
 | LIGHT (Deployable Small Foundation Models), AXIOM (Foundations of Efficient Deep Learning) | before Sep 5 | Both efficiency-focused. |
 | AIMS — AI Measurement Science @ COLM 2026 | **Jun 23** | Topically near-perfect (measurement under strategic optimization; evaluation as an evaluator/learner game). **Note for 2027.** |
 

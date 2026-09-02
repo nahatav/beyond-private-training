@@ -8,6 +8,30 @@ before any evidence arrives, so that Sep 3's outcome *selects* a path rather tha
 argument. That is `notes/09`'s discipline, and it is the only part of this repo's method that has
 never failed.
 
+> # ⛔ SUPERSEDED IN PART — round 15, 2026-09-02 (`ideas/27`)
+>
+> This runbook was written before the sweep it schedules was run. Round 15 ran the *out-of-field* half
+> of that sweep from the desk, and it changes the routing before Sep 3 starts:
+>
+> | Branch | Status now | Why |
+> |---|---|---|
+> | **A — AIWILD determinism note** | **DEAD** | Its content is `2606.30449`'s own published floor plus a tautology, submitted to the venue where they published it. **Stage D already buys the priority claim** in 30 minutes, on every branch. Branch A paid two of ten days for it. |
+> | **C — C4** | **DEAD** | `2510.09462` is *Adaptive Attacks on Trusted Monitors Subvert AI Control Protocols*, and **Andriushchenko — an EvoRobust invited speaker — is a co-author.** The G2 check this document schedules for Sep 3 is already answerable, and it fails. The paper *is* C4's attack. |
+> | **B** | **the only branch** | And it needs the reframe in `ideas/27` §8 before a line is written. |
+>
+> **Stage A's target list is wrong** (`ideas/27` §2, new rule **R14**). All eight targets are inside AI
+> safety; C9's three real pre-emptions — `2606.09890` PreAct-Bench, `2507.12428`, and `2606.30449`'s
+> own bridge probe — are not among them and would not be found by grepping them. **As written, Gate A
+> returns CLEAR and routes to green on an occupied claim.**
+>
+> **Gate C cannot resolve its own bands.** At the PASS boundary, 3/30, the Wilson 95% CI is
+> **[0.035, 0.256]** — spanning FAIL, AMBER and PASS. Its statistical guard is one-sided: it protects
+> against a false FAIL and ignores a false PASS, which is the error that routes into the dead branch.
+>
+> **Read `ideas/27` before running any of what follows.** Stages 0, B and B2 stand unchanged — loading
+> the harness and reproducing the floor is still the right first day's work, and is now the *only*
+> unrun question on the board.
+
 **Step 1 is the fork. Everything below it is conditional.**
 
 ---
@@ -61,8 +85,21 @@ while they land. Never sit watching a progress bar.
 **Question:** has anyone already built *and analysed* a cue-matched, action-divergent construction
 with post-cue state reads?
 
-**Targets (8, do not expand):** `2506.02946` (highest risk) · `2602.08995` MisActBench · Petri ·
-SHADE-Arena · ControlArena · AgentHarm · ToolEmu · τ-bench.
+**Targets — RE-AIMED round 15 (`ideas/27` §2, R14).** The original eight (`2506.02946` · `2602.08995`
+MisActBench · Petri · SHADE-Arena · ControlArena · AgentHarm · ToolEmu · τ-bench) are all *inside* AI
+safety and all *benchmark* papers. They cannot discharge G1/R2, which asks for neighbours **outside**
+the home subfield, and they missed all three real pre-emptions.
+
+**Already found from the desk, no sweep needed — record these and do not re-derive them:**
+`2606.09890` **PreAct-Bench** (the benchmark, the metric, the probe arm) · `2507.12428` (the x-axis,
+swept, plus the text-only baseline) · `2606.30449` (bridge probe at two prefill fractions = the first
+two points of the curve). See `lit/02` round-15 rows.
+
+**What remains to sweep, and it is out-of-field:** early classification of time series (the
+earliness/accuracy tradeoff, ~25 years old, the closest thing to a canonical prior); prediction-horizon
+and lookahead/future-token work in transformers; and *monitoring* papers rather than *benchmark*
+papers inside safety. Keep the original eight as a DATA-FOUND scan only — they may still make pairs
+cheaper, which is an accelerant, not a gate.
 
 **Method per target (~15 min each):** fetch `arxiv.org/html/<id>` or the repo/datasheet, strip tags,
 and grep the construction and dataset sections for: *minimal pair · matched · counterfactual · paired ·
@@ -163,10 +200,18 @@ shortcut.
 > **AMBER 2–10%** → **Branch B**, reduced scope.
 > **FAIL < 2%** → **Branch C**.
 >
-> **Statistical guard, pre-committed:** N=30 cannot distinguish 2% from 0%. If a scenario returns
-> **≤ 1** minority rollout, that scenario is uninformative at this N — it is **not** evidence of FAIL.
-> Escalate to **N=150** on the single most promising scenario before declaring FAIL. Never declare
-> FAIL from a small-N zero.
+> **Statistical guard — MADE TWO-SIDED, round 15.** N=30 cannot distinguish 2% from 0%, and it also
+> cannot distinguish 10% from 3.5% or from 25%: at 3/30 the Wilson 95% CI is **[0.035, 0.256]**, which
+> spans all three bands. So:
+> - **≤ 1 minority rollout** → uninformative, **not** evidence of FAIL. Escalate to N=150 on the most
+>   promising scenario. Never declare FAIL from a small-N zero.
+> - **A median rate in 5–20%** → equally uninformative for **PASS**. Escalate to N=150 before routing.
+>   A false PASS is the expensive error and the guard previously ignored it entirely.
+>
+> **State the pair target before measuring the rate** (`ideas/27` §4). Hanley–McNeil, per class, with
+> Bonferroni over an 8-point sweep: AUC 0.60 → **210 pairs**; 0.65 → 90; 0.55 → ~520 single-test.
+> `2606.30449`'s bridge probe reached **≤ 0.632**, so plan for **210–520 pairs** = 2,100–5,200 rollouts
+> per scenario at a 10% rate. Yield is not the decision; **yield against the pair target** is.
 
 **Recorded output:** per-scenario minority rate · N · model · temperature · the exact rule used to
 decide "the action diverged."
@@ -217,11 +262,19 @@ To `origin`, with a commit hash, **before any probe is trained.** Six items:
 
 # STEP 2 — the branches
 
-| Branch | Trigger | Path |
-|---|---|---|
-| **A — green** | Gates A, B, B2, C all pass | AIWILD Sep 5 (determinism note) → EvoRobust Sep 12 (full benchmark) |
-| **B — amber** | A and B pass; C amber, or B2 deferred | Skip AIWILD. EvoRobust Sep 12, reduced scope |
-| **C — red** | Any hard fail | Abandon C9. C4 → EvoRobust Sep 12 |
+| Branch | Trigger | Path | Round-15 status |
+|---|---|---|---|
+| **A — green** | Gates A, B, B2, C all pass | AIWILD Sep 5 (determinism note) → EvoRobust Sep 12 | ⛔ **DEAD** — `ideas/27` §6 |
+| **B — amber** | A and B pass; C amber, or B2 deferred | Skip AIWILD. EvoRobust Sep 12, reduced scope | ✅ **The only branch.** Reframe per `ideas/27` §8 first |
+| **C — red** | Any hard fail | Abandon C9. C4 → EvoRobust Sep 12 | ⛔ **DEAD** — G2 fail, `ideas/27` §3 |
+
+> **There is no longer a red branch, and that is the uncomfortable part.** The fork's whole value was
+> that a hard fail had somewhere to go. If Gate B or Gate C fails now, the honest options are: fall to
+> **C2** (~$15, `cais/Zephyr_RMU` verified to load) at a venue that fits it, or **submit nothing on
+> Sep 12** and take the SaTML window with a properly built artifact. Round 15 did not manufacture a
+> replacement fallback, because inventing one under deadline pressure is how this board acquired four
+> consecutive leads that died (R11). **Consider IAB (Sep 6, `notes/13`) — wrongly filed as closed —
+> before assuming EvoRobust is the only door.**
 
 ## Model scoping, all C9 branches
 
@@ -289,12 +342,17 @@ that reliably finishes. **Reaching Branch C is the fork doing its job, not faili
 
 # Fixed in advance
 
-**Cut order if the clock slips:** (1) second scenario domain, (2) the G4 arm — named as future work,
-never silently dropped, (3) extra probe families beyond the four `2606.30449` name.
+**Cut order if the clock slips — REVISED round 15:** (1) the G4 arm — named as future work, never
+silently dropped, (2) extra probe families beyond the four `2606.30449` name, (3) additional read
+offsets *within* the sweep.
 
-**Never cut:** the identity floor · the text-only baseline (`2509.21344` — post-divergence pairs differ
-in visible tokens, and this is the same class of control whose absence was fatal to C1) · the public
-pre-registration.
+**Never cut:** the identity floor (now **one line, a sanity check** — not a headline, `ideas/27` §1d) ·
+the text-only baseline (`2509.21344`) · the public pre-registration · **the second scenario domain** ·
+**confidence intervals on the curve**.
+
+The last two were promoted out of the surplus list. The second domain is what an evolutionary-
+computation PC rejects on — one model × one domain reads to that pool as **n=1 problem instances**
+(`ideas/27` §5). The intervals are the curve; without them there are only eight noisy points.
 
 **Do not run two branches.** `ideas/24` was right about that even though its venue premise was wrong.
 Branch A's two submissions are one project at two maturity levels, not two projects.

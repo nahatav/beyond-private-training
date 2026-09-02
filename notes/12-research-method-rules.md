@@ -247,3 +247,32 @@ nothing in `ideas/21`, `ideas/22` or `ideas/24` says so. When the venue set chan
 *higher* at a venue whose topic is systematically searching for expected failures, and a candidate
 carried on venue-native metrics can rank lower where nobody runs them. Record A as `A: x/30 @ <venue>`
 from now on.
+
+---
+
+## R14 — A gate's target list must be drawn from the rule the gate discharges
+
+**Why:** `notes/16` Stage A was built to discharge **R8** (open the papers, grep the construction
+sections) and **G1/R2** (name the two nearest neighbours *outside* AI safety). Its eight targets —
+`2506.02946`, MisActBench, Petri, SHADE-Arena, ControlArena, AgentHarm, ToolEmu, τ-bench — are all
+**inside AI safety**, and all are *agentic-benchmark* papers.
+
+C9's three actual pre-emptions are none of those (`ideas/27` §1): **PreAct-Bench `2606.09890`**, which
+publishes C9's construction rationale, its metric and its probe arm; **`2507.12428`**, which defines
+and sweeps C9's x-axis and already runs its text-only baseline; and **`2606.30449`**, whose bridge
+probe is the first two points of C9's own curve. The first two are *monitoring* papers, not benchmark
+papers. **Grepping all eight targets returns CLEAR and the fork routes to green on an occupied claim.**
+
+**The rule.** Before running a sweep, write down which rule it discharges, then check that the target
+list could in principle falsify that rule. A sweep drawn entirely from the home literature cannot
+discharge an out-of-field rule, however many targets it has and however carefully each is greped.
+Rigour inside the wrong neighbourhood reads exactly like a clean result.
+
+**The tell we ignored.** R2's own table records three consecutive leads that died in a neighbouring
+field, and G1 says the check is for neighbours *outside* the home subfield. Stage A was written with
+R8's method and G1's name, and inherited R8's target-selection habit — the home literature — which is
+the one thing G1 exists to prevent.
+
+**Companion — a gate that cannot fail is not a gate.** State, in advance, what a target would have to
+contain to return OCCUPIED. If no plausible content of the listed targets would flip the verdict, the
+list is wrong, not the claim.

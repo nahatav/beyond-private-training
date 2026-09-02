@@ -401,6 +401,33 @@ were never entered here — that gap is closed below.
 | Pona, Kazemi, Du, Watson, Paoletti — *Abstract Counterfactuals for Language Model Agents* | arXiv **2506.02946** (2025-06-03). Counterfactual construction over **agent actions** above the token level, explicitly because LM-agent action spaces are "implicit in the strings they output"; token-level **and latent-space** interventions. C9's pair-construction machinery, already framed for this object. | ✅ |
 | Ning, Jones, Zhang, Ye, Ruan, Li, Gupta, Sun — *When Actions Go Off-Task* (MisActBench) | arXiv **2602.08995** (2026-02-09). Realistic computer-use-agent trajectories with **human-annotated action-level alignment labels**; ships DeAction, a pre-execution guardrail. The nearest existing action-level labelled resource. | ✅ |
 
+### Round-15 additions — C9's actual pre-emptions (2026-09-02)
+
+Each row below was fetched directly and greped with a positive control recorded in the row. See
+`ideas/27`. **These three, not the eight in the Stage A table, are C9's nearest neighbours.**
+
+| Ref | Detail | Status |
+|---|---|---|
+| Xu, da Silva, Ye, Wang, Liu, Yang, Schwarz, Paoletti, He, Yan — *PreAct-Bench: Benchmarking Predictive Monitoring in LLMs* | arXiv **2606.09890** (2026-06-03), KCL / Alan Turing. **C9's benchmark, already built.** 1,000 paired ethical/unethical action trajectories across five domains (academia, law&contract, cybersecurity, politics, daily life). Publishes C9's construction rationale verbatim — *"This paired design reduces confounds by holding the surface task fixed while varying the underlying intent"* — plus the **Prefix Foresight F1** metric over "varying fractions of the action trajectory", and a latent probe arm on the *"residual stream of the 22nd layer of Llama3."* Trajectories **and** labels are GPT-5-mini output, validated against two human annotators by Krippendorff's α. **What it lacks, and this is all that survives for C9:** `divergen*` = 0, `shared prefix`/`identical prefix` = 0, `token offset` = 0 — its pairs are separately *generated*, never sampling-divergent, so there is no divergence point to index from. Positive control: `PreAct` = 44, ` the ` = 471. | ✅ +HTML |
+| *Can We Predict Alignment Before Models Finish Thinking?* | arXiv **2507.12428**. **C9's x-axis, defined and swept.** *"the **foresight** is n−k, which indicates how far 'into the future' the monitor needs to predict"*; swept as a grid — *"When trained for each **observed–foresight combination** (Figure 3(a)), probes with higher observed values (30–40 sentences) sustain F1 scores of 50–60 even when predicting 50 steps ahead."* Also already runs `ideas/25` §3's mandatory arm: the probe *"significantly outperforms all text-based baselines… an average absolute increase of 13 in F1 scores."* **Leaves open:** CoT/response-alignment, not agentic (`agent` = 2); `divergen*` = 0; indexed to the response, not from a divergence point. Positive control: ` the ` = 513. | ✅ +HTML |
+| Terekhov, Panfilov, Dzenhaliou, Gulcehre, **Andriushchenko**, Prabhu, Geiping — *Adaptive Attacks on Trusted Monitors Subvert AI Control Protocols* | arXiv **2510.09462** (ICLR 2026). ⚠️ **This repo has been citing this paper by the wrong description.** `ideas/26` and `notes/16` both call it *"proposes ensembling as the mitigation"* — reachable only from a search snippet, never from the paper. It **is** C4's attack, already run against single monitors, with C4's threat model: *"we assume the red team knows the monitoring model and the prompts, the protocol algorithm, and its thresholds. Many defenses fail once adversarial attacks do not rely on security through obscurity and are tailored to a particular defense (Tramer et al., 2020)."* Ensembling appears only in a future-work clause. **Andriushchenko is an EvoRobust invited speaker** ⇒ G2 fail for C4. Authorship verified on the arXiv abs page. | ✅ |
+
+**Re-read of `2606.30449` (row above), correcting `ideas/24`.** Its bridge probe already ran on
+same-scenario, sampling-divergent rollouts at **two read positions**: *"On 596 valid rollouts at two
+prefill fractions (n=1192 rows, blackmail rate 13.3%), the best single-layer probe reaches AUC
+0.632."* That is the first two points of C9's curve, not "a single weak test." It names C9's gap in
+its own words, twice: *"it does not test whether a post-cue pre-action state can predict the action"*
+and *"This is a condition-controlled prediction check, not an identical-prefix minimal-pair test: the
+prefill states include rollout-specific truncated assistant prefixes, so the per-row hidden state is
+not byte-identical across rollouts within a condition."* Positive control: `probe` = 99.
+
+> ### ⚠️ Do-not-cite — reported second-hand, did not reproduce on a direct grep
+> PreAct-Bench's human baseline (0.907), its probe figure (0.774) and its guardrail-collapse range;
+> a claimed "25% edit-distance guard" on its pair construction (**zero** hits — withdrawn). An AIWILD
+> ICLR-edition acceptance rate of ~64% (hand-count against an organizer's figure, not an official
+> number). Hills et al. `2607.02514` ensemble figures and `2605.06723`'s 17–31 token lead time — both
+> plausible and both unfetched. None of these may enter a paper until fetched under R1.
+
 ### Standing obligations from this round
 
 - [x] **Settled 2026-09-02 — see `ideas/24`.** `2606.30449`'s shared-prefix minimal pair is **n = 1**
