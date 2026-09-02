@@ -177,3 +177,43 @@ which the authors trained. `ideas/21` had already recorded that ("the dramatic n
 missing harnesses kill more ideas than GPU hours.** And when a correction elsewhere in the repo
 contradicts a score, the score is stale — reconcile it in the same commit that records the
 correction.
+
+---
+
+## R11 — Turn every new rule on the *surviving* lead, not only on the candidates it killed
+
+**Why:** round 13 wrote R8 (an `abs:` query cannot certify a claim about what papers *report*) and
+used it to kill C6. It never applied R8 to C9 — whose headline is *"no existing dataset varies the
+action with the situation held fixed,"* a negative about construction practice, and therefore
+**exactly the class of claim R8 governs**. Dataset construction lives in appendices and datasheets,
+even further from the abstract than metric vocabulary does. C9 inherited the lead by surviving a
+review whose sharpest instrument was never pointed at it.
+
+**The structural failure, worth naming:** an adversarial round exhausts itself on the candidates it
+kills. Whatever survives is not the strongest idea — it is the least-attacked one. Four rounds in a
+row have promoted a candidate on that basis and then killed it in the next round.
+
+**The rule.** When a round produces a new method rule, re-run it against the surviving lead **in the
+same round**, and record the result in the lead's own row. A gate is not passed until it has been
+run; "not yet failed" is not a pass. Where a gate cannot be run — G2 against a venue whose organizers
+have not been announced — write **unrunnable** in the board, never a tick.
+
+---
+
+## R12 — Novelty verification is capped; a lead that survives two rounds gets built
+
+**Why:** thirteen rounds have produced **zero lines of experiment code and no dataset ever loaded**,
+while R6 and gate G3 both say hour one of any build is the load. Each round satisfies R4 by killing
+the previous lead and proposing a fresh one, which is a well-functioning kill-machine with no commit
+step. Rounds 10–13 killed four consecutive leads; on that trend line round 14 kills C9 and there is
+still no paper.
+
+**The rule.** A candidate that survives two consecutive adversarial rounds moves to **build**, not to
+a third review. The build's first day is the R8/R9 sweep on its own central claim plus loading the
+data and reproducing one published number — which is cheaper than a review round and kills bad ideas
+harder, because a harness that will not load is a fact and a novelty search is an inference.
+
+**Corollary — R4 has a termination condition.** "Every round kills something" is a rule about
+*rigour*, not a rule about *pace*. Once the marginal ideation hour is worth less than the marginal
+build hour, killing one more idea is not progress. State that comparison explicitly at the end of
+every round.
