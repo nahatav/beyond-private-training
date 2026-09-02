@@ -1,5 +1,18 @@
 # Round 9 — opus adversarial review under the ~$300 compute ceiling
 
+> **⚠️ SCOPE CORRECTION, 2026-09-02.** §1's compute guard-rails are **specific to the PE/InfPriv
+> paper**, whose E1–E3 are NumPy/FAISS plus a small local generator. **They do not transfer to the
+> safety line, and applying them to C9 is a hardware error.** `2606.30449` uses
+> **Qwen2.5-Coder-32B-Instruct** (~64GB bf16), **Gemma-3-27B-IT** (~54GB) and **Llama-3.1-8B-Instruct**
+> (~16GB). A **4090 (24GB) and an A6000 (48GB) cannot hold the 32B or the 27B in bf16 at all**, so
+> "A6000/4090, never H200" is exactly backwards for C9: an **H100 80GB is close to the minimum**, and
+> it is KV-limited for batched generation at ~13k context (~3–4GB of KV per sequence on the 32B, so
+> roughly four concurrent sequences in the ~16GB left after weights). An H200 or 2×H100 is materially
+> faster for the rollout phase. **Consequence for C9's ~$120 estimate:** at $2–3/hr an H100 buys 40–60
+> hours, which is plausible for ~2,000 long-context rollouts but has no slack — which is why
+> `notes/16` scopes the build to the **8B as primary** with 27B/32B as a transfer arm, and why pair
+> yield is a gate rather than an assumption.
+
 Three opus reviewers, run in parallel with a harder brief than round 8: price every idea against a
 **~$300 Modal/RunPod ceiling** (less if paid APIs are needed), and test each idea against **published
 papers that did a similar kind of thing** — to decide which idea maximises acceptance-per-dollar.
@@ -27,6 +40,7 @@ second-paper ranking**, and a **free, high-leverage strengthening of the lead**.
 - **The one landmine:** running E2 at Aug-PE's *full* Yelp scale (n_s=100k, T=20 → 27–139 GPU-hr/config)
   × 4 arms × several ε = 500+ GPU-hr ≈ $500–1000. **Guard-rails: keep `n_s ≤ ~2k`, `T ≈ 10`, one
   small corpus, on A6000/4090 (never H200).** Gate E2/E3 on E1's branch and on *time*, never on budget.
+  *(PE only — see the scope correction at the top of this file. C9 needs an H100 80GB minimum.)*
 - **One engineering risk, not a $ risk:** StatDP (`cmla-psu/statdp`) is Python-3.8 and ~unmaintained
   (~4 commits) — the constructive-falsification Plan-B's real cost is getting it (and DP-Sniper, 2021)
   to run on current Python. De-risk before committing to that fallback.
