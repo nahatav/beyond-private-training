@@ -86,6 +86,73 @@ that makes it a test rather than a demonstration.
 Note also that `2606.30449` already built "a shared-prefix minimal pair" for the Gemma blackmail
 case. Say so. The construction is being *generalised and pre-registered*, not invented.
 
+### Settled 2026-09-02: what `2606.30449` actually built, and why C9's stated design is broken
+
+The open question was whether C9 is "generalising" the shared-prefix minimal pair that `2606.30449`
+already has. It is not, and the reason matters more than the citation.
+
+**Their minimal pair is n = 1 and is a determinism check, not a benchmark.** The released code
+contains exactly two transcripts — `data/petri/seed-115/transcript_s115.json` and
+`data/petri/seed-115-mp/transcript_mp.json` — one Petri scenario, a freelance coding agent in a
+payment dispute, **identical for the first 12,704 tokens**, diverging only after a later user message.
+Measured across 12 pre-specified layers and 274 sampled token positions:
+
+| Quantity | Value |
+|---|---|
+| Minimum cosine over the shared prefix | **0.99999893** |
+| Mean cosine over the shared prefix | **0.99999994** |
+| **Identity sanity check** — the same transcript run twice | **0.99999803** |
+
+The minimal pair is *less* different from itself than a transcript is from a rerun of itself. It
+cannot be otherwise: identical tokens produce an identical forward pass, so the residual stream is
+identical up to numerical nondeterminism. Their own sentence: "At this measured precision, there is
+no shared-prefix state difference for an emotion-vector readout to [read]."
+
+**Consequence — `ideas/22`'s C9 design is unfalsifiable as written.** It specifies "identical prefix
+and situation, divergent next action." If the prefix is byte-identical, the pre-action state is
+identical and **no probe can beat chance, by construction, for every pair, forever.** Building 500 of
+those pairs reproduces a mathematical property of a deterministic forward pass at 500× the cost. This
+is the "you built the confound you are measuring" objection in its fatal form: the result is knowable
+a priori, and a reviewer who reads their Figure will know it.
+
+**The regime that is actually open is the one they name and leave under-tested.** From §7 and §A.6,
+twice, verbatim: the shared-prefix minimal pair "**rules out only pre-difference prediction rather
+than post-cue pre-action prediction**," and "post-cue pre-action prediction is tested by the bridge
+probes and remains weak in our setting." The bridge probe is a single weak test — **AUC ≤ 0.632**,
+**negative** leave-one-condition-out lift, and one within-condition AUC of **0.640** flagged as
+near-threshold in their own limitations. One scenario family, one model. That is genuinely
+under-determined.
+
+**So the construction is cue-matched, not input-matched.** Pairs share the situation *and the
+triggering cue*, and diverge in the action taken **after** the cue, with divergence arising from the
+model's own sampling rather than from an input edit. The probe reads a token position after the cue
+has been received and before the action commits. Pre-register three things, in this order, because
+each is an attack surface:
+
+1. **The divergence point** — the token index at which the two rollouts first differ, and the offset
+   before it at which states are read. State this as a rule, not per-pair.
+2. **The cue-identity criterion** — what makes two rollouts count as having received the same
+   situation. This is where a hostile reviewer will push, and it is the one criterion that cannot be
+   fixed after seeing results.
+3. **The identity control** — run the same transcript twice and report the cosine floor, exactly as
+   they did. Any claimed pre-action signal must exceed that floor, or it is nondeterminism.
+
+**Do not describe C9 as "more pairs."** Describe it as: they showed the pre-cue question is closed by
+determinism and the post-cue question is open; this is the post-cue construction, with the controls
+that make it a test.
+
+**One free finding for related work.** The full text of `2606.30449` contains **zero** occurrences of
+"counterfactual" and **zero** of "contrast set." They did not connect their construction to that
+literature. Naming contrast sets (`2004.02709`), Abstract Counterfactuals (`2506.02946`) and
+MisActBench (`2602.08995`) is therefore additive to the field, not a correction to them — the
+friendliest possible framing given they are the same-venue competitor.
+
+**Executability improves.** The released repo is 156 files with reusable machinery: linear and MLP
+probes (`src/.../probes/`), calibration, a probe-training pipeline, the Petri generation path
+(`generation/petri.py`), and study configs for both the prefill probes and
+`divergence_minimal_pair.yaml`. The build is a new pair-construction stage plus their existing probe
+stack, not a from-scratch harness.
+
 **Cost and shape.** ~$120, ~9 days. Pre-register the pair-construction criteria — in the repo, with a
 commit hash — **before any probe is run.** The design is both the contribution and the attack
 surface, and a timestamp is the only defence.

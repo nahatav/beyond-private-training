@@ -403,9 +403,18 @@ were never entered here — that gap is closed below.
 
 ### Standing obligations from this round
 
-- [ ] C9's related work must open with `2004.02709`, `2506.02946` and `2602.08995`, and must state that
-      `2606.30449` already built a shared-prefix minimal pair. The contribution is the **agentic
-      action-versus-situation construction under pre-registered criteria**, not matched pairs.
+- [x] **Settled 2026-09-02 — see `ideas/24`.** `2606.30449`'s shared-prefix minimal pair is **n = 1**
+      (two transcripts in the released repo, one Petri seed, 12,704 identical tokens) and is a
+      **determinism check**: min cosine **0.99999893** over 12 layers × 274 positions, against an
+      identity-check floor of **0.99999803** for the same transcript run twice. It cannot be scaled
+      into a benchmark — identical tokens give an identical forward pass. Their own scoping, twice:
+      it "rules out only pre-difference prediction rather than **post-cue pre-action prediction**,"
+      which is tested only by the bridge probe (**AUC ≤ 0.632**, negative leave-one-condition-out
+      lift, one within-condition AUC of **0.640** flagged near-threshold). C9 must therefore be
+      **cue-matched, not input-matched**, and `ideas/22`'s "identical prefix, divergent action" design
+      is unfalsifiable as written. Related work still opens with `2004.02709`, `2506.02946` and
+      `2602.08995` — and the paper contains **zero** occurrences of "counterfactual" or "contrast
+      set", so that framing is additive to the field rather than a correction to them.
 - [ ] `2410.10414` (guard-model calibration) is still ⚠️ authors TBC in the round-12 section and is no
       longer load-bearing now that C6 is dead — resolve or drop it.
 - [ ] `2509.21173`'s **ICML 2026** attribution is unconfirmed (`notes/14`); the arXiv abstract page
