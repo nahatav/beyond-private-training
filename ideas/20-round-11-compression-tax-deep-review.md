@@ -300,3 +300,50 @@ stronger *submission* even though it is the weaker *interest fit*.
 - **Confirmed dead ground (do not enter):** the generator-side quantization×safety-alignment line
   (§2.4) — at least seven papers 2024–2026, including quantization-conditioned backdoors and their
   repair. Our object is a *detector's ranking quality*, and related work must say so immediately.
+
+---
+
+# Round 12 addendum (2026-09-02) — the fallback contribution is taken too. **The Compression Tax is dead.**
+
+Round 11 conceded the headline ("tail metrics degrade before mean metrics") to the compression-evaluation
+literature and fell back to a **decomposition** as the surviving contribution: (i) emission failure,
+(ii) score-resolution collapse — ties at the top of a coarse 1–100 score capping pAUC@1%FPR while AUROC
+holds — and (iii) true discrimination loss, with "read the score from logits, not text" as the fix.
+
+A targeted sweep of the **LLM-judge / selective-prediction** literature — a third neighbourhood neither
+round 10 nor round 11 searched — finds all of it already claimed.
+
+| Ref | What it establishes | Damage |
+|---|---|---|
+| **Sun, Sun, Geng — *The Score Granularity Gap in Black-Box LLM Classification: A Comparative Study of Confidence Constructions*** — arXiv **2606.22179**, 20 Jun 2026 | Frames LLM classification as **selective prediction where an operator thresholds at a chosen risk level**. Asks, verbatim, "a complementary, deployment-oriented question that has been **largely overlooked: at what resolution can the score be thresholded?** We call the answer the **score granularity gap**." Finds single-shot verbalized confidence "**ranks cases surprisingly well, yet takes only a handful of distinct values. It therefore offers an operator only a few coarse thresholds, no matter how well it ranks.**" Compares **seven** confidence constructions — verbalized number vs **token probabilities** vs multi-query aggregation — across **25 model-dataset pairs (9 LLMs, 3 benchmarks)**, and reports cost and ranking effects for each. | **Fatal.** This is mechanism (ii), *named*, measured at scale, with deployment guidance — **and** it is the logits-vs-text comparison we proposed as the fix. Two and a half months old. |
+| **Landesberg — *When LLM Judge Scores Look Good but Best-of-N Decisions Fail*** — arXiv **2603.12520**, 12 Mar 2026 | Judge with moderate global correlation (r=0.47) captures **only 21.0%** of achievable best-of-4 improvement. "**coarse pointwise scoring creates ties in 67% of pairwise comparisons**"; within-prompt correlation only 0.27; pairwise judging recovers 21.1%→61.2%. Recommends auditing "**within-prompt signal, tie rates**, and recovery/top-1 accuracy, not global agreement alone." | **Fatal to the tie mechanism as novel.** The tie-density → decision-metric-collapse story, with the "global metric looks fine" framing, is published. |
+| **Kumar, Tayebati, Naik, Krishnan, Trivedi — *VLM Judges Can Rank but Cannot Score*** — arXiv **2604.25235**, 28 Apr 2026 | Names "**ranking–scoring decoupling**" as "a failure mode not captured by standard evaluation metrics", via conformal intervals built from **score-token log-probabilities**, across 3 judges × 14 task categories. | Severe. The rank-vs-score decoupling framing and the log-prob route are both taken. |
+| **Rajwal, Das, Ghosal — *Do LLMs Know a Good Hypothesis When They See One? Logit-Based Energy Scoring Outperforms Prompted LLM-as-Judge for Scientific Hypothesis Ranking*** — arXiv **2608.17270**, 18 Aug 2026 | Logit-based energy scoring vs prompted judging, 7 models, 1,323 papers: **33.0% vs 16.6% Hit@1**. | Confirms "read the score from logits instead of parsing text improves *ranking*" is established, not our finding. |
+
+Supporting, non-fatal: **Brauer & Wüthrich, *Gini Score under Ties and Case Weights*** (arXiv **2511.15446**,
+19 Nov 2025) handles rank-based scoring under ties in the actuarial literature — the statistical fact
+that ties degrade rank metrics is old and formalised. **2608.13756** (*The Integer Alibi*, 13 Aug 2026)
+localises INT8 cross-kernel divergence to scale application and output rounding, and finds flips
+concentrate at small logit margins (ROC-AUC 0.94) — adjacent and worth citing if any quantization
+paper is ever written here, but it is a numerics paper, not a safety one.
+
+## Verdict
+
+**Kill it.** Under `notes/11`'s gate **G1** (verified novelty in the *adjacent* literature, not the home
+literature), the Compression Tax now fails twice over: the headline fell to compression evaluation
+(`ideas/20` §2), and the fallback decomposition falls to LLM-judge selective prediction. What remains
+is "apply `2606.22179`'s score-granularity-gap framework to a trusted monitor, with quantization as the
+perturbation" — a third-order replication that would have to cite four papers that each did a larger
+version of one of its three legs.
+
+**The pattern is the lesson, and it is worth more than the idea was.** Three rounds, three misses, each
+the same shape: the claim was verified as unclaimed *within AI control*, and each time it turned out to
+be published in a neighbouring field that does not use the words "monitor" or "audit budget" —
+compression evaluation, then selective prediction / LLM-as-judge. Round 12's standing rule, now in
+`notes/11` G1: **before any measurement idea is adopted, name its two nearest neighbours outside AI
+safety and cite them.** A monitor is a classifier; a suspicion score is a confidence score; an audit
+budget is a selective-prediction operating point. Anything claimed about one is claimed about all three.
+
+Compute and dataset findings are retained and are still good: `RoganInglis/apps-control-arena` is real,
+ungated, 5,000 labelled rows, and the DSPy trusted-monitor tutorial is a working harness. Whatever
+replaces this idea should reuse them.
