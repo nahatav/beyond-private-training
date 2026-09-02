@@ -272,3 +272,69 @@ context-memory paper). **The specific instantiation is unoccupied; the general c
 **Correction:** round 10's dataset composition (1,936 train / 482 val / 1,375 test at 50% attack
 rate) came from a search summary and does **not** match the HF card (one 5,000-row split).
 Construct and report your own splits; do not cite those numbers.
+
+---
+
+## Round 12 — the metric disjunction between AI control and the guardrail literature
+
+Surfaced by the round-12 sweep, then **independently re-verified locally** via the arXiv API on
+2026-09-02. These negatives are load-bearing for candidate C6 in `ideas/21`, so they were run twice.
+
+### Verified negative results (arXiv API, `opensearch:totalResults` read directly)
+
+| Query | totalResults | Note |
+|---|---|---|
+| `abs:"fixed false positive rate" AND abs:"large language model"` | **0** | Nobody frames LLM evaluation at a fixed FPR. |
+| `abs:"guard model" AND (abs:"ROC" OR abs:"AUROC")` | **0** | **No published ROC/AUROC for any safety guard model.** |
+| `all:"guardrail" AND all:"audit budget"` | **0** | The control-native constraint never reaches the guardrail literature. |
+| `abs:"guard" AND abs:"pAUC"` | **0** | — |
+| `all:"partial AUC" AND (all:"guardrail" OR all:"safety monitor" OR all:"moderation")` | **1** | And it is **1310.0900**, a *2013 pedestrian-detection* paper. |
+| `abs:"audit budget" AND abs:"monitor"` | **6** | **All six are AI-control papers** — 2606.06529, 2602.04930, 2607.06596, 2607.14570, 2605.26047, 2506.05296. Not one guardrail paper. |
+
+The last row is the cleanest statement of the finding: the phrase that defines the operating point in
+AI control appears *only* inside AI control.
+
+### What each side actually reports
+
+**AI control — always a fixed FPR / audit budget:** 2605.26047 (0.3%), 2602.04930 (0.5%),
+2606.06529 (1%), 2607.06596 (1%), 2605.29178 (≤2%), 2608.16190 (pAUC@10% FPR), 2506.05296 (explicit
+auditing-budget constraints).
+
+**Guardrails — never:**
+
+| Guard | Ref | Metric reported |
+|---|---|---|
+| Llama Guard | **2312.06674** | AUPRC only; explicitly defers the threshold — AUPRC "is useful for **selecting the classification threshold** that balances precision and recall based on the specific requirements of use cases" |
+| Llama Guard 3-1B-INT4 | **2411.17713** | F1 + FPR at one operating point |
+| WildGuard | **2406.18495** | F1 at the model's own binary decode threshold |
+| ShieldGemma | **2407.21772** | AU-PRC |
+| Granite Guardian | **2412.07724** | AUC (0.871 harmful, 0.854 RAG-hallucination) |
+| GuardReasoner | **2501.18492** | F1 averaged over 13 benchmarks |
+| Qwen3Guard | **2510.14276** | F1; its tri-class label yields exactly **two** operating points — strict mode "classifies controversial cases as unsafe", loose mode "treats them as safe" |
+| Benchmarking Open-Source Guards | **2605.28830** | **Recall, and refuses FPR control on principle:** "recall is the critical metric for safety applications, as missing harmful content poses greater risk than false positives" |
+| GuardEval | **2601.03273** | macro F1 |
+| SoK: Jailbreak Guardrails | **2506.10597** | FPR reported as a free-floating scalar, never as a constraint; no ROC, no AUC, no threshold optimization |
+| Constitutional Classifiers | **2501.18837** | Closest in the group: an FPR *delta* on real traffic — "absolute 0.38% increase in production-traffic refusals and a 23.7% inference overhead" |
+| Prompt-injection defenses for tutors | **2605.06669** | The comparability failure in one line: "NeMo reaches 0 percent bypass at **16.22 percent FPR**… Prompt Guard yields 38.48 percent bypass with **3.60 percent FPR**" — two systems compared at unmatched operating points |
+
+⚠️ Metric not confirmed from a fetched source, do not cite as fact: 2504.01081 (ShieldGemma 2),
+2510.19169 (OpenGuardrails), 2503.06550 (BingoGuard), 2404.05993 (AEGIS).
+
+### Supporting refs for the mechanism
+
+| Ref | Detail | Status |
+|---|---|---|
+| Sun, Sun, Geng — *The Score Granularity Gap in Black-Box LLM Classification* | **2606.22179**. The instrument: verbalized confidence "ranks cases surprisingly well, yet takes only a handful of distinct values… offers an operator only a few coarse thresholds." Established on **general** black-box classification (9 LLMs, 3 benchmarks) — **not** on safety guard models, and not against an audit budget. | ✅ |
+| *On Calibration of LLM-based Guard Models* | **2410.10414**. Guard models "produce overconfident predictions" and "exhibit significant miscalibration when subjected to jailbreak attacks"; advocates "incorporating reliability evaluation of confidence calibration when releasing future LLM-based guard models." **Measures ECE/confidence, never realized FPR at a target operating point** — the axis that distinguishes C6. | ⚠️ authors TBC |
+| Rule-blindness audit | **2608.16852**. "Deleting, permuting, or substituting the governing rule leaves detection accuracy unchanged for every guard and activation probe we test." | ⚠️ authors TBC |
+| *Policy Invariance* | **2605.06161**. "existing safety scores conflate what the agent did with how the evaluator was prompted"; introduces the Policy Invariance Score and Judge Card, exposing "an order-of-magnitude spread in judge reliability that is invisible to accuracy-only leaderboards." | ⚠️ authors TBC |
+
+### Organizer collision check (gate G2)
+
+**JUDGe 2026** ("Can We Trust the Judge?", Atlanta, **closed Aug 29** — a collision check, not a
+target). Organizers: **Shanu Sushmita** (Northeastern/UW), **Jayash Koshal** (Meta/Northeastern),
+**Meghana Makhija** (Amazon), **Hui Wan** (Google DeepMind), **Amjad Abu-Jbara** (Amazon Ads).
+Keynote **Eugene Yan** (Anthropic); panel **Jennifer Wortman Vaughan** (MSR NYC), **Wei Xu**
+(Georgia Tech), **Vijai Mohan** (GDM). No published ownership of the threshold/operating-point line
+found among them — **G2 appears clear**, but the community is active here, so re-check before
+submission.
