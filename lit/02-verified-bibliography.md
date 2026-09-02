@@ -196,3 +196,79 @@ corrections. ✅ = fetched to a primary source this round.
   for `ideas/17`, read before writing.
 - Verified GPU rates (2026-09-01) for `notes/08`: RunPod A6000/4090 ≈ $0.33–0.34/hr; Modal A100-40
   $2.10/hr + $30/mo free. Aug-PE full Yelp run = 27–139 GPU-hr/config (the budget landmine).
+
+---
+
+## Round 11 additions — the compression × monitoring sweep (`ideas/20`)
+
+Every ✅ row below was verified this round by fetching the arXiv abstract page via the API
+(`export.arxiv.org/api/query`, which returns title + full author list + date + verbatim abstract)
+or by extracting and reading the `arxiv.org/html/<id>` full text. ⚠️ = surfaced but not fetched;
+do not lean on those.
+
+### The precedents that falsify `ideas/19`'s novelty claim (cite-and-concede in related work)
+
+| Ref | Detail | Status |
+|---|---|---|
+| **M M Asif Ferdous — *Bigger or Cheaper? Scale and Quantization Effects on Uncertainty Signals in Vision-Language Models Under Image Degradation*** | arXiv **2607.24440**, 27 Jul 2026, 12pp, code at `github.com/Asif-Ferdous/vlm-scale-quant`. Qwen2-VL 2B/7B, 5,700 predictions, six photographic degradations × three severities. **"4-bit quantization is nearly free for accuracy (−1.6 points) but expensive for the confidence signal (internal AUROC 0.95 to 0.80, and the verbalized-confidence parse rate collapses from 99% to 64%)."** Frames results as selective-prediction operating points; argues error-detection AUROC, not calibration error, is the exposing metric. **The single most damaging precedent — same thesis, VLM domain, no adversary, no audit budget.** The parse-rate number is also the decisive experimental-design warning (`ideas/20` §3). | ✅ abstract verbatim |
+| **Kuang, Wong (Waterloo) — *Understanding vision transformer quantization robustness through the lens of out-of-distribution detection*** | arXiv **2602.01459**, 1 Feb 2026. ViT-S16 / DeiT-S16 / DeiT3-S16 (IN1k and IN22k) × {FP32, W8A8, W6A6, W4A8, W8A4, W4A4}; metrics top-1, NLL, AUPR-out. FP32→4-bit AUPR-out deltas **19.2%** (DeiT3-IN22k), **15.0%** (ViT-IN22k) vs **12.0%/9.5%** for IN1k. Establishes "detection degrades faster than accuracy" in vision. | ✅ full text |
+| **Tong, Wang, Wan, Zhang, Dong, Yuan — *Does Compression Preserve Uncertainty? A Unified Benchmark for Quantized and Sparse LLMs via Conformal Prediction*** | arXiv **2606.01850**, 1 Jun 2026. 12 LLMs × compression configs × 5 NLP tasks. "(I) compression frequently **decouples accuracy from uncertainty**; (II) larger models absorb compression-induced uncertainty far more effectively than smaller ones; (III) **uncertainty inflation is often threshold-like rather than gradual**." The LLM-side decoupling result; (III) pre-empts any "cliff" narrative. | ✅ abstract |
+| **von Rad, Cao, Geiger — *UniComp: A Unified Evaluation of LLM Compression via Pruning, Quantization, and Distillation*** | arXiv **2602.09130**, **EMNLP 2026 Main**. 7 techniques × 40+ datasets. "a deployment-critical **performance–reliability decoupling, where retained performance does not indicate preserved safety**, fairness and privacy"; consistent knowledge bias (factual recall preserved, reasoning/multilingual/instruction-following degrade). Main-conference status means reviewers will know it. | ✅ abstract + venue |
+| **Oladri, Varadaraju Priya, Wu — *Silent Failures in Quantized LLM Reasoning: A Taxonomy-Based Analysis of Hollow Convergence and Failure Mode Shifts*** | arXiv **2607.09999**, 10 Jul 2026. 30,000 CoT outputs, 5 models (3B–14B) × {FP32, FP16, NF4} × 4 benchmarks; Cohen's κ = 0.906. "PTQ can **silently alter how LLMs reason even when task accuracy is preserved**" (max 3.1pp accuracy drop). Owns the "passes the benchmark, is broken" rhetorical frame. | ✅ abstract |
+| **Bouguerra, Montoya, Gomez-Villa, Mraidha, Arnez — *Less Precise Can Be More Reliable: A Systematic Evaluation of Quantization's Impact on VLMs Beyond Accuracy*** | arXiv **2509.21173**, **ICML 2026**. >700k evaluation runs. **The opposite direction:** "quantization can simultaneously improve accuracy, calibration, OOD detection, and robustness to noise, though not to covariate shift or spurious correlations"; proposes a spectral-filtering mechanism (damping high-rank components → reliance on robust low-rank features); ~40% of W8A8 runs show *improved* ECE. **Destroys the round-10 outcome-robustness argument** — the green-light direction is already published. | ✅ abstract + venue |
+| **Lu, Chen, Que, Luk, Fan — *Enhancing Trustworthiness with Mixed Precision: Benchmarks, Opportunities, and Challenges*** | arXiv **2511.22483**, **ASP-DAC 2026 Special Session**. Quantization × {adversarial robustness, fairness, machine ethics, OOD robustness}; instability across compression ratios; precision-ensemble voting improves trustworthiness metrics by up to **5.8%**. Occupies the "and here is the fix" half. | ✅ abstract + venue |
+| **Xu, Gupta, Li, Bentham, Srikumar — *Beyond Perplexity: Multi-dimensional Safety Evaluation of LLM Compression*** | arXiv **2407.04965**, **Findings of EMNLP 2024**. Code: `github.com/zhichaoxu-shufe/Beyond-Perplexity-Compression-Safety-Eval`. Unstructured/semi-structured pruning + quantization across degeneration harm, representational harm, dialect bias, downstream performance. "quantization mostly preserves bias while pruning degrades quickly." The lineage citation for "don't evaluate compressed models on perplexity alone." | ✅ abstract + venue |
+
+### The deployed-guardrail precedent — motivation and objection at once
+
+| Ref | Detail | Status |
+|---|---|---|
+| **Fedorov, Plawiak, Wu, Elgamal, Suda, Smith, Zhan, Chi, Hulovatyy, Patel, Liu, Zhao, Shi, Blankevoort, Pasupuleti, Soran, Coudert, Alao, Krishnamoorthi, Chandra (Meta) — *Llama Guard 3-1B-INT4: Compact and Efficient Safeguard for Human-AI Conversations*** | arXiv **2411.17713**, 18 Nov 2024. 440MB, ~7× smaller than Llama Guard 3-1B, ≥30 tok/s on an Android CPU via ExecuTorch/XNNPACK. Pipeline = **prune (16→12 decoder layers, MLP 8192→6400, 1,123M params) + QAT 4-bit (torchao, per-token dynamic activation quant, rest of net BF16) + embedding quant to 4-bit + unembedding pruning 128k→20 outputs + distillation from Llama Guard 3-8B** (distillation alone worth +1.3pp F1). Table 1 metrics are **F1/FPR at one operating point** across 9 languages; English: LG3-8B 0.939/0.040, **LG3-1B 0.899/0.090**, LG3-1B-INT4 better than the 1B on English and ≥ on 5/8 non-English. **No AUROC, no ROC, no fixed-budget catch rate — the tail metric is precisely what is not reported.** Not PTQ: quality is actively recovered by training. | ✅ full text (`arxiv.org/html/2411.17713v1`) |
+
+### AI-control neighbours new since round 10
+
+| Ref | Detail | Status |
+|---|---|---|
+| **Sinha, Naik, Gillioz, Storf, Merkelbach, Barton-Cooper, Højmark, Hobbhahn (Apollo Research) — *Training Deliberative Monitors for Black-Box Scheming Detection*** | arXiv **2605.29601**, 28 May 2026. Action-only open-weight monitors distilled from a frontier teacher (SFT + RL) over a scheming spec; 5 training sets, 6 OOD agentic-misalignment benchmarks. Qwen3.5-27B monitor beats all low-cost frontier prompted monitors *and* Gemini 2.5 Pro at lower **marginal inference cost (token-metered USD per 1,000 evaluations)**; stronger frontier monitors cost **16–34×** more. Explicit **cost–performance Pareto frontier**, self-described as "practical low-cost, **low-FPR** alternatives." **Already owns the economic framing round 10 used as motivation.** | ✅ abstract |
+| **Anik Jha — *Decorrelation Is Not Complementarity: Skill, Not Lineage, Governs Trusted-Monitor Ensembles*** | arXiv **2608.16190**, 17 Aug 2026. **24 open-weight monitors, 9 pretraining lineages, backdoored code, scored by pAUC at 10% FPR, spanning 0.028–0.803 (29×).** Agreement splits into shared-detectability signal (Spearman −0.25 w/ ensemble gain) and idiosyncratic error (+0.26), summing to ≈0 (+0.05); skill predicts agreement with the pool (ρ 0.84, n=24, p<0.0001); cross-lineage panels do not beat matched-capability panels (p=0.13); no correlation-weighted selection beats picking the single best monitor OOS. **The proposed apparatus already exists at scale, varying model identity instead of precision — and the 29× skill span is the sharpest "so what" objection to a quantization delta.** | ✅ abstract |
+| **Han, Yan, Zhang — *More Rejective, Not More Discriminative: The Unit of Verification in Pre-Execution LLM Oversight*** | arXiv **2608.23941**, 25 Aug 2026, 37pp. Twin-prefix framework: each gold plan yields an error-injected prefix and a **matched clean twin**, judged at five nested review lengths; pre-registered **informedness = catch − false rejection**. "Catch alone misleads: rejecting everything catches everything." Informedness peaks at 1–2 actions for all six judges. **Adopt its discipline: never report catch rate without the matched clean series.** | ✅ abstract |
+| **Phuong, Jenner, Simon, Ho, Shah, Farquhar, Coull (GDM) — *GDM AI Control Roadmap*** | arXiv **2607.13087**, 13 Jul 2026. TRAIT&R threat taxonomy over MITRE ATT&CK; Detection tiers D1–D4, Prevention/Response R1–R3; 15 tiered mitigations. **"Because controlling more capable models requires more costly interventions, we link specific defensive measures to evolving model capabilities."** The institutional motivation citation for monitor cost. | ✅ abstract |
+
+### Generator-side quantization × safety alignment — saturated dead ground
+
+Listed so related work can disclaim the whole line in one sentence. **Our object is a *detector's*
+ranking quality; every paper below measures a *generator's* refusal behaviour or attack success rate.**
+
+| Ref | Detail | Status |
+|---|---|---|
+| Kharinaev, Moskvoretskii, Shvetsov, Studenikina, Mikhail, Burnaev — *Investigating the Impact of Quantization Methods on the Safety and Reliability of LLMs* | arXiv **2502.15799**, 18 Feb 2025 (rev. 29 Jun 2025). OpenMiniSafety (1,067 questions), **66 quantized variants**, 4 safety benchmarks, 4,268 annotated QA pairs. PTQ *and* QAT can degrade safety alignment; no method consistently best. No detector metrics, no AUROC/FPR. | ✅ abstract |
+| Q-resafe — quantization-aware safety patching | arXiv **2506.20251**. Reported ASR increases of up to 16.6% (Llama) / 11.5% (Gemma) at INT4/INT8 vs pre-quantization. | ⚠️ search-level |
+| *The Joint Effect of Quantization and Sampling Temperature on LLM Safety Alignment: A Factorial Analysis* | arXiv **2606.29581**. AWQ INT4 within ~1.6pp of FP16 ASR for 7/8 models; SmolLM3-3B the exception (34.5%→44.1%). | ⚠️ search-level |
+| Wang, Li, Zhang, Zhang, Ma, Cheng, Pan — *Hidden Reliability Risks in LLMs: Systematic Identification of Precision-Induced Output Disagreements* (PrecisionDiff) | arXiv **2604.19790**, 2 Apr 2026. Differential testing across bf16/fp16/int16/int8; jailbreak divergence — inputs refused at one precision produce harmful output at another. Closest generator-side analogue to our framing; cite to disambiguate. | ✅ abstract |
+| QuantGuard — *Learnable Rounding for Repairing Quantization-Conditioned Backdoors in LLMs* (2606.29239); *Pruning for Protection* (2401.10862); *Towards Understanding and Improving Refusal in Compressed Models via Mechanistic Interpretability* (2504.04215); *Fine-Tuning, Quantization, and LLMs: Navigating Unintended Outcomes* (2404.04392) | The rest of the saturated line. | ⚠️ search-level |
+
+### Verified negative results (worth as much as the positives)
+
+arXiv API metadata search (title/abstract/comments), each returning **zero results** on 2026-09-01:
+
+- `all:"trusted monitor" AND all:quantization`
+- `all:"audit budget" AND all:quantization`
+- `abs:"trusted monitoring" AND abs:quantiz*`
+- `abs:"partial AUC" AND abs:quantization`
+
+`abs:quantization AND abs:"selective prediction"` returns exactly two papers, one of which is
+`2607.24440` itself. `"compression tax"` as a phrase returns one unrelated paper (2607.28263, a
+context-memory paper). **The specific instantiation is unoccupied; the general claim is not.**
+
+### Artifacts (verified available, `ideas/20` §4)
+
+| Artifact | Detail | Status |
+|---|---|---|
+| `RoganInglis/apps-control-arena` (HF) | **5,000 rows, single `train` split, ungated**, ~6,958 downloads last month. Fields: `problem_id`, `question`, `inputs`, `outputs`, `difficulty`, `solutions` (with `compiles`/`passes_tests`), `backdoors` (code, trigger input, `source` ∈ {apps, control_tax}), `backdoor_works` flags, `is_nondeterministic`/`nondeterminism_score`/`nondeterminism_category`. Both honest and backdoored solutions, labelled. | ✅ dataset card |
+| `RoganInglis/apps-backdoors`, `RoganInglis/control-tax` (HF) | Sibling datasets; `control-tax` is the Control-Tax paper's generated backdoors + exploits over APPS. | ✅ |
+| `UKGovernmentBEIS/control-arena`, `control-arena.aisi.org.uk/settings/apps.html` | The APPS control setting: red team inserts backdoors, blue team's trusted monitor assigns suspiciousness. | ✅ |
+| DSPy tutorial — *GEPA for Code Backdoor Classification (AI control)* (`dspy.ai/tutorials/gepa_trusted_monitor/`) | Public end-to-end trusted-monitor recipe on this data. The harness is a known-good recipe, not a build. | ✅ |
+
+**Correction:** round 10's dataset composition (1,936 train / 482 val / 1,375 test at 50% attack
+rate) came from a search summary and does **not** match the HF card (one 5,000-row split).
+Construct and report your own splits; do not cite those numbers.
