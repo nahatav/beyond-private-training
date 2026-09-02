@@ -436,16 +436,21 @@ C6. **No `abs:` query can certify it.** Open each of the following, grep the con
 datasheet for paired / matched / counterfactual / minimal-pair trajectory construction, and record
 which were opened:
 
-| Target | Why it is on the list | Opened? |
-|---|---|---|
-| `2506.02946` Abstract Counterfactuals for LM Agents | **Highest risk.** Already constructs counterfactuals over agent actions *with latent-space interventions*. "Machinery, not claim" is currently asserted, never checked against their actual constructions. | ☐ |
-| `2602.08995` MisActBench | Action-level human-annotated alignment labels on real trajectories — the nearest existing labelled resource. | ☐ |
-| Petri (Anthropic) | `2606.30449`'s own generation path; scenario seeds may already vary actions within a scenario. | ☐ |
-| SHADE-Arena | Paired benign / sabotage trajectories within a shared task. | ☐ |
-| ControlArena / APPS backdoor split | Honest and backdoored solutions **to the same problem** — an action-versus-situation construction under another name. | ☐ |
-| AgentHarm | Paired harmful / benign variants of matched requests. | ☐ |
-| ToolEmu | Sandboxed trajectories with per-scenario risk annotation. | ☐ |
-| τ-bench | Multiple rollouts per task instance — divergent actions, fixed situation, already collected. | ☐ |
+| # | Target | Handle — **resolved 2026-09-02** | Source of truth | Why it is on the list | Opened? |
+|---|---|---|---|---|---|
+| 1 | **Abstract Counterfactuals for LM Agents** | `2506.02946` | arXiv HTML | **Highest risk.** Already constructs counterfactuals over agent actions *with latent-space interventions*. "Machinery, not claim" is asserted and never checked against their actual constructions. | ☐ |
+| 2 | **MisActBench** / *When Actions Go Off-Task* | `2602.08995` | arXiv HTML | Action-level human-annotated alignment labels on real trajectories — the nearest existing labelled resource. | ☐ |
+| 3 | **Petri** | `github.com/safety-research/petri` · `alignment.anthropic.com/2025/petri/` | **repo + blog — no arXiv paper** | `2606.30449`'s own generation path. Seed instructions run **in parallel** across scenarios, so divergent rollouts per seed may already exist. Construction detail is in the code. | ☐ |
+| 4 | **SHADE-Arena** | `2506.15740` | arXiv HTML | Benign main task **paired** with a harmful side objective in one environment — a paired construction by design. Check whether pairs share a scenario. | ☐ |
+| 5 | **ControlArena** | `github.com/UKGovernmentBEIS/control-arena` · `control-arena.aisi.org.uk` | **repo + docs — no arXiv paper** | Honest and backdoored solutions to the **same** problem: an action-versus-situation construction under another name. UK AISI + Redwood. | ☐ |
+| 6 | **AgentHarm** | `2410.09024` | arXiv HTML | Paired harmful/benign variants of matched requests. **First author Maksym Andriushchenko** — so reading this also pre-pays Branch C's G2 check (`notes/16`). | ☐ |
+| 7 | **ToolEmu** | `2309.15817` | ⚠️ **Sep 2023 — arXiv HTML likely absent.** Fall back to PDF or `github.com/ryoungj/ToolEmu` | Sandboxed trajectories with per-scenario risk annotation. | ☐ |
+| 8 | **τ-bench** | `2406.12045` | arXiv HTML · `github.com/sierra-research/tau2-bench` | **Highest DATA-FOUND probability.** Its `pass^k` metric evaluates "reliability of agent behavior over multiple trials" (pass^8), so **multiple rollouts per task instance are baked into the design**. ⚠️ Nuance to check: its divergence is over task *success*, not over a misaligned *action* — the construction may transfer while the labels do not. | ☐ |
+
+**Two structural notes for the sweep.** Targets 3 and 5 have **no paper** — the datasheet and the
+generation code are the source of truth, and construction detail will not exist anywhere else. Target
+7 predates arXiv's HTML rollout (~Dec 2023), so plan for the PDF or repo route (R1: PDFs frequently
+fail to extract).
 
 ⚠️ **Nothing in this table has been fetched.** No row may be cited, in either direction, until it
 carries a date and a ✅ under the `lit/02` protocol.

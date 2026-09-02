@@ -66,7 +66,19 @@ SHADE-Arena · ControlArena · AgentHarm · ToolEmu · τ-bench.
 
 **Method per target (~15 min each):** fetch `arxiv.org/html/<id>` or the repo/datasheet, strip tags,
 and grep the construction and dataset sections for: *minimal pair · matched · counterfactual · paired ·
-contrast · same scenario · multiple rollouts · resample.* Read the hits, not the counts.
+contrast · same scenario · multiple rollouts · resample · trials · divergent · same prefix.* Read the
+hits, not the counts.
+
+> ### ⚠️ Positive control, mandatory per target — this is R3 in a new costume
+> **`arxiv.org/html/<id>` does not exist for every paper** (the HTML rollout began ~Dec 2023, and even
+> after it some papers have none). A 404 or an error page yields an **empty body, and an empty body
+> greps as zero for every term — which reads exactly like CLEAR.** That is the same failure that made
+> `http://export.arxiv.org`'s 301 parse as `totalResults=0` in round 12.
+>
+> **Before grepping any target, grep it for a term you know is present** — a distinctive word from its
+> own title, or "agent" — and record the hit count next to the negatives. **A zero-result on a target
+> with no positive control is not evidence and does not tick its box.** Target 7 (ToolEmu, Sep 2023) is
+> the one most likely to trip this.
 
 **Classification rule — both conditions, not either:**
 
