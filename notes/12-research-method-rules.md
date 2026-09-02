@@ -217,3 +217,33 @@ harder, because a harness that will not load is a fact and a novelty search is a
 *rigour*, not a rule about *pace*. Once the marginal ideation hour is worth less than the marginal
 build hour, killing one more idea is not progress. State that comparison explicitly at the end of
 every round.
+
+---
+
+## R13 — Fetch a venue's topic list before grading fit, and remember that A4 is not a property of an idea
+
+**Why:** `notes/13` graded EvoRobust "⚠️ Moderate — the spine is quality-diversity *search*; likely no
+AI-control background," and `ideas/22` used that to conclude that **AIWILD was the only venue whose
+reviewers could read our work.** The CFP says otherwise. Two of its five topic areas are
+*"Agentic Safety & Interactive Robustness: safety of tool-using agents, long-horizon failures,
+multi-agent risks, **human oversight and controllability**"* and *"Benchmarks and Governance:
+continuously evolving safety benchmarks, **automated test case generation**, coverage metrics."*
+Invited speakers include **Maksym Andriushchenko** and **David Wagner**. The judgment was read off
+the workshop's *title*, which advertises its methods community, not its topic scope.
+
+This is R8's failure in the venue domain: **a title is an abstract.** The scope lives in the topic
+list, the speaker roster and the organizer affiliations, exactly as metric vocabulary lives in §5 and
+Appendix D.
+
+**The rule.** No venue gets a fit grade — least of all a *negative* one — until its CFP topic list,
+speakers and organizers have been fetched from the workshop's own page. Ruling a venue out is a
+stronger claim than ruling it in, and it needs more evidence, not less. Grading a venue out on its
+name is how a board ends up with one viable target three days before its deadline.
+
+**The corollary, which is the expensive half.** `notes/11` **A4 is venue fit** — so **an `A` score is
+never a property of the idea alone.** Every A/30 on the round-12 board is really *"A at AIWILD,"* and
+nothing in `ideas/21`, `ideas/22` or `ideas/24` says so. When the venue set changes, the board must be
+**re-scored, not re-read**: a candidate downgraded for "the answer is already expected" can rank
+*higher* at a venue whose topic is systematically searching for expected failures, and a candidate
+carried on venue-native metrics can rank lower where nobody runs them. Record A as `A: x/30 @ <venue>`
+from now on.
