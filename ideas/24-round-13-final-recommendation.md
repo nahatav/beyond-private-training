@@ -1,5 +1,13 @@
 # Round 13 final — the recommendation
 
+> **⚠️ AMENDED by [`ideas/25`](25-round-14-c9-design-flaw.md) on 2026-09-02.** The lead is still C9,
+> but its stated design is **still unfalsifiable**: pre-registration item #1 below reads state at an
+> offset *before* the divergence point, which is provably chance by the same determinism argument
+> this document uses to kill the input-matched design. The read position must be strictly **after**
+> first divergence, swept as the independent variable. `ideas/25` also records the R8 sweep, G2 and
+> G4 as owed or unrunnable against C9, adds a mandatory text-only baseline, and corrects the venue
+> timeline. Read `ideas/25` before acting on §"The lead — C9, reframed".
+
 Supersedes `ideas/22`. Written 2026-09-02 after the adversarial review in `ideas/23`, which killed
 one candidate outright and removed the novelty and the executability from the other two the
 two-track plan depended on.

@@ -419,3 +419,50 @@ were never entered here — that gap is closed below.
       longer load-bearing now that C6 is dead — resolve or drop it.
 - [ ] `2509.21173`'s **ICML 2026** attribution is unconfirmed (`notes/14`); the arXiv abstract page
       carries no venue field. Resolve or downgrade before any citation.
+
+---
+
+## Round 14 — obligations opened against C9 itself
+
+Round 13 spent its instrument on the candidates it killed and never turned it on the survivor
+(`notes/12` R11). These are the checks C9 owes before anything is built. See `ideas/25`.
+
+### The R8 sweep C9's own headline requires — **not yet run**
+
+C9's claim is *"no existing dataset varies the action with the situation held fixed."* That is a
+negative about **construction practice**, which is the class R8 governs, and construction detail
+lives in appendices and datasheets — further from the abstract than the metric vocabulary that killed
+C6. **No `abs:` query can certify it.** Open each of the following, grep the construction section and
+datasheet for paired / matched / counterfactual / minimal-pair trajectory construction, and record
+which were opened:
+
+| Target | Why it is on the list | Opened? |
+|---|---|---|
+| `2506.02946` Abstract Counterfactuals for LM Agents | **Highest risk.** Already constructs counterfactuals over agent actions *with latent-space interventions*. "Machinery, not claim" is currently asserted, never checked against their actual constructions. | ☐ |
+| `2602.08995` MisActBench | Action-level human-annotated alignment labels on real trajectories — the nearest existing labelled resource. | ☐ |
+| Petri (Anthropic) | `2606.30449`'s own generation path; scenario seeds may already vary actions within a scenario. | ☐ |
+| SHADE-Arena | Paired benign / sabotage trajectories within a shared task. | ☐ |
+| ControlArena / APPS backdoor split | Honest and backdoored solutions **to the same problem** — an action-versus-situation construction under another name. | ☐ |
+| AgentHarm | Paired harmful / benign variants of matched requests. | ☐ |
+| ToolEmu | Sandboxed trajectories with per-scenario risk annotation. | ☐ |
+| τ-bench | Multiple rollouts per task instance — divergent actions, fixed situation, already collected. | ☐ |
+
+⚠️ **Nothing in this table has been fetched.** No row may be cited, in either direction, until it
+carries a date and a ✅ under the `lit/02` protocol.
+
+### `2509.21344` is a C9 citation, not only a C1/C3 one
+
+Recorded so the connection is not lost again. *Linear probes rely on textual evidence* (Boxo,
+Neelappa, Raval, **2509.21344**, ✅ +HTML) is filed in this bibliography only against C1 and C3, where
+it functions as a blocker (no code, no data). Against C9 it is the opposite — a **method obligation**.
+Once C9 reads state *after* first divergence (`ideas/25` §1–2), the two members of a pair differ in
+visible tokens, so an activation probe may be reading the tokens rather than any latent intention.
+**A text-only baseline over the same visible tokens is a mandatory arm at every read offset.** Its
+absence would be the same class of hole as C1's missing placebo control.
+
+### Venue timeline — downgrade to ⚠️
+
+`notes/13` and `ideas/24` treat **Sep 19** as C9's target. Sep 18 is the date SaTML 2027 notifies
+workshop **organizers**; paper CFPs follow, and for a conference running in early 2027 those deadlines
+are plausibly **6–10 weeks out**. ⚠️ **Inference from the conference timeline — not fetched, not
+verified.** Confirm on satml.org on Sep 19 before it is used to schedule anything.
