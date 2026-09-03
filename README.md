@@ -31,6 +31,11 @@ post-training, mech interp. Round 12 added a second objective: the paper must be
 > **What survives:** sampling-divergence as the anchor — *how much of pre-action predictability is the
 > situation, and how much is the particular sampled continuation.* Narrow, real, and named by
 > `2606.30449` as its own gap. **~35% at EvoRobust with a second domain.** See `ideas/27` §8–9.
+>
+> **The plan is now [`notes/17`](notes/17-the-plan-sep12.md): one track, EvoRobust Sep 12.** Stage B2
+> is dropped and Gate C is merged into the build, which puts generation on the GPU from Sep 3 evening.
+> The 3-day venues are not reachable with zero experiment code, and there is **no fallback paper in
+> flight** — deliberately (R11).
 
 **Step 1 — Sep 3 is a fork.** Four checks, in order, on the thing this repo has never done: load
 `maxf-zn/misalignment_monitoring`, reproduce `2606.30449`'s identity-cosine floor, run the owed R8
@@ -57,8 +62,9 @@ not the plan.
 
 | If you want… | Read |
 |---|---|
-| **What changed, and why two branches died** | [`ideas/27`](ideas/27-round-15-external-preemption.md) — **read first**: the three pre-emptions, the G2 fail, the gate arithmetic, the reframe |
-| **What to do this week** | [`notes/16`](notes/16-fork-and-branches.md) — the runbook, **superseded in part** by `ideas/27` |
+| **What to do this week** | [`notes/17`](notes/17-the-plan-sep12.md) — **the plan**: one track, EvoRobust Sep 12, with gates, stopping rules and the cut order |
+| **What changed, and why two branches died** | [`ideas/27`](ideas/27-round-15-external-preemption.md) — the three pre-emptions, the G2 fail, the gate arithmetic, the reframe |
+| The runbook it replaced | [`notes/16`](notes/16-fork-and-branches.md) — **superseded**; kept for Stage 0/B mechanics and the pre-registration checklist |
 | Why these candidates | [`ideas/26`](ideas/26-evorobust-reranked-board.md) — the board re-scored for EvoRobust |
 | The InfPriv option, if taken | [`notes/15`](notes/15-infpriv-ship-checklist.md) — ship checklist, Sep 7, ~$30 |
 | The safety lead, current | [`ideas/25`](ideas/25-round-14-c9-design-flaw.md) — C9's design flaw, the fix, and the gates it still owes |

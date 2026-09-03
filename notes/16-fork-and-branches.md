@@ -8,7 +8,11 @@ before any evidence arrives, so that Sep 3's outcome *selects* a path rather tha
 argument. That is `notes/09`'s discipline, and it is the only part of this repo's method that has
 never failed.
 
-> # ⛔ SUPERSEDED IN PART — round 15, 2026-09-02 (`ideas/27`)
+> # ⛔ SUPERSEDED — round 15, 2026-09-02
+>
+> **The live plan is [`notes/17`](17-the-plan-sep12.md).** This file is kept for Stage 0/Stage B
+> mechanics and the pre-registration checklist. **Everything in it about branching is void.**
+> The findings that voided it are in [`ideas/27`](../ideas/27-round-15-external-preemption.md).
 >
 > This runbook was written before the sweep it schedules was run. Round 15 ran the *out-of-field* half
 > of that sweep from the desk, and it changes the routing before Sep 3 starts:
