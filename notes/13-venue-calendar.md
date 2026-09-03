@@ -49,12 +49,52 @@ CWM, BeNTo, PTA and others.
 | **IEEE SaTML 2027** | abstract **Sep 22** / full **Sep 29** | full archival conference paper | — | Security; much higher bar. |
 | **NeuralArtifacts** (NeurIPS, Paris + remote) | **Sep 6** ⚠️ **unresolved** | not stated ⚠️ | not stated ⚠️ | ⚠️ Severe. Weight-space / model-zoo researchers. |
 
+> ### ⛔ CORRECTED 2026-09-02 (round 16) — two rows in this table are wrong
+> Both fetched from the workshop's own page.
+>
+> **NeuralArtifacts is LIVE at Sep 9 AoE.** Its CFP now shows the extension as a strikethrough —
+> `~~September 1, 2026 (Anywhere on Earth)~~ **September 9, 2026 (Anywhere on Earth)**` — resolving the
+> discrepancy below in favour of the tracker. Extended abstracts **4–6 pp**, full papers 8–12 pp, *"All
+> submissions are non-archival."* Scope names *"Interpretability through weights, activations,
+> representations, gradients, and other traces"* and *"Model safety and reliability interventions."*
+> ⚠️ The **reviewer-fit** ⚠️ below still stands — the community is weight-space / model-zoo.
+>
+> **FLLMPT is a Sep 12 venue, not a Sep 5 one.** It was misfiled into the Sep 5 cohort. Its own page:
+> abstract registration **2026/09/05 23:00 GMT (mandatory)**, paper **2026/09/12 23:00 GMT**, marked
+> *"Firm deadline"*, non-archival, dual submission welcome *"including work previously published,
+> provided it has been updated or recontextualised."* ⚠️ **GMT, not AoE — 13 h earlier than EvoRobust.**
+> CFP names *"ML theory, reinforcement learning, and **AI safety**"* and *"**safety-critical settings**,
+> where unintended regressions or feedback loops may arise."* Fit is post-training, so weaker than
+> EvoRobust for a monitoring paper — but the abstract costs a title and an abstract.
+
 ### The NeuralArtifacts discrepancy, settled as far as it can be
 
 The workshop's own site (`artifactsasdata.org`) says **Sep 1 AoE** with no extension banner and no
 Important Dates section; `/call-for-papers` 404s. The OpenReview-synced tracker says **Sep 6 AoE**,
 annotated "Extended by 5 days." The gap is a real extension the workshop never propagated to its own
 page. OpenReview itself is behind a CAPTCHA and was **not** bypassed. **Do not plan around this venue.**
+
+## The November window — added round 16, every date off the venue's own page
+
+`ideas/24`'s *"nothing until roughly November"* is a **real, dated and populated window**, not a void.
+This is what makes missing a September deadline cost **7–11 weeks** rather than silence, and it is the
+reason `notes/18` moves C9 off Sep 12 rather than rushing it.
+
+| Venue | Deadline ✅ | Format | Fit |
+|---|---|---|---|
+| **SaTML 2027** main | abstract **Sep 22** / paper **Sep 29**, 11:59 PM AoE | up to 12 pp body, **archival** (IEEE proceedings). No dual submission. | *"Novel attacks"*, *"Novel defenses"*, *"Verification of algorithms and systems"*, *"Fairness and interpretability"*. ⚠️ PC chairs not published; `/organizers/` 404s. |
+| **FAccT 2027** | abstract **Oct 27** / paper **Nov 3**, 11:59 PM AoE | ≤14 pp; **both archival and non-archival options**, chosen at submission and not switchable | *"**AI red teaming and adversarial testing**"*, *"**Interpretability/explainability**"*, *"Science of responsible, safe, ethical, and trustworthy AI evaluation"*, *"audits of systems"*. **The best-fitting open venue in the window.** |
+| **AAAI-27 workshops** | **Nov 20**, AoE (workshop submissions due to organizers) | per workshop; AAAI no longer publishes centralized workshop proceedings | Workshop list **not yet public** — organizers notified **Sep 25**, their CFPs due to AAAI **Oct 2**. Historically the densest concentration of safety/alignment workshops in this window. |
+| **SaTML 2027 workshops** | CFPs ~**Oct–Dec** | unknown | First SaTML workshop edition. Organizers notified **Sep 18**. |
+| **ARR October cycle** → NAACL/COLING 2027 | **Oct 12** | ACL format, archival via committed venue | General NLP; safety/interpretability routinely accepted. |
+
+**Two side-doors that are closed to us, checked so they are not re-checked:** **IAB's "submission with
+NeurIPS reviews" route (Oct 1)** and **InfPriv's fast track (Sep 25)** both **require an existing NeurIPS
+2026 main-conference submission with its reviews appended.** Neither is reachable from here. ✅
+
+**⚠️ AAAI-27 AI Alignment special track: the deadline was Aug 21, 2026 — passed.** ✅ Its topic list
+(*"Scalable oversight and control"*, *"Interpretability"*, *"Robustness and security"*, *"Evaluation"*) is
+a near-exact match for this repo's brief. **Note it for 2028.**
 
 ## Re-check dates
 
@@ -102,7 +142,7 @@ the OpenReview-synced tracker and then each workshop's own page:
 | InterpScience — Interpretability as a Science | Sep 1 | — |
 | PriLOM — Privacy in the Era of Large Opaque Models | Sep 4 | — |
 | ODI — On-Device Intelligence | Sep 5 | Quantization's home venue. |
-| ~~ATTRIB, IAB, Meta-Agents, FAST, Pre-to-Post, FLLMPT, Agentic Web, SaTQuML, TTCL, CWM, BeNTo, PTA, AI-Native Academia~~ | ~~Sep 5~~ | ⛔ **MISFILED — see the corrected box above.** Deadline is **Sep 5 AoE = three days out**, not past. **IAB is open and is a strong fit.** Do not treat this row as closed. |
+| ~~ATTRIB, IAB, Meta-Agents, FAST, Pre-to-Post, Agentic Web, SaTQuML, TTCL, CWM, BeNTo, PTA, AI-Native Academia~~ | ~~Sep 5~~ | ⛔ **MISFILED — see the corrected box above.** Deadline is **Sep 5 AoE**, not past. **FLLMPT is removed from this row: it is a Sep 12 venue.** All twelve CFPs were fetched in round 16; several fit a monitoring paper **better than EvoRobust** — **Meta-Agents** (*"Misalignment and Safety for Meta-Agents"*, *"Governance and Human Oversight"*), **FAST** (*"Evaluation, detection, and bounding of emergent capabilities or failure modes"*, *"Observability and steerability of agent populations"*), **IAB**, **ATTRIB**, **TTCL**. None was reachable with zero experiment code. **This is the cost of the misfiling, and it is the lesson for the next cycle: sweep venues in early August.** |
 | LIGHT (Deployable Small Foundation Models), AXIOM (Foundations of Efficient Deep Learning) | before Sep 5 | Both efficiency-focused. |
 | AIMS — AI Measurement Science @ COLM 2026 | **Jun 23** | Topically near-perfect (measurement under strategic optimization; evaluation as an evaluator/learner game). **Note for 2027.** |
 

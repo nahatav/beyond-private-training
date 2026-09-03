@@ -63,9 +63,24 @@ Recording these because acting on a mis-remembered number is as costly as a hall
   **28/33** figure covers **only prompted, fine-tuned and RL-trained locks**. Against a
   **circuit-breaking** lock "the single-layer graft **fails at every layer**." They introduce
   **context grafting** instead. Companion `2608.29458` was missed entirely.
-- **ControlArena APPS split.** Round 10's 1,936 train / 482 val / 1,375 test at 50% attack rate came
-  from a search summary. The real `RoganInglis/apps-control-arena` card shows **one 5,000-row split**.
-  Construct and report your own splits.
+- **ControlArena APPS split — ⛔ THIS CORRECTION WAS ITSELF WRONG (round 16).** Round 10's
+  1,936 / 482 / **1,375** was filed here as a search-summary artifact, corrected by
+  `RoganInglis/apps-control-arena`'s single 5,000-row split. But `2608.16190` reproduces a
+  **1,375-sample test split (172 attack / 1,203 honest)** from *"the public backdoored-APPS dataset
+  released with Koran et al. (2026)"* — **a different artifact.** **Two distinct APPS-backdoor datasets
+  exist, and any paper must say which it used.** `RoganInglis/apps-control-arena` does have one 5,000-row
+  split; that part stands. Resolving which artifact is which is check **K1** in `notes/18` §3.
+- **`2607.06596` is understated in the Tier-1 table above (round 16).** It is filed there as
+  "cross-generator generalisation republished inside safety." Its **full text** also carries
+  difficulty-matched and blatancy-matched controls, code-only vs full-transcript cuts, MLP/SVM/RF/
+  gradient-boosting head swaps, and hash-disjoint splits against same-task leakage. It is a much heavier
+  paper than the row implies and is the **nearest neighbour** to the round-16 lead — see `lit/02` and
+  check **K2**.
+- **C9's G1 tick is void (round 16).** The out-of-field sweep returned **PARTIALLY OCCUPIED, severely**:
+  four of five clauses published, and the construction is a **named method with its own lineage** —
+  Forking Paths (`2412.07961` → `2510.27484` → `2608.19611`), plus `2511.04527`, `2601.21183` and
+  `2511.14773`, which names our construction as future work in print. **The pair framing is dead.** C9 is
+  not in this ledger — it is reframed and moved to November — but do not cite its old novelty tick.
 - **`lit/01`'s "CoT privacy dead" verdict** targeted *PII-in-CoT only*. It does **not** extend to CoT
   monitoring as a safety mechanism — a different object.
 - **`2603.03824` was mischaracterised.** `ideas/21` recorded it as "about *inducing* eval-awareness

@@ -108,7 +108,7 @@ what it buys is a near-certain submission. That trade is argued explicitly in `n
 | Why the round-12 board collapsed | [`ideas/23`](ideas/23-round-13-adversarial-review.md) — candidate-by-candidate teardown with the evidence |
 | The superseded board | [`ideas/22`](ideas/22-round-12-final-recommendation.md) — kept for the reasoning, **not** for its scores |
 | The scoring rubric | [`notes/11`](notes/11-safety-venue-review-rubric.md) — acceptance `A/30` and safety-relevance `B/25`, scored **separately**, plus five hard gates |
-| **How to not waste a round** | [`notes/12`](notes/12-research-method-rules.md) — twelve standing rules, each bought with a failure here |
+| **How to not waste a round** | [`notes/12`](notes/12-research-method-rules.md) — **seventeen** standing rules, each bought with a failure here. R15–R17 are round 16's: read the *artifact* not just the papers · never schedule a voiding check after the step that publishes the claim · verify a delegated number yourself |
 | Deadlines | [`notes/13`](notes/13-venue-calendar.md) — canonical, and the UTC/AoE correction that closes ~25 apparently-open venues |
 | **What is already dead** | [`notes/14`](notes/14-killed-ideas-ledger.md) — read before proposing anything |
 | Verified citations | [`lit/02`](lit/02-verified-bibliography.md) — ✅ means the page was actually read; ⚠️ means do not cite |

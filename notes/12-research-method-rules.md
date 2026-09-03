@@ -276,3 +276,73 @@ the one thing G1 exists to prevent.
 **Companion — a gate that cannot fail is not a gate.** State, in advance, what a target would have to
 contain to return OCCUPIED. If no plausible content of the listed targets would flip the verdict, the
 list is wrong, not the claim.
+
+---
+
+## R15 — Read the *artifact*, not only the papers
+
+**Why:** round 15 read the incumbents' papers, including their limitations sections, and concluded C9's
+reframe was the one formulation *"the three incumbents do not contain."* Round 16 read the **released
+artifact** — `maxf-zn/misalignment_monitoring`, the repo the plan's own Gate B was going to clone on day
+one — and found four load-bearing numbers already published in `docs/PAPER_RESULTS.md` and the README's
+claims table:
+
+- The unsteered action rate on the exact committed scenario: **5.3%, CI [3.3, 8.5]** at n=300 — which
+  **contradicts a gate threshold the plan had set at ≥10%** and was about to spend a day measuring.
+- The mandated held-out transfer number, **on our own primary model**: LODO mean lift **−4.2 pp**.
+- Claims **C2** and **C3b**, which are the two ends of the curve we were proposing to draw.
+
+**The rule.** Before committing to build on someone's harness, read what ships with it: the README claims
+table, `docs/`, `configs/`, `data/README.md`, and any `PAPER_RESULTS`-style file. **Numbers that gate your
+plan are frequently already published there**, one directory below the paper. This is R8 pointed at
+artifacts instead of at papers, and it is cheaper than either a search round or a GPU day.
+
+**Corollary — check whether your gate is already answered before you schedule it.** A gate whose value is
+published is not a gate, it is a lookup. Grep for it first.
+
+---
+
+## R16 — Never schedule the check that could void a claim *after* the step that publishes it
+
+**Why:** `notes/17` recorded, in its own §1, that the lead's novelty rested on a **negative** search
+result — *"exactly the class of claim R8 exists to distrust."* It then scheduled the sweep that would
+discharge that risk into **"Sep 4–6 dead time,"** behind a **public pre-registration pushed Sep 3 PM**.
+
+The sweep was run instead on Sep 2. It took hours of wall-clock, needed no GPU, and returned
+**PARTIALLY OCCUPIED — severely** (`lit/02`): four of the claim's five clauses already published, the
+construction a named method with its own lineage. **Under the written plan we would have timestamped a
+public pre-registration on a four-fifths-occupied claim, and learned it two days later.**
+
+**The rule.** Order the plan by **irreversibility, not by cost**. Any check that can void a framing runs
+*before* the first step that makes the framing public — pre-registration, a preprint, a repo push, an
+email to an author. "Fold it into dead time" is acceptable only for checks whose failure is recoverable.
+A cheap check is not thereby a low-priority one; cheapness is a reason to run it *sooner*.
+
+---
+
+## R17 — Verify a delegated number yourself before it becomes load-bearing
+
+**Why:** an asset-first sweep in round 16 proposed a lead on the strength of a metadata-only floor, and
+reported the supporting statistics from a systematic n=1,000 sample it stated *"matches the full split
+exactly."* Recomputed on all 5,000 rows, the headline **replicated and got stronger** (held-out AUROC
+0.801 → **0.8229**) — but two supporting figures did **not**:
+
+| Reported | Full split |
+|---|---|
+| `P(has_backdoor \| difficulty=competition)` = **0/200 = 0.000** | **203/1000 = 0.203** |
+| Difficulty-only AUROC **0.751** | **0.6823** |
+
+Either would have gone into a paper as a headline sentence. The "marginals match exactly" claim was
+false, and its own cross-check arithmetic used the wrong per-stratum rates.
+
+**The rule.** When a delegated agent — or any collaborator — hands you a number that a decision or an
+abstract will rest on, **recompute it yourself from the primary source before it is load-bearing.** Their
+correct headline does not certify their supporting rows. A sampled statistic never enters a paper;
+recompute on the full artifact.
+
+**Companion, and it cost us a whole sweep's negatives:** **serialize access to rate-limited endpoints
+across parallel agents.** Three of our own processes hit `export.arxiv.org` concurrently in round 16; the
+API throttled, and a throttled response is a **~14-byte body that parses as `totalResults=0`** — a third
+way to fabricate a zero, alongside R3's two. **Sleep ≥8 s between queries, treat any sub-1 KB response as
+transport failure rather than a result, and never run two sweeps against one host at once.** A negative
+produced while a sibling process is hammering the same endpoint is not evidence.

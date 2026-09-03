@@ -97,7 +97,7 @@ recorded C9 as "`G1` rewritten, not failed" and said nothing about G2 or G4; bot
 
 | Gate | Status | Note |
 |---|---|---|
-| G1 — verified novelty | **pass**, rewritten | `2004.02709` contrast sets, `2506.02946`, `2602.08995`. Corrected in `ideas/23`. |
+| G1 — verified novelty | ⛔ **FAIL as framed** (round 16) — was "pass, rewritten" | The out-of-field sweep returned **PARTIALLY OCCUPIED, severely** (`lit/02`). `2511.04527` trains a linear probe on residual-stream states to predict outcomes of paths resampled from a shared prefix; `2510.27484` (ICLR 2026) runs the construction on **agentic-misalignment blackmail**; `2601.21183` publishes the situation-vs-sample conclusion verbatim; `2511.14773` names our construction as future work. The construction is **Forking Paths**, a named method with a lineage. **The old tick was earned by a claim that no longer exists** — the three-state rule below. What survives G1 is only the *divergence-relative axis* and a gap of composition. |
 | G2 — organizer collision | **unrunnable** | SaTML 2027 workshop organizers are notified Sep 18. `2606.30449`'s group is the plausible occupant of any agent-monitoring workshop. Re-run on Sep 19 before committing to the venue. |
 | G3 — data and harness | **pass on the target's side**, own side unrun | `maxf-zn/misalignment_monitoring` HTTP 200, pushed 2026-07-02. Nothing has been cloned or loaded. R6 says hour one is the load; it has not happened. |
 | G4 — the obvious competing axis | **owed** | The competing explanation is probe family and training scale — `2606.30449` name four untested families. Run as a competing arm, not folded into the experiment. |
