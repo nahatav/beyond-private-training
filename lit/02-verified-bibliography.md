@@ -498,3 +498,86 @@ absence would be the same class of hole as C1's missing placebo control.
 workshop **organizers**; paper CFPs follow, and for a conference running in early 2027 those deadlines
 are plausibly **6–10 weeks out**. ⚠️ **Inference from the conference timeline — not fetched, not
 verified.** Confirm on satml.org on Sep 19 before it is used to schedule anything.
+
+---
+
+## Round 16 — the validity-audit sweep (2026-09-02)
+
+Opened against the round-16 lead (`ideas/28` §12, `notes/18` §3 K2): *no control-eval paper reports a
+partial-input floor on the backdoor benchmarks.* This is a negative about **reporting practice**, so
+**R8** governs it and an `abs:`-level sweep cannot certify it.
+
+### Transport note — a second way the arXiv API fabricates a zero
+
+`export.arxiv.org/api/query` **rate-limits under rapid fire and returns a ~14-byte body that parses as
+`totalResults=0`**, indistinguishable from a genuine empty feed unless byte length is checked. This is a
+*third* mechanism alongside R3's two (the `http://` 301 stub, and double-escaped quotes). Two independent
+runs today hit it.
+
+**Rule, added to R3's list:** sleep **≥8 s** between queries, and treat **any response under ~1 KB** as a
+transport failure, never as a result. A genuine empty feed is ~750–800 bytes and well-formed; confirm by
+byte count *and* well-formedness, not by the parsed number alone.
+
+Where the API was throttled, the sweep was re-run against `arxiv.org/search`, whose zeros are an explicit
+*"produced no results"* page rather than an empty parse.
+
+### The `abs:`-level sweep, with positive controls in the same batch (R3)
+
+| Query | Count |
+|---|---|
+| **POSITIVE CONTROL** `"hypothesis-only"` | **30** ✅ (the API returned 29 on the same query — cross-transport agreement) |
+| **POSITIVE CONTROL** `"ControlArena"` | **4** ✅ — Democratizing Agent Deployment Safety; TraceGuard; Constitutional Black-Box Monitoring; BashArena. **None is a validity or baseline paper.** |
+| `"trusted monitor"` + `"spurious"` | 0 |
+| `"trusted monitor"` + `"annotation artifact"` | 0 |
+| `"AI control"` + `"shortcut learning"` | 0 |
+| `"control evaluation"` + `"construct validity"` | 0 |
+| `"trusted monitor"` + `"benign bug"` | 0 |
+| `"audit budget"` + `"conformal"` | 0 |
+
+### ⚠️ This discharges R3. It does **not** discharge R8.
+
+`arxiv.org/search` indexes **metadata, not full text**. The proof is in the batch itself: `2607.06596`
+says *"code-backdoor sabotage generated with ControlArena"* in its body and **does not appear among the 4
+hits**. So this sweep occupies the same search space as an `abs:` query — which is precisely the space
+R8 says cannot certify a claim about what papers *report*.
+
+**The R8 obligation is carried entirely by direct `arxiv.org/html` greps**, currently of 12 papers —
+`2312.06942`, `2506.05296`, `2608.16190`, `2605.15377`, `2607.06596`, `2602.10153`, `2510.09462`,
+`2604.03968`, `2602.04930`, `2411.17693`, `2412.07724`, `2512.15688` — returning **0** for partial-input /
+hypothesis-only, problem-statement-only monitor, TF-IDF/bag-of-words, construct validity and
+length-matched control, with in-batch positive controls firing elsewhere in the same texts (attack
+selection n=106 in `2602.04930`; logistic/RF/SVM n=6 in `2607.06596`; ties n=3 in `2608.16190`).
+**⚠️ Those greps are reported to us but are not yet recorded here with their verbatim sentences. Until
+they are, K2 is not closed.** The metadata sweep corroborates; it cannot substitute.
+
+### Two vocabulary collisions, caught by reading rather than searching
+
+Both would have produced a false OCCUPIED:
+
+- **"prompt-only monitor"** in `2607.06596` / `2608.16190` means an *un-trained, prompted* monitor — **not**
+  a problem-statement-only one.
+- **"code-only"** in the same papers means *transcript minus reasoning* — **not** *code minus problem*.
+
+### Corrections owed to `notes/14`
+
+1. **The 1,936/482/1,375 row is wrong as written.** `notes/14` records that split as a search artifact
+   corrected by `RoganInglis/apps-control-arena`'s single 5,000-row split. But `2608.16190` reproduces a
+   **1,375-sample test split (172 attack / 1,203 honest)** from *"the public backdoored-APPS dataset
+   released with Koran et al. (2026)"* — a **different artifact**. Two distinct APPS-backdoor datasets
+   exist; any paper must say which. This is the substance of **K1** (`notes/18` §3).
+2. **`2607.06596` is understated.** The ledger files it as "cross-generator generalisation republished
+   inside safety." Its full text also carries difficulty-matched and blatancy-matched controls, code-only
+   vs full-transcript cuts, MLP/SVM/RF/gradient-boosting head swaps, and hash-disjoint splits against
+   same-task leakage. It is the **nearest neighbour** to the round-16 lead and must be distinguished in
+   one sentence, or the point conceded.
+
+### Nearest neighbours *outside* AI safety (R2 / gate G1)
+
+- **Poliak et al. 2018**, *Hypothesis Only Baselines in Natural Language Inference*, \*SEM
+  (**1805.01042**) ✅ fetched — the method the lead applies.
+- **Chakraborty et al.**, *Deep Learning based Vulnerability Detection: Are We There Yet?*, IEEE TSE
+  (**2009.07235**) ✅ fetched — detectors *"learn unrelated artifacts from the dataset"*, >50% real-world
+  drop.
+- **2501.13291** — feature-preserving / feature-eliminating perturbations.
+
+Neither concerns an audit-budget protocol, which is where the lead's increment sits.

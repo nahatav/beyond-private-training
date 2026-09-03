@@ -77,6 +77,22 @@ the entire Sep 12 leg.** Desk work, 2–3 hours, no GPU.
 >
 > **PASS** — zeros hold with controls, and `2607.06596` is distinguishable in one sentence.
 > **FAIL** — the floor, or something equivalent, is already reported. Go to §5.
+>
+> **⚠️ Status update, same day: the R3 half is discharged; the R8 half is not.** The `abs:`-level sweep
+> completed with positive controls (`"hypothesis-only"` = 30, `"ControlArena"` = 4, none of the four a
+> validity paper) and all six target zeros held — recorded in `lit/02`. But it ran on `arxiv.org/search`,
+> which indexes **metadata, not full text**: `2607.06596` says *"code-backdoor sabotage generated with
+> ControlArena"* in its body and does not appear among the four hits. **That is the same search space as
+> `abs:`, which is exactly what R8 says cannot certify a reporting-practice negative.**
+>
+> **What is left of K2, therefore:** record the twelve `arxiv.org/html` greps in `lit/02` with their
+> verbatim sentences and in-batch positive controls, and write the one-sentence distinction against
+> `2607.06596`. That is the whole of the remaining work — a couple of hours — and **K2 stays open until
+> it is done.**
+>
+> *Also learned today and now in `lit/02`: `export.arxiv.org/api/query` **rate-limits under rapid fire
+> and returns a ~14-byte body that parses as `totalResults=0`** — a third way to fabricate a zero,
+> alongside R3's two. Sleep ≥8 s and treat any sub-1 KB response as transport failure, never as a result.*
 
 **Also on Sep 3 AM, free and owed:** accept the `meta-llama/Llama-3.1-8B-Instruct` HuggingFace licence.
 It is gated (`ideas/28` §5), it costs nothing, and it is on the November leg's critical path.
@@ -173,8 +189,13 @@ its `replacement` / `restriction` conditions are the legitimate lever on the act
   **November leg's framing**, not on either September submission. Record its verdict in `lit/02` with
   positive controls when it lands; if it returns OCCUPIED, C9's November framing changes before any
   pre-registration is written.
-- **`notes/14` owes two corrections** — the 1,936/482/1,375 row (see K1) and the `2607.06596` row, which
-  understates the paper (see K2).
+- **`notes/14` owes two corrections**, both now written up in `lit/02` — the 1,936/482/1,375 row (that
+  split is real, in the *Koran et al. 2026* artifact, not a search error; see K1) and the `2607.06596`
+  row, which understates the paper (see K2).
+- **Two vocabulary collisions worth carrying into any future sweep**, either of which would have produced
+  a false OCCUPIED: *"prompt-only monitor"* in `2607.06596`/`2608.16190` means an **un-trained, prompted**
+  monitor, not a problem-statement-only one; *"code-only"* there means **transcript minus reasoning**, not
+  code minus problem. Search the concept, not the morpheme (R8's corollary).
 - **`notes/13` owes two rows** — NeuralArtifacts is **live at Sep 9 AoE**, its own CFP now showing
   `~~September 1~~ → September 9`; and **FLLMPT is a Sep 12 venue**, not Sep 5, with a mandatory Sep 5
   abstract. Both were misfiled.
