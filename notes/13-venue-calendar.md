@@ -156,3 +156,22 @@ the OpenReview-synced tracker and then each workshop's own page:
    grades a safety result on efficiency merit actively damages objective (2).
 4. Most NeurIPS workshop deadlines cluster on the *suggested* date (Aug 29) and then extend once by
    ~1 week. A sweep run in early August would have caught roughly ten more viable venues.
+
+## Re-verified 2026-09-03 (round 17), every row on the workshop's own page
+
+- **EvoRobust** — no extension posted; Sep 12 AoE; 4 pp NeurIPS template; non-archival; OpenReview double-blind;
+  dual submission allowed in both directions. **G2 run for the validity audit:** invited speaker **Andriushchenko**
+  (`2510.09462`, adaptive attacks on trusted monitors, tested on ControlArena-family benchmarks) is the closest
+  same-niche reviewer — a **different failure axis** (prompt injection vs dataset validity), so *adjacent, not
+  colliding*; cite and distinguish in the first paragraph. Seven other organizers/speakers checked: none has a
+  benchmark-validity or trivial-baseline paper.
+- **FLLMPT** — abstract **Sep 5 23:00 GMT, mandatory**; paper Sep 12 23:00 GMT; dual submission welcome; CFP names
+  *"principled evaluation"*. Fit for the audit is weaker than EvoRobust. Take the free abstract if Sep 5 is quiet.
+- **NeuralArtifacts** — Sep 9 AoE confirmed (strikethrough extension on `/cfp/`). Reviewer fit still severe.
+- **VERICODEGEN** — abstract Sep 11 / paper Sep 13, both own-page. Severe mismatch unchanged.
+- **AIWILD, IAB** — close **Sep 5 AoE**, still open today, still unreachable with a paper that does not exist yet.
+- **InfPriv** — Sep 7 AoE, strict; 4 pp; double-blind; ≥3 reviews; policy verbatim: auto-reject for *"fabricated
+  references, AI-generated citations, or significant unsubstantiated claims."* **G2 clear** for the PE paper apart
+  from Zinan Lin (the code's author — framing per `notes/15`) and a mild adjacency to **Chulin Xie** (Aug-PE co-author).
+- Full 62-row tracker sweep: **nothing new between Sep 8 and Sep 20** for an evaluation-validity paper. The
+  November window in the table above is unchanged.

@@ -115,3 +115,40 @@ Dead ideas leave usable infrastructure. Reuse rather than rebuild:
 | `maxf-zn/misalignment_monitoring` (GitHub) | ✅ HTTP 200, last push 2026-07-02. `2606.30449`'s release — the C9 starting point. |
 | `2509.21344` probe / model-organism code | ❌ **no release.** No code, no data, no artifact statement in the paper. Blocks C1 and C3. |
 | `ApolloResearch/deception-detection` (GitHub) | ⚠️ exists but last push 2025-02-11 (~19 months stale); expect `transformers` drift; no license file |
+
+---
+
+## Round 17 corrections (2026-09-03) — the killing checks ran, and they corrected this ledger twice
+
+- **The ControlArena APPS-split row above is now settled, and the round-16 "correction" of it was itself wrong.**
+  Koran et al. (2026) **is** `2605.15377`, and its 1,936 / 482 / 1,375 split is a split of
+  `eugenekoran/apps-control-arena-high-quality`, which is a **2,584-row filtered subset of
+  `RoganInglis/apps-control-arena`** (all `problem_id`s contained; every shared column byte-identical except a
+  re-validated `backdoor_works`). **There are not two distinct APPS-backdoor datasets.** There is one, and one derived
+  copy. `notes/18` §3 K1's instruction to "find the second artifact" is retired — K1 = PASS (`lit/02`, round 17).
+- **The validity audit's round-16 framing is dead, and it died on reading, not on grepping.** Four clauses of
+  `ideas/28` §12 are already published: Koran `2605.15377` §4.1 filters to working honest + working backdoors and
+  strips comments, with the rationale stated; `2608.16190` names the comment leak outright; `2602.10153` is a whole
+  paper on the comment channel; `2506.05296` §2.3 and App. C.3 report the pass-tests selection effect and monitor
+  failed backdoors. And the **"published monitor at AUC 0.64"** that the round-16 headline was measured against
+  **does not exist** — the DSPy tutorial reports 69% *pairwise accuracy* on a *matched* protocol where the metadata
+  floor is exactly 0.5. **What survives** (`ideas/29`): nobody reports a partial-input, bag-of-words or authorship
+  baseline, nobody quantifies what the preprocessing leaves behind, and after the field's own filter a no-code
+  classifier scores 0.72 and a bag-of-words classifier 0.81 on the split that ranks 24 monitors (median 0.61).
+- **The twelve-grep record in `lit/02` (round 16) is superseded.** It omitted seven papers, including
+  `2605.15377` — the one that matters — and its keyword zeros co-exist with the four sentences above. **A keyword
+  grep found nothing; reading four setup sections found everything.** That is R8's failure one level down, and it
+  is now **R18** in `notes/12`.
+
+### Tier 1 additions
+
+| Idea | Killed by | Note |
+|---|---|---|
+| **"No control paper reports a construct-validity check on APPS backdoors"** | `2605.15377` §4.1, `2506.05296` §2.3 + App. C.3, `2608.16190` §2, `2602.10153` | Round 17. The field preprocesses the leaks away and says so. Claim only the *quantification* and the *authorship* reading. |
+| **"Metadata floor above the published monitor"** (as stated in `ideas/28` §12) | The DSPy tutorial's own protocol (matched pairs → metadata floor 0.5); every published pAUC is on Koran's filtered split | Round 17. Replaced by the apples-to-apples numbers in `lit/02` round 17. |
+| **"Non-integer counts break PE's threshold-and-subtract"** (`notes/15` E0 risk) | `pe/population/pe_population.py:101-107` is `float32` end to end; the record-level branch already emits non-integers (`count /= √k`) | Round 17. Do not put it in the paper. What *is* true is sharper: the threshold is a raw count whose unit moves under `"client"` mode — `experiments/infpriv/e0_threshold_results.md`. |
+
+### Tier 3 → built
+
+The **PE/InfPriv paper** leaves Tier 3: E0 and E1 ran on 2026-09-03 (`experiments/infpriv/`), the central figure
+exists, and the scoop patrol is clean. It is the near-certain September submission (`notes/19`).

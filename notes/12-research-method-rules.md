@@ -346,3 +346,32 @@ API throttled, and a throttled response is a **~14-byte body that parses as `tot
 way to fabricate a zero, alongside R3's two. **Sleep ≥8 s between queries, treat any sub-1 KB response as
 transport failure rather than a result, and never run two sweeps against one host at once.** A negative
 produced while a sibling process is hammering the same endpoint is not evidence.
+
+---
+
+## R18 — A keyword grep of full text is still a grep; read the *setup* sections of the nearest five papers
+
+**Why:** round 16 discharged R8 for the validity audit with twelve `arxiv.org/html` greps for partial-input /
+hypothesis-only / TF-IDF / construct-validity and recorded 0/12. Round 17 re-ran the sweep over seventeen papers with
+positive controls firing (`experiments/audit/K2-grep-table-*.tsv`) — and the same zeros held. **They were true and
+useless.** `2605.15377` §4.1 says *"we keep only working honest solutions (passing all tests) and working backdoored
+solutions… we strip all comments from the code before evaluation… the test set is extended to problems that have
+working solutions but no working backdoors"* — every protocol arm the audit proposed, with its rationale, in a
+paragraph that contains none of the grepped words. `2506.05296` has an appendix titled *"Monitoring failed backdoors."*
+`2608.16190` says backdoor comments *"would otherwise leak the label."* Three setup paragraphs, three kills, zero
+keyword hits.
+
+**The rule.** For the five nearest papers, **read the data/setup/preprocessing section and the appendix titles** and
+write one line per paper saying what they filtered, stripped, matched or excluded — *before* claiming that a
+preprocessing artifact is unreported. A grep certifies vocabulary; only reading certifies practice. R8 moved the
+search from abstracts to bodies; R18 moves it from strings to sentences.
+
+**Companion — compare on the same protocol or not at all.** `ideas/28` §12 measured a problem-level metadata floor
+(0.82) against "a published monitor at 0.64" that turned out to be a *pairwise accuracy* on a *matched* protocol where
+that floor is exactly 0.5. Before any "X beats Y" sentence, write down Y's split, Y's metric and Y's preprocessing, and
+compute X under all three. The apples-to-apples number in round 17 (0.81 above 20/24 monitors on Koran's own split)
+is smaller than the round-16 headline and is the only one that can go in a paper.
+
+**Second companion — agent addressing.** A coordinator message meant for one subagent was delivered to another this
+round; the recipient had no context for it and, correctly, ignored it. When fanning out, keep a name→id table and
+re-read it before every `SendMessage`. A misrouted instruction that *is* acted on silently corrupts a parallel result.

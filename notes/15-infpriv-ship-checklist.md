@@ -103,3 +103,65 @@ no embedding run, no `d_u` ever computed (`notes/12` R12, gate G3). If E0 on Sep
 noisy-count threshold-and-subtract interacts badly with non-integer per-user counts, that is a real
 finding and it surfaces on day one, with four days left and two writable branches. Discovering it on
 Sep 6 is the failure mode this schedule exists to prevent.
+
+---
+
+## ⛔ Status 2026-09-03 (round 17) — hour one happened, and E1 is done
+
+Everything below was run on the M4 laptop with **no GPU**; scripts and outputs in
+[`experiments/infpriv/`](../experiments/infpriv/). `notes/08`'s "~1 GPU-hour, arguably CPU" was high by three
+orders of magnitude: the whole of E0 + E1a + E1b is **34 seconds of compute**.
+
+| # | Pre-flight item | Status |
+|---|---|---|
+| 1 | Re-verify the DPSDA exhibit against live `main` | ✅ **done twice** — `c109ea5e` (2026-08-21); docstring, `"client"` branch (`nearest_neighbors.py:205-222`), blind accountant (`grep -ri normaliz\|client pe/dp/` → nothing), commit `25cdf854a22f…` 2025-02-20 Zinan Lin, verbatim in `lit/02` round 17. **New fact for the paper:** the `"client"` path is exercised by *no* example, loader, test or doc in the repo. |
+| 2 | Hedge the ε→∞ corollary | ☐ write-time; `2506.08312` full text re-confirmed: `user-level` 0, `client` 0 — the theorem covers the unnormalised histogram only |
+| 3 | Multi-owner assignment rule | ✅ **decided and used** — first author only (E1b) |
+| 4 | Client-level terminology sweep | ✅ done with positive controls (`experiments/infpriv/scoop_sweep.tsv`) — `"private evolution"` = 15, + `"user-level"` = 0, + `"client-level"` = 0; full text of eight PE papers: zero user-level content; SecPE is the near-miss (background citations only); PCEvolve's 18 `client` hits are compute devices |
+| 5 | Resolve the ⚠️ bibliography rows | ✅ all 14 entries fetched and in `experiments/infpriv/refs.bib` — Charles `2407.07737`; Amin et al. ICML 2019 PMLR 97:263–271; Ganesh `2503.03622` **and** Cohen-Addad `2507.23432` are two papers; Ganev is **ICML 2022** |
+| 6 | Claim 3 as a toy contraction result | ☐ write-time, zero compute — still the highest-leverage strengthening |
+
+### E0 — answered, and the answer is better than the question
+
+The round-16 risk ("non-integer counts break threshold-and-subtract") is **NO**: the histogram is `float32` from
+creation to consumption and the record-level branch already divides by `√k`. **Do not claim it.** What E0 found
+instead: `histogram_threshold` (`pe_population.py:101-107`) is an **absolute count**, and `"client"` mode moves the
+count's *unit* — total mass 4000 → 1012.8 and any one client's contribution to any one bin capped at 1.0 (measured at
+ε=∞, U=200, m_u=10, |V|=2000, k=4, c=0.5). The thresholds the repo's own examples ship (`0,1,2,4,10`) then behave
+differently by mode: threshold 2 keeps 733/2000 candidates record-level and **2** client-level; threshold 4 (what
+`camelyon17_improved_diffusion.py:47` sets) keeps 110 vs **0**, at which point `_select_data` raises
+`ValueError: probabilities contain NaN`. Nothing in the docstring or examples says the threshold must be rescaled
+with the privacy unit. **That is a concrete instance of the thesis — a parameter that is privacy-neutral at record
+level becomes a privacy-unit-dependent knob — and it belongs in §5 (the "beyond PE" paragraph).** Incidental,
+mode-independent: `histogram_threshold=None` + `selection_mode="sample"` + any σ>0 raises on negative counts — a
+courtesy note to the authors, not a claim.
+
+### E1a — the controlled arm is a dial, not a constant
+
+Median `d_u/(k·m_u)` at d=384: c=0 → 1.000; c=0.25 → 0.952; **c=0.5 → 0.645 (k=4)**; c=0.75 → 0.196; c=0.9 → 0.126;
+c=0.99 → 0.100 (= the `1/m_u` floor). Prop. 3 confirmed numerically (Σw_u maximised at p=2 in every arm). **Central
+figure exists:** `experiments/infpriv/e1_reweighting_curve.png` — under `"client"` mode the most homogeneous user gets
+0.486× the mean share and the most diverse 1.538×, a **3.16× spread driven by semantic diversity alone**. DPSDA's own
+`compute_histogram` produced the `p=2` and record-level endpoints (max abs. error vs numpy 2.9e-07).
+
+### E1b — the real anchor lands in the WEAK branch, so the Sep 5 decision is made
+
+18,160 arXiv abstracts (CC0), first-author grouping, `all-MiniLM-L6-v2`: m_u≥3 (U=383) → **0.889** at k=4; m_u≥5
+(U=45) → **0.800**. That is `d_u ≈ k·m_u`, c≈0.3 on the controlled curve. **Per the branch rule above: E2 is dropped;
+Sep 5 goes to E4 (widen the controlled sweep over |V|, m_u, and a floor-to-ceiling normalised axis so the anchor is
+comparable at m_u=3).** Headline is **exponent ½** on real data, **diversity tilt** on the controlled arm — both
+are written up; the paper says where real corpora sit and shows what happens as they move. Caveats for the paper:
+first-authorship is thin (45 authors with ≥5 papers), and a held-out real-abstract pool is denser than a round-1
+LLM pool; both push the anchor *toward* the ceiling.
+
+### Revised schedule — writing, not compute
+
+| Day | Work |
+|---|---|
+| **Sep 3 PM** | LaTeX skeleton (NeurIPS template). Items 2 and 6. |
+| **Sep 4** | E4 widening (minutes of compute). Write §§1–3. |
+| **Sep 5** | Write §§4–6. Figure polish. **FLLMPT abstract registration (Sep 5 23:00 GMT) is *not* for this paper.** |
+| **Sep 6** | Full draft. Internal review against the unsubstantiated-claims policy. |
+| **Sep 7** | Submit. |
+
+The single largest risk is now **writing time**, not compute, not novelty, not the exhibit.
