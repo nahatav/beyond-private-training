@@ -640,9 +640,15 @@ Token-level uncertainty and hidden state dynamics*, 6 Nov 2025. ✅ full text fe
 > re-sampled paths starting at**, given the **hidden representation** over that token. Forking paths
 > analysis estimates the distribution of outcomes by **sampling alternate paths that diverge at token**."
 
+And again, §4 Methods:
+
+> "For each token index in the base path, consider the **residual stream activation** over that token. We
+> train a **linear probe** to predict from over a set of token indices."
+
 That is C9's construction and C9's readout, in one method section. What it leaves: the outcome is a
-benchmark answer rather than a harmful action, there is no agentic setting, and its axis is **absolute
-token index in the base path**, not distance since divergence.
+benchmark answer rather than a harmful action, there is no agentic setting, its axis is **absolute token
+index in the base path** rather than distance since divergence, and it predicts a *distribution* rather
+than "will **this** rollout end in harm".
 
 **`2510.27484`** — *Thought Branches: Interpreting LLM Reasoning Requires Resampling*, **ICLR 2026**.
 ✅ fetched. Resamples from each sentence prefix keeping the prefix fixed — and applies it to
@@ -674,6 +680,9 @@ C9's headline conclusion verbatim**:
 | `2607.13304` ⚠️abs | *Where Does the Noise Come From?* — crossed random-effects G-theory partitioning response variance: **within-prompt resampling 34.8%** | the situation-vs-sample question **in its purest statistical form** | black-box, no internals, no position axis |
 | **LessWrong** — Ivanova, Tyagi, Engels, Nanda, *Test your best methods on our hard CoT interp tasks*, 2026-03-26 | probes on hidden states; **Task 2 "Will Gemma delete itself?"** from a partial rollout, labels from 50 resamples off a forced prefix; Tasks 6–7 ask which part of the resampling distribution a rollout is in | construction + probe + harmful action + situation-vs-sample | no pairs, no divergence-distance axis. **R9 vindicated again** |
 
+| `2606.05414` ⚠️abs | *When Evidence is Sparse: Weakly Supervised Early Failure Alerting* — α-STOP preference-conditioned stopping policy, accuracy–earliness Pareto frontier, cites ALERT*/FIRMBOUND/SPRT | **the ECTS↔agents bridge already exists** | turn-index axis; no internals in the probe sense; no branching |
+| `2604.19775` / AF — Tim Hua & Aditya Singh, *Concrete Evaluations…* | *"We can treat the agent rollout as a **branching tree**"*; turn resampling to find *"which decisions are the most load bearing for starting the hack"* | the construction + harmful action, **as a proposed safety protocol** | a proposal, not results; no probes at divergence distance. **R9 again** |
+
 **Checked and cleared as non-occupants:** `2607.13075`, `2606.24251`, `2609.01048`, `2410.01679`
 (VinePPO — branched MC value estimates, but `linear probe`/`residual stream` = 0), `2311.04897`,
 `2606.23112`.
@@ -692,10 +701,27 @@ C9's headline conclusion verbatim**:
 et al. already did, applied to blackmail, which Thought Branches already did."* The paper must answer
 that in its abstract or it does not survive review.
 
-**The one distinction that holds against all of them** — and it is against the ECTS neighbourhood, not
-the safety one: *ECTS measures earliness from the start of the series; we measure it from the moment the
-trajectory could have gone otherwise.* `abs:"early classification" AND abs:"divergence"` = **0**, with
+### The nearest neighbour in each neighbourhood, and whether one sentence separates us
+
+**N1 — early classification of time series.** Nearest neighbours: the ECTS survey/benchmark
+(**`2406.18332`**), plus its **already-completed** crossover into agents — `2606.05414` (α-STOP,
+accuracy–earliness Pareto, SPRT/FIRMBOUND lineage) and `2607.06503` (probe cascade with conformal
+recall). **Nobody in ECTS indexes earliness from a branch point** — earliness is always measured from
+sequence start. `abs:"early classification" AND abs:"divergence"` = **0**, with
 `all:"counterfactual rollout"` = **16** as the in-batch positive control.
+
+> **This is the one distinction that survives all sixteen papers, and it is the sentence to build on:**
+> *ECTS measures earliness from the start of the series; we measure it from the moment the trajectory
+> could have gone otherwise.*
+
+**N2 — lookahead / planning.** Nearest neighbours: *Future Lens* (`2311.04897`) and `2511.14773`.
+Separation is **easy but low-value** — nobody in that neighbourhood resamples, so distinguishing from it
+buys little and a reviewer will not be standing there.
+
+**N3 — rollout divergence.** Nearest neighbours: `2511.04527`, the Forking Paths lineage
+(`2412.07961` → `2510.27484` → `2608.19611`), and `2601.21183`. **We cannot distinguish in one sentence
+on construction.** The construction is theirs, it is named, and it is cited. This is the neighbourhood
+the reviewer is standing in.
 
 ### Search log and its caveat
 
