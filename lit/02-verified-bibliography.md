@@ -550,6 +550,44 @@ selection n=106 in `2602.04930`; logistic/RF/SVM n=6 in `2607.06596`; ties n=3 i
 **⚠️ Those greps are reported to us but are not yet recorded here with their verbatim sentences. Until
 they are, K2 is not closed.** The metadata sweep corroborates; it cannot substitute.
 
+### Addendum — the same negatives re-run on the canonical `export.arxiv.org` transport
+
+The sweep above was re-run on `export.arxiv.org/api/query` with **byte counts recorded**, after the
+throttling was worked around. Two positive controls returned non-zero in the same batch, and every zero
+is a **well-formed empty feed at 763–817 bytes** — exactly the signature R3 describes, and an independent
+confirmation of the sub-1 KB transport rule recorded above.
+
+| Query | Count | Bytes |
+|---|---|---|
+| **POSITIVE CONTROL** `all:"ControlArena"` | **4** | 2998 |
+| **POSITIVE CONTROL** `all:"unlearning" AND all:"RMU" AND all:"recover"` | **5** | 2678 |
+| `all:"backdoor" AND all:"code length" AND all:"monitor"` | 0 | 793 |
+| `all:"control evaluation" AND all:"construct validity"` | 0 | 785 |
+| `all:"suspicion score" AND all:"baseline classifier"` | 0 | 781 |
+| `all:"trusted monitor" AND all:"benign bug"` | 0 | 763 |
+| `all:"monitor" AND all:"backdoor" AND all:"buggy code"` | 0 | 791 |
+| `all:"backdoor" AND all:"monitor" AND all:"successful attacks only"` | 0 | 817 |
+
+**Two zeros now hold on two independent transports, each with its own in-batch positive control** —
+`"control evaluation"` + `"construct validity"` and `"trusted monitor"` + `"benign bug"`. That is a
+stronger negative than either transport alone, and between them they cover both framings of the
+round-16 lead.
+
+The most load-bearing new row is `"backdoor"` + `"code length"` + `"monitor"` = **0**: it is the
+metadata-level complement to the full-text grep that found **zero length-matched controls** across all
+twelve papers.
+
+**The RMU kill also gets its positive control at last.** `all:"unlearning" AND all:"RMU" AND
+all:"recover"` = **5**, consistent with Łucki et al. (*An Adversarial Perspective on Machine Unlearning
+for AI Safety*, **2409.18025**, TMLR) being the established result. `notes/14`'s RMU-adjacent kill
+therefore rests on a **populated** literature, not on an empty search — which is the distinction R3
+exists to enforce.
+
+**⚠️ The caveat is unchanged and still binds.** `all:` indexes title, abstract, authors and comments —
+**metadata, not body text**. Every zero here is **R3-discharging, not R8-discharging**. The R8 obligation
+remains carried entirely by the twelve direct `arxiv.org/html` greps, which is the instrument that killed
+C6 in round 13 and the one still owed a write-up here. **K2 stays open.**
+
 ### Two vocabulary collisions, caught by reading rather than searching
 
 Both would have produced a false OCCUPIED:
