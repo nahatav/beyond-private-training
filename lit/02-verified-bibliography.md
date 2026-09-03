@@ -619,3 +619,104 @@ Both would have produced a false OCCUPIED:
 - **2501.13291** — feature-preserving / feature-eliminating perturbations.
 
 Neither concerns an audit-budget protocol, which is where the lead's increment sits.
+
+---
+
+## Round 16 — the C9 out-of-field sweep: **PARTIALLY OCCUPIED, severely** (2026-09-02)
+
+The check specified in `notes/18` Appendix A, run against C9's reframe. **Verdict: four of the claim's
+five clauses are already published.** The construction — branch from a byte-identical prefix, divergence
+caused only by the sampler — is not merely unclaimed-but-obvious; it is a **named method with its own
+lineage and its own vocabulary**, and reading it with linear probes on residual-stream activations is
+published, and applying it to a harmful agentic action is published. They are simply not published
+*together*.
+
+### The three papers that do the damage
+
+**`2511.04527`** — Zur, Geiger, Lubana, Bigelow, *Are language models aware of the road not taken?
+Token-level uncertainty and hidden state dynamics*, 6 Nov 2025. ✅ full text fetched. Verbatim, §4:
+
+> "At every token position, we train a **linear probe to predict the distribution of outcomes from
+> re-sampled paths starting at**, given the **hidden representation** over that token. Forking paths
+> analysis estimates the distribution of outcomes by **sampling alternate paths that diverge at token**."
+
+That is C9's construction and C9's readout, in one method section. What it leaves: the outcome is a
+benchmark answer rather than a harmful action, there is no agentic setting, and its axis is **absolute
+token index in the base path**, not distance since divergence.
+
+**`2510.27484`** — *Thought Branches: Interpreting LLM Reasoning Requires Resampling*, **ICLR 2026**.
+✅ fetched. Resamples from each sentence prefix keeping the prefix fixed — and applies it to
+**agentic-misalignment blackmail** (45 mentions), i.e. our exact scenario. What it leaves: **zero
+probes** — `probe`, `residual stream`, `linear probe` all grep to 0. Purely black-box outcome
+distributions.
+
+**`2601.21183`** — *Sycophantic Anchors*. ✅ fetched. 200k counterfactual rollouts resampled from
+sentence prefixes, linear probes on the residual stream at 74–85% balanced accuracy — **and it publishes
+C9's headline conclusion verbatim**:
+
+> "We also find that sycophancy **builds gradually during generation rather than being determined by the
+> prompt**." · "We validate that sycophancy emerges dynamically during generation across all tested
+> models, **rejecting the 'prompt-determined' hypothesis universally**."
+
+### The rest of the field, ✅ fetched unless marked
+
+| id | what it does | clause occupied | what it leaves |
+|---|---|---|---|
+| `2412.07961` ⚠️abs | *Forking Paths in Neural Text Generation* — the origin of "forking tokens"; resample at each token index, Bayesian change-point detection | the construction, **and its vocabulary** | black-box by design; no harm; no probe |
+| `2608.19611` ⚠️abs | *Forking Fast* (Bigelow, Zur, Grant, Geiger) — *"noise is largely an artifact of **sampling** rather than an LLM's sensitivity to each individual token"* | **the sample-vs-situation attribution itself** — pre-empts a likely headline | no probes, no harm, no agentic |
+| `2604.23318` | SHEAR — formalizes **pre- vs post-divergence spans**; App. H.2: *"distributional divergence accumulates over time … should increase for later post-divergence spans"* | **the only paper indexing a hidden-state quantity by distance past a divergence point** | rollouts are independent GRPO samples, not byte-identical branches; Wasserstein statistic in an RL loss, not probe AUC; correctness, not harm |
+| `2511.14773` | *Temporal Predictors of Outcome* — linear classifiers on hidden states after the first *t* reasoning tokens, AUC≈0.84 by t=4 | probes + an earliness axis | **names our construction as future work in print**: *"resampling alternative continuations and pairing with non-greedy decoding could further strengthen the case"* |
+| `2606.22936` | *When Agents Commit Too Soon* — "representational commitment", time-locked activation-similarity curves | the commitment framing + a time-locked activation axis | independent runs, no shared prefix (`shared prefix`/`branch`/`fork` = 0) |
+| `2506.19143` | *Thought Anchors* — resampling importance, 81 uses of "resampl" | the construction as a general attribution primitive | correctness; sentence-level; no probe |
+| `2602.11619` | *When Agents Disagree With Themselves* — 8,000 same-prompt resampled agent runs, locates the divergence step | same-prompt resampling | zero internals; accuracy, not harm |
+| `2606.08998` v3 | Tutorial. Fig. 7: *"Two runs share an identical token prefix, then sampling selects a different token at one step … a different action and a materially different outcome."* | **the motivating picture of C9, in print** | conceptual only; `probe` = 0 |
+| `2607.06503` | *Doomed from the Start* — probes predict eventual task failure from the first interaction round, conformal recall | ECTS-for-agents **with probes** | failure not harm; axis = interaction round |
+| `2607.13304` ⚠️abs | *Where Does the Noise Come From?* — crossed random-effects G-theory partitioning response variance: **within-prompt resampling 34.8%** | the situation-vs-sample question **in its purest statistical form** | black-box, no internals, no position axis |
+| **LessWrong** — Ivanova, Tyagi, Engels, Nanda, *Test your best methods on our hard CoT interp tasks*, 2026-03-26 | probes on hidden states; **Task 2 "Will Gemma delete itself?"** from a partial rollout, labels from 50 resamples off a forced prefix; Tasks 6–7 ask which part of the resampling distribution a rollout is in | construction + probe + harmful action + situation-vs-sample | no pairs, no divergence-distance axis. **R9 vindicated again** |
+
+**Checked and cleared as non-occupants:** `2607.13075`, `2606.24251`, `2609.01048`, `2410.01679`
+(VinePPO — branched MC value estimates, but `linear probe`/`residual stream` = 0), `2311.04897`,
+`2606.23112`.
+
+### What actually survives, stated honestly
+
+1. **The pair framing is not a distinction.** A pair is N=2 of a distribution these papers already
+   estimate at N=20–100 — and `2608.19611` argues low-N is mostly sampling noise. **Stop selling pairs.**
+2. **Genuinely unclaimed:** *tokens-since-divergence as the probe read-out axis* (only `2604.23318`
+   touches it, and not with a probe), and the **conjunction** {sampler-divergent branches × residual-stream
+   probe × harmful agentic action} — which sits in the gap between `2510.27484` (branches + harm, no
+   probes) and `2511.04527` / `2601.21183` (branches + probes, no harm).
+3. **That conjunction is a gap of composition, not of idea**, and `2511.14773` lists it as future work.
+
+**The reviewer's sentence, written in advance:** *"This is Forking Paths Analysis with a probe, which Zur
+et al. already did, applied to blackmail, which Thought Branches already did."* The paper must answer
+that in its abstract or it does not survive review.
+
+**The one distinction that holds against all of them** — and it is against the ECTS neighbourhood, not
+the safety one: *ECTS measures earliness from the start of the series; we measure it from the moment the
+trajectory could have gone otherwise.* `abs:"early classification" AND abs:"divergence"` = **0**, with
+`all:"counterfactual rollout"` = **16** as the in-batch positive control.
+
+### Search log and its caveat
+
+Positive-controlled counts: `all:"residual stream" AND all:"probe"` = **109**; `abs:"chain-of-thought"
+AND abs:"monitor"` = **171**; `all:"counterfactual rollout"` = **16**; `all:"divergence point" AND
+all:"rollout"` = **1**. Zeros, each with a nonzero control in the same batch:
+`abs:"early classification" AND abs:"divergence"` = 0; `all:"divergence" AND all:"linear probe" AND
+all:"rollout"` = 0.
+
+**⚠️ Several count queries returned 429/503 and were discarded, not counted as zeros.** The load-bearing
+evidence here is the **full-text fetch and grep of fifteen papers**, which is the R8 instrument; the
+metadata counts only corroborate.
+
+> **New transport lesson, and it is ours.** The rate-limiting was partly **self-inflicted: three of our
+> own processes hit `export.arxiv.org` concurrently.** Parallel sweeps on one rate-limited endpoint
+> **sabotage each other's negatives** — and a throttled response parses as zero (see the 14-byte finding
+> above). **Serialize arXiv API access across agents, or give each a different transport.** A negative
+> produced while a sibling process is hammering the same host is not evidence.
+
+### One flagged item, reported not acted on
+
+The fetched LessWrong page carries an embedded line addressed at readers (*"congratulations, here's your
+award for reading this far 🏆"*). Harmless, but it is instruction-shaped text inside fetched content and
+was treated as **data**, which is the correct handling.

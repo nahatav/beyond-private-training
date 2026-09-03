@@ -172,7 +172,48 @@ sampled figure into the paper.** Full split or nothing.
 adversarial testing"* and *"Interpretability/explainability"*; **AAAI-27 workshops Nov 20**, with the
 workshop list enumerable from **Oct 2**; **SaTML workshops** Oct–Dec, organizers notified **Sep 18**.
 
-**C9 goes here, built to the scope it was always scored on** — two scenario domains, 210+ pairs per class,
+> ### ⛔ The sweep landed the same day, and the verdict is **PARTIALLY OCCUPIED — severely**
+> `lit/02`, round-16 C9 sweep. **Four of the claim's five clauses are already published**, and the
+> construction is not merely unclaimed — it is a **named method with its own lineage**:
+> **Forking Paths** (`2412.07961` → `2510.27484` → `2608.19611`).
+>
+> - **`2511.04527`** (Zur, Geiger, Lubana, Bigelow) trains *"a **linear probe to predict the distribution
+>   of outcomes from re-sampled paths starting at**, given the **hidden representation** over that
+>   token."* That is C9's construction and C9's readout in one method section.
+> - **`2510.27484`** (*Thought Branches*, **ICLR 2026**) runs the resampling construction on
+>   **agentic-misalignment blackmail** — our exact scenario — with zero probes.
+> - **`2601.21183`** publishes C9's conclusion verbatim: sycophancy *"builds gradually during generation
+>   **rather than being determined by the prompt**."*
+> - **`2511.14773`** names our construction as **future work, in print**.
+>
+> **The pair framing is dead.** A pair is N=2 of a distribution these papers estimate at N=20–100, and
+> `2608.19611` argues low-N is mostly sampling noise. **Stop selling pairs.**
+>
+> **What survives is narrow:** *tokens-since-divergence as the probe read-out axis* (only `2604.23318`
+> touches it, and not with a probe), and the **conjunction** {sampler-divergent branches × residual-stream
+> probe × harmful agentic action}. That is a gap of **composition, not of idea**.
+>
+> **The reviewer's sentence, written in advance:** *"This is Forking Paths Analysis with a probe, which
+> Zur et al. already did, applied to blackmail, which Thought Branches already did."* The abstract must
+> answer that or the paper does not survive review.
+>
+> **Appendix A's routing therefore fires: the framing changes before any pre-registration is pushed.**
+> If C9 is built, it leads with **the divergence-relative axis itself** — probe AUC against Δtokens from
+> the fork, with the situation term and the sample term separated on that axis — and it cites
+> `2412.07961`, `2511.04527`, `2510.27484` and `2601.21183` in the first paragraph. It does **not** lead
+> with pairs, and it does **not** claim the situation-vs-sample question is open.
+>
+> ⚠️ **This reopens whether C9 is the right November paper at all.** Its A1 (verified novelty) and A3
+> (outcome robustness) both fall hard. **Not decided here** — decide it against the audit's post-K1/K2
+> state and the Oct 2 AAAI-27 workshop list, not tonight.
+>
+> **And note what this vindicates.** `notes/17` scheduled this sweep into *"Sep 4–6 dead time"*, behind a
+> **public pre-registration on Sep 3 evening**. The sweep took hours of wall-clock and returned a verdict
+> that voids the framing. Under `notes/17` we would have timestamped a pre-registration on a claim that is
+> four-fifths occupied. `ideas/28` §7 called the sequencing error; this is what it was protecting against.
+
+**C9, if built, goes here — and to the reframed contribution above, not the one it had this morning.**
+Scoped as it was always scored — two scenario domains, 210+ pairs per class,
 confidence intervals, the transfer arm, and the released pair generator. `ideas/28` §4 makes the second
 and third domains a **template render** rather than a build: `anthropic-experimental/agentic-misalignment`
 (MIT) ships `blackmail`, `leaking` and `murder` in the same SummitBridge format the harness consumes, and
@@ -184,11 +225,18 @@ its `replacement` / `restriction` conditions are the legitimate lever on the act
 
 ## 8. Open items
 
-- ⏳ **The out-of-field pre-emption sweep on C9's reframe is still running** — early classification of
-  time series, prediction-horizon and lookahead work, branched-rollout RL, LessWrong/AF. It bears on the
-  **November leg's framing**, not on either September submission. Record its verdict in `lit/02` with
-  positive controls when it lands; if it returns OCCUPIED, C9's November framing changes before any
-  pre-registration is written.
+- ✅ **The out-of-field sweep on C9's reframe is CLOSED — verdict PARTIALLY OCCUPIED, severely.**
+  Recorded in `lit/02` with the threat table, the search log and its caveats. Routing applied in §7. It
+  changes nothing about either September submission.
+- ⚠️ **A transport lesson that is ours, not the API's.** The sweep's `export.arxiv.org` rate-limiting was
+  partly **self-inflicted: three of our own processes hit the endpoint concurrently.** Combined with the
+  14-byte throttled-response finding, this means **parallel sweeps on one rate-limited host sabotage each
+  other's negatives.** **Serialize arXiv API access across agents, or give each a different transport.**
+  A negative produced while a sibling process is hammering the same host is not evidence. Fold into R3.
+- **The strongest single line C9 has left**, and it is against the ECTS neighbourhood rather than the
+  safety one: *ECTS measures earliness from the start of the series; we measure it from the moment the
+  trajectory could have gone otherwise.* `abs:"early classification" AND abs:"divergence"` = **0**, with
+  `all:"counterfactual rollout"` = **16** as the in-batch positive control.
 - **`notes/14` owes two corrections**, both now written up in `lit/02` — the 1,936/482/1,375 row (that
   split is real, in the *Koran et al. 2026* artifact, not a search error; see K1) and the `2607.06596`
   row, which understates the paper (see K2).
@@ -225,7 +273,11 @@ zero-result needs a positive control in the same batch (**R3**).
 
 ---
 
-## Appendix A — the C9 sweep: what it is and what closes it
+## Appendix A — the C9 sweep: what it was, and the verdict it returned
+
+> ### ✅ CLOSED 2026-09-02 — **PARTIALLY OCCUPIED, severely.** Full verdict, threat table and search log
+> in `lit/02`; routing applied in §7. **The spec below is kept because it is the reusable instrument** —
+> it is what the next reframe gets put through, and it is the shape every future sweep should take.
 
 The sweep is the outstanding **out-of-field pre-emption check on C9's reframe**. `notes/17` §1 records the
 standing risk plainly: the reframe's novelty rests on a **negative** search result, which is the class of

@@ -73,9 +73,19 @@ stands ([`ideas/25`](ideas/25-round-14-c9-design-flaw.md)): the read position mo
 divergence and becomes the swept independent variable. What round 16 changed is the *scale of the delta*
 and the *deadline*. It goes to the November window, built to the scope it was always scored on — two
 domains, 210+ pairs, intervals, transfer, released generator — which
-[`ideas/28`](ideas/28-round-16-plan-audit.md) §4 shows is a template render, not a build. The owed
-out-of-field sweep on its reframe is specified in [`notes/18`](notes/18-the-plan-two-submissions.md)
-Appendix A and **must close before any C9 pre-registration is pushed**.
+[`ideas/28`](ideas/28-round-16-plan-audit.md) §4 shows is a template render, not a build. **⛔ But the owed out-of-field sweep landed the same
+day and returned PARTIALLY OCCUPIED, severely** (`lit/02`): `2511.04527` already trains *"a linear probe
+to predict the distribution of outcomes from re-sampled paths"* on hidden states; `2510.27484` (ICLR
+2026) already runs the resampling construction on **agentic-misalignment blackmail**; `2601.21183`
+already publishes the conclusion that behaviour *"builds gradually during generation rather than being
+determined by the prompt"*; and `2511.14773` names our construction as future work in print. **The pair
+framing is dead.** What survives is the **divergence-relative axis** and a gap of *composition*. If C9 is
+built it leads with that axis — and whether it is still the right November paper is now an open
+question, to be decided against the Oct 2 AAAI-27 list, not tonight.
+
+**What that vindicates:** `notes/17` scheduled this sweep into "Sep 4–6 dead time", behind a **public
+pre-registration on Sep 3 evening**. It took hours and voided the framing. We would have timestamped a
+claim that is four-fifths occupied.
 
 **The InfPriv paper is now on the plan, not "a live option."** `notes/15`'s justification had expired —
 it reads *"C9 cannot be submitted anywhere before Sep 19"*, which `notes/17` falsified by moving C9 to
