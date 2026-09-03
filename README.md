@@ -5,7 +5,7 @@ Working repo for a short workshop paper. **The brief changed twice.** It began a
 post-training, mech interp. Round 12 added a second objective: the paper must be relevant to
 *general* AI safety research, not only acceptable at a workshop.
 
-**State as of 2026-09-02 (round 15). Read [`ideas/27`](ideas/27-round-15-external-preemption.md) first.**
+**State as of 2026-09-02 (round 16). Read [`notes/18`](notes/18-the-plan-two-submissions.md) first.**
 
 > ### ⛔ Round 15 killed two of the three branches before the gate day started
 > Round 15 did the one thing fourteen rounds never did: **it looked outside the eight targets Stage A
@@ -32,41 +32,67 @@ post-training, mech interp. Round 12 added a second objective: the paper must be
 > situation, and how much is the particular sampled continuation.* Narrow, real, and named by
 > `2606.30449` as its own gap. **~35% at EvoRobust with a second domain.** See `ideas/27` §8–9.
 >
-> **The plan is now [`notes/17`](notes/17-the-plan-sep12.md): one track, EvoRobust Sep 12.** Stage B2
-> is dropped and Gate C is merged into the build, which puts generation on the GPU from Sep 3 evening.
-> The 3-day venues are not reachable with zero experiment code, and there is **no fallback paper in
-> flight** — deliberately (R11).
+> **Superseded by round 16 — see the next box.** `notes/17` routed the whole window into one rushed C9
+> submission at EvoRobust. Its two structural calls stand (drop Stage B2; never let the GPU idle); its
+> venue allocation does not.
 
-**Step 1 — Sep 3 is a fork.** Four checks, in order, on the thing this repo has never done: load
-`maxf-zn/misalignment_monitoring`, reproduce `2606.30449`'s identity-cosine floor, run the owed R8
-sweep on C9's own claim, and measure pair yield. The branch conditions are **fixed in advance** so the
-outcome selects a path instead of starting an argument. Pre-registration goes public that evening.
+> ### ⛔ Round 16 moved the EvoRobust slot off C9, and added a second submission
+> Round 15 read the *papers* around C9. **Round 16 read the *artifact*** — `maxf-zn/misalignment_monitoring`,
+> the repo Gate B was going to clone — plus its `docs/PAPER_RESULTS.md`. All fetched, no GPU
+> ([`ideas/28`](ideas/28-round-16-plan-audit.md)).
+>
+> - **Gate C's ≥10% threshold is contradicted by their own measurement.** Unsteered baseline on the exact
+>   committed scenario: **5.3%, CI [3.3, 8.5]**, at n=300 on a *larger* model. `notes/17`'s rollout
+>   estimate is low by **2–5×**.
+> - **The mandated transfer number is pre-published on our own model** — Llama-3.1-8B, **LODO −4.2 pp**.
+> - **The reframe's delta is thinner than `notes/17` §1 states.** Their claims C2 and C3b are the two ends
+>   of C9's intended curve. Situation-vs-sample has a published directional answer from this group.
+> - **A third path, verified on the full 5,000-row split:** a classifier that never reads one character of
+>   code scores **AUROC 0.823** on `RoganInglis/apps-control-arena`, against a published monitor at
+>   **0.64**. One column carries it — `solution_passes_tests` is 0.977 on backdoored problems vs 0.397 —
+>   and **36% of labelled backdoors do not work**. Hour one has finally happened.
+> - **The November window is real and dated:** SaTML Sep 29, **FAccT Nov 3** (non-archival option),
+>   **AAAI-27 workshops Nov 20**, SaTML workshops Oct–Dec. Missing Sep 12 costs weeks, not silence.
+>
+> **So: InfPriv Sep 7 · the validity audit → EvoRobust Sep 12 · C9 built properly for November.**
+> The Sep 12 leg is gated on two killing checks that run Sep 3 AM before anything else (`notes/18` §3).
 
-**Then:** *green* → AIWILD Sep 5 (the determinism note) then EvoRobust Sep 12 (the full benchmark);
-*amber* → EvoRobust only, reduced scope; *red* → abandon C9, C4 to EvoRobust. Reaching red is the fork
-working, not failing.
+**Step 1 — Sep 3 AM is two killing checks, and they run before anything else.** **K1:** `2608.16190`
+reproduces its 1,375-row split from *a different* APPS-backdoor artifact ("Koran et al. 2026") — find it
+and recompute the floor there. **K2:** the "nobody reports this floor" negative is R8-class and is not
+citable until its positive controls are in `lit/02`; `2607.06596` is the nearest neighbour and
+[`notes/14`](notes/14-killed-ideas-ledger.md) understates it. **FAIL on either → InfPriv is the only
+September submission, and C9 keeps November.** Do not backfill EvoRobust with rushed C9 (`notes/18` §5).
 
-The lead is **C9 — the situation-controlled pre-action benchmark**, whose design is corrected in
-[`ideas/25`](ideas/25-round-14-c9-design-flaw.md): `ideas/24`'s version was *still* unfalsifiable,
-because reading state at an offset *before* the divergence point is chance by the same determinism
-argument used to kill the version before it. The read position moves strictly after first divergence
-and becomes the swept independent variable, with the proven 0.5 floor as a calibration anchor.
+**Then:** InfPriv Sep 3–7 → submit Sep 7. The audit Sep 8–12 → submit Sep 12. The tracks are **serial,
+not parallel** — the audit has no unattended-generation phase, so five days do a seven-day plan with no
+buffer. That is the knowing price of the second submission (`notes/18` §2).
 
-**EvoRobust (Sep 12)** was ruled out on its title and re-graded once its CFP was fetched
-([`notes/13`](notes/13-venue-calendar.md)). Both target venues are non-archival with dual submission
-allowed, so neither consumes the SaTML target. The **InfPriv** paper (Sep 7, `notes/15`) is designed,
-reviewed and ~$30 — but it is a privacy result and the brief is safety. Recorded as a live option,
-not the plan.
+**C9 — the situation-controlled pre-action benchmark — is not dead; it is moved.** Its design correction
+stands ([`ideas/25`](ideas/25-round-14-c9-design-flaw.md)): the read position moves strictly after first
+divergence and becomes the swept independent variable. What round 16 changed is the *scale of the delta*
+and the *deadline*. It goes to the November window, built to the scope it was always scored on — two
+domains, 210+ pairs, intervals, transfer, released generator — which
+[`ideas/28`](ideas/28-round-16-plan-audit.md) §4 shows is a template render, not a build. The owed
+out-of-field sweep on its reframe is specified in [`notes/18`](notes/18-the-plan-two-submissions.md)
+Appendix A and **must close before any C9 pre-registration is pushed**.
+
+**The InfPriv paper is now on the plan, not "a live option."** `notes/15`'s justification had expired —
+it reads *"C9 cannot be submitted anywhere before Sep 19"*, which `notes/17` falsified by moving C9 to
+Sep 12 without re-deciding InfPriv. It is a privacy result and scores **zero** on the safety objective;
+what it buys is a near-certain submission. That trade is argued explicitly in `notes/18` §5.
 
 ## Start here
 
 | If you want… | Read |
 |---|---|
-| **What to do this week** | [`notes/17`](notes/17-the-plan-sep12.md) — **the plan**: one track, EvoRobust Sep 12, with gates, stopping rules and the cut order |
-| **What changed, and why two branches died** | [`ideas/27`](ideas/27-round-15-external-preemption.md) — the three pre-emptions, the G2 fail, the gate arithmetic, the reframe |
+| **What to do this week** | [`notes/18`](notes/18-the-plan-two-submissions.md) — **the plan**: two submissions, with the killing checks, gates, stopping rules and the C9 sweep spec |
+| **What round 16 found, and why the slot moved** | [`ideas/28`](ideas/28-round-16-plan-audit.md) — the artifact audit, the verified floors, the November window |
+| The one-track plan it replaced | [`notes/17`](notes/17-the-plan-sep12.md) — **superseded**; kept for the Stage B2 cut and the Gate B mechanics |
+| Why two branches died in round 15 | [`ideas/27`](ideas/27-round-15-external-preemption.md) — the three pre-emptions, the G2 fail, the gate arithmetic, the reframe |
 | The runbook it replaced | [`notes/16`](notes/16-fork-and-branches.md) — **superseded**; kept for Stage 0/B mechanics and the pre-registration checklist |
 | Why these candidates | [`ideas/26`](ideas/26-evorobust-reranked-board.md) — the board re-scored for EvoRobust |
-| The InfPriv option, if taken | [`notes/15`](notes/15-infpriv-ship-checklist.md) — ship checklist, Sep 7, ~$30 |
+| **The InfPriv ship checklist** | [`notes/15`](notes/15-infpriv-ship-checklist.md) — Sep 7, ~$30. ★ **ACTIVE** — pre-flight item #1 discharged, `notes/18` §6 |
 | The safety lead, current | [`ideas/25`](ideas/25-round-14-c9-design-flaw.md) — C9's design flaw, the fix, and the gates it still owes |
 | The recommendation it amends | [`ideas/24`](ideas/24-round-13-final-recommendation.md) — lead, venue plan, what changed |
 | Why the round-12 board collapsed | [`ideas/23`](ideas/23-round-13-adversarial-review.md) — candidate-by-candidate teardown with the evidence |
