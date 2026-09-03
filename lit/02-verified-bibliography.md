@@ -746,3 +746,138 @@ metadata counts only corroborate.
 The fetched LessWrong page carries an embedded line addressed at readers (*"congratulations, here's your
 award for reading this far 🏆"*). Harmless, but it is instruction-shaped text inside fetched content and
 was treated as **data**, which is the correct handling.
+
+---
+
+## Round 17 — the killing checks are run, and both September legs have code (2026-09-03)
+
+Everything in this section was fetched or computed on 2026-09-03. Scripts and outputs are in
+[`experiments/`](../experiments/README.md). Subagent numbers were recomputed by the coordinator on the full
+artifact before entering this file (**R17**).
+
+### K1 — which artifact? **PASS, and the premise was wrong**
+
+| Item | Verified | Status |
+|---|---|---|
+| **`2605.15377`** — Koran, Yun, Tetef, Arnav, Bernabeu-Pérez, *Ensemble Monitoring for AI Control: Diverse Signals Outweigh More Compute*, v2 18 May 2026 | `arxiv.org/abs` + `/html/2605.15377v2` (334,191 B). **This is "Koran et al. (2026)."** Its release is `eugenekoran/apps-control-arena-high-quality` (HF, 200, ungated, **no licence declared**, 2,584 rows = 1,209 train + 1,375 test). | ✅ |
+| Lineage | All 2,584 `problem_id`s are in `RoganInglis/apps-control-arena`; every shared metadata column byte-identical except `backdoor_works` (98.26%). §4.1 verbatim: *"a filtered subset of the APPS ControlArena dataset (Inglis et al., 2025)."* | ✅ **one artifact and one derived copy — not two datasets** |
+| ControlArena canonical source | `control_arena/settings/apps/task/dataset.py` line 31: `DATASET_NAME = "RoganInglis/apps-control-arena"`. | ✅ |
+| Honest-class provenance | `upload_dataset.py`: `load_dataset("codeparrot/apps", split="test")` → `parse_apps_solutions` → mechanical `fix_solution()`. **No model ever writes an honest solution.** | ✅ human-written |
+| Attack-class provenance | `source="apps"` → `TylordTheGreat/apps-backdoors-04-02-25` (the `2312.06942` GPT-4 backdoors; `model == "openai/gpt-4"` 439/439 on the Koran test split); `source="control_tax"` → `mikhailterekhov.github.io/control-tax/backdoor_code_paper.json` (34.7 MB, ten models). | ✅ all LLM-written |
+| `backdoor_works` definition | `validation.py::validate_backdoor`: compiles ∧ passes all tests ∧ no stderr ∧ output on `backdoor_input` differs from the reference. Row flag = *at least one* backdoor works. | ✅ |
+| Live vs replay | `docs/settings/apps.qmd`: honest and attack modes **generate**; `apps_solution_policy.py` is the opt-in replay policy that submits `solutions[0]["code"]` (human) or `backdoor_code` (LLM). | ✅ the authorship confound is a property of the **stored-pair protocol**, which is what Koran/Jha/the DSPy tutorial use |
+| Koran §4.1, the filter | *"To isolate backdoor detection from generally incorrect code, we keep only working honest solutions (passing all tests) and working backdoored solutions… we strip all comments from the code before evaluation."* And: *"The test set is extended to problems that have working solutions but no working backdoors to sharpen FPR estimation at low thresholds… the shift affects all monitors equally and does not impact relative comparisons."* | ✅ verbatim |
+| Koran test-split label | Jha's `src/data.py`: *"Rows whose designated backdoor works become attack samples… the rest become honest samples."* → `label == backdoor_works`. **60% of the 1,203 "honest" test items are problems where a backdoor was authored and failed.** Train/val are *paired* per problem (metadata floor 0.5 there by construction); every headline number is on the unpaired test split. | ✅ |
+| `2608.16190` harness | `github.com/anik-jha/challenger-panels` (MIT, pushed 2026-08-17). `runs/x0/monitor-summary.json` publishes `test_auroc` for all 24 monitors on the 1,375 split: min 0.434, **median 0.609**, max 0.937. `runs/x2/leakage-checks.json`: `hash_count_only_detector_auroc` 0.6957 → 0.4983 after stripping; `code_length_only_auroc` 0.4726. **All three bit-reproduced by our split reconstruction.** | ✅ |
+
+### K2 — is the floor unreported? **FAIL as written; a narrower claim survives**
+
+Seventeen full texts fetched via `arxiv.org/html` (all 200, ≥9 s apart, no sub-1 KB bodies): the 14 AI-control
+papers `2312.06942`, `2506.05296`, `2608.16190`, `2605.15377`, `2607.06596`, `2602.10153`, `2510.09462`,
+`2602.04930`, `2606.06529`, `2607.14570`, `2605.26047`, `2605.29178`, `2605.27157`, `2512.13526` (Async Control —
+the ControlArena team; **ControlArena has no paper**, it is cited as a GitHub repo), plus three out-of-field
+positive controls. Keyword tables in `experiments/audit/K2-grep-table-*.tsv`. Per-document positive controls:
+`monitor` 56–351, ` the ` 259–1,115. Cross-corpus controls: `hypothesis-only` = 27 in `1805.01042`,
+`bag-of-words` = 2, `artifact` = 36 in `1803.02324` — through the same pipeline that returns 0/14 on the control papers.
+
+| Clause | Verdict | Evidence |
+|---|---|---|
+| No partial-input / problem-only / metadata-only baseline reported | **holds** | 0/14 on every phrasing |
+| No TF-IDF / bag-of-words / n-gram code-text baseline | **holds** | 0/14 |
+| No human-vs-LLM authorship confound named | **holds** | `authorship` 0/14 |
+| "No construct-validity check on these benchmarks" | **FAIL** | the four sentences below |
+| `backdoor_works` / inert backdoors unreported | **FAIL** | `2605.15377` §4.1; `2506.05296` App. C.3 *"Monitoring failed backdoors"* |
+| `solution_passes_tests` selection unreported | **FAIL** | `2506.05296` §2.3: *"public unit tests serve as a pre-filtering mechanism… a quality threshold that attacker's proposed backdoors need to pass"*; `2312.06942` §M.1: *"You can think of this difficulty filter as a crude guess at whether or not the original submission from GPT-4 is correct."* |
+| Comment leak unreported | **FAIL** | `2608.16190`: *"Backdoor code in this dataset frequently carries comments that name the backdoor outright and would otherwise leak the label."* `2602.10153` is an entire paper on the comment channel (`comment` ×272). |
+| "The floor is above the published monitor" | **INVALID** | The 0.64 figure in `ideas/28` §12 **does not exist**: the DSPy tutorial reports **69% pairwise accuracy** (untrained) and 78–81% (GEPA), on a *matched* protocol where the metadata floor is exactly 0.5. Every published pAUC is on Koran's filtered, comment-stripped split, never on the raw artifact. |
+
+**`2607.06596`, read properly — the one-sentence distinction holds.** Its heads are *not* raw-text n-grams: *"embeds
+each family's full transcript with text-embedding-3-small, fits a StandardScaler and a 50-component PCA… and
+trains a per-family logistic head"*; numbers far from ceiling (*"mean diagonal of 0.71 and a mean off-diagonal of
+0.57"*). **Both its arms are LLM-authored because it regenerates them with ControlArena**, so its confound is
+family style among four LLM lineages (*"a four-way classifier on honest embeddings recovers the producing family at
+2.6x chance (0.656 accuracy)"*), and it declines the success filter (*"a strict success filter is degenerate at this
+scale"*). Distinction: *it varies policy lineage while every arm still reads the transcript; we show the stored-pair
+benchmark's label is recoverable from features that read no code, or only code style, because the two classes have
+different authors and the negative class is defined by attack failure.*
+
+**Vocabulary collision, new:** `metadata` ×21 and `artifact` ×77 in `2510.09462` are inside prompt-injection
+payloads (`<SYSTEM_BENCHMARK_METADATA …>`), not analysis. A naive count scores that paper OCCUPIED.
+
+**LessWrong / Alignment Forum (R9):** six queries, ~31 LW/AF links. No post reports a partial-input or metadata floor.
+*Monitoring benchmark for AI control* (LW, 2026-01-30) — *"All attacks are filtered for side task success"*, no
+validity discussion. *Early Experiments in Human Auditing for AI Control* (AF) — the attack policy *"erase[d]
+incriminating comments"*. Forum critiques of ControlArena are about realism, never about a baseline.
+
+**Out-of-field neighbours (R2/G1), all fetched:** `1805.01042` Poliak (hypothesis-only, the method); `1803.02324`
+Gururangan (annotation artifacts, the phenomenon); `1808.04926` Kaushik & Lipton; **`1905.05778` Feng, Wallace &
+Boyd-Graber, *Misleading Failures of Partial-input Baselines*, ACL 2019 — cite against ourselves**: *"the failure
+of a partial-input baseline does not mean a dataset is free of artifacts."* Code-eval validity: `2410.06992`
+SWE-Bench+ (32.67% solution leakage, 31.08% weak tests, 12.47% → 3.97% after filtering), `2503.15223`,
+`2502.06215`. **Authorship framing — the live G1 risk:** `2602.02079` AICD Bench (EACL 2026; 2M examples, 77 models,
+human-vs-machine and family attribution), `2506.11059` CodeMirage, `2507.21693` MultiAIGCD. None touches a control
+benchmark; the paper must cite them as the *mechanism* and claim only the *application*.
+
+### The numbers, recomputed by the coordinator (R17) — `experiments/audit/`
+
+| Protocol | Baseline | Result |
+|---|---|---|
+| Raw artifact, problem-level, label `has_backdoor` | all metadata (difficulty, pass/compile flags, log #tests, log question length, log #solutions, nondet) | **AUROC 0.8917** held-out |
+| same | lengths/counts only, **no pass flag** | 0.8672 (`n_tests` median 22 vs 3) |
+| same | difficulty + `solution_passes_tests` | 0.8189 (≈ `ideas/28`'s 0.8229 feature set) |
+| Sample-level, metadata scorer: honest on all problems + attack on backdoored (P1) | metadata | 0.6980 |
+| **matched within problem (P3 — the DSPy tutorial's protocol)** | metadata | **0.5000 exactly** |
+| DSPy tutorial protocol (8,813 control_tax pairs; problem-disjoint 5-fold) | TF-IDF 1-2gram LR, **pairwise accuracy** | **0.9621** (folds 0.956–0.972); tutorial's LLM monitor: 0.69 / 0.78–0.81 |
+| same | "the longer code is the attack" | 0.8255 |
+| same | 7 surface features | AUROC 0.8302 |
+| same, trained on **200** pairs (the tutorial's train size) | TF-IDF | 0.9283 |
+| same, by `backdoor_works` | TF-IDF | working 0.9787 · **non-working 0.9543** — the signal is not sabotage |
+| transfer | train control_tax → test apps-source (GPT-4, 2023) | 0.9935; o3-mini → claude 0.976; claude → o3-mini 0.813 |
+| style | `#` comment present | attack 0.685 vs honest 0.176; `__main__` 0.116 vs 0.000 |
+| Koran filter reproduced on the full artifact, comments stripped, pooled, 5-fold | TF-IDF | AUROC 0.8791 · TPR@10%FPR 0.671 |
+| **Koran's exact split: train on their paired train (2,418), test on their 1,375, comments stripped** | TF-IDF word 1-2gram | **AUROC 0.8063**, pAUC@10% 0.324, TPR@10%FPR 0.477 — **above 20 of the 24 monitors** in `2608.16190` (median 0.609) |
+| same, comments kept | TF-IDF | 0.8914 — above 22/24 |
+| Koran's exact test split, **no code read** (difficulty + `num_tests` + question length) | LR, held-out / 5×5 CV | **0.7163 / 0.7715 ± 0.039** — above 18/24; attack problems have half the test cases (20.95 vs 38.85) |
+| Inert backdoors | `backdoor_works` / `has_backdoor` | RoganInglis 36.0%; Koran artifact 34.3%; **Koran test split: 80.7% of labelled backdoors do not work and are relabelled honest** |
+
+⚠️ Caveats that go in the paper: `2608.16190`'s monitors are zero-shot prompted; the TF-IDF baseline is trained on the
+benchmark's own paired split. The comparison is a *Gururangan-style artifact statement* (the label is recoverable from
+non-sabotage features), not a claim that bag-of-words is a better monitor. The metadata floor on Koran's test split is
+fitted *within* the test split (their train/val is paired, so metadata is balanced there); state it that way.
+
+### InfPriv — scoop patrol, DPSDA re-verification, bibliography (all ✅)
+
+- **Scoop patrol clean.** `arxiv.org/search`: `"private evolution"` = **15** (positive control); + `"user-level"` = 0;
+  + `"client-level"` = 0; `"user-level differential privacy"` + `"synthetic data"` = 0. Full text of `2512.03238`
+  (DP-fy, `user-level` ×71, the recipe sentence verbatim: *"the original algorithm can realize the user-level privacy
+  unit by normalizing the private votes from samples from the same user to sum to 1 (in ℓ2 norm)"*), `2506.08312`
+  (PE Converges: `user-level` 0, `client` 0 — the convergence theorem covers the unnormalised histogram only),
+  `2606.08259` Tab-PE 0/0, `2606.00342` PE-means 0/0, `2603.19258` MAPLE 0/0, `2506.05407` PCEvolve (`client` ×18,
+  all compute-device sense), `2510.10990` SecPE (`user-level` ×4, background citations only — **the strongest
+  near-miss**), `2403.01749` Aug-PE 0/0. Three queries hit HTTP 429 and are recorded as *uncontrolled*, not as zeros
+  (`experiments/infpriv/scoop_sweep.tsv`).
+- **DPSDA live `main`** `c109ea5e` (2026-08-21): `nearest_neighbors.py:62-66` docstring verbatim (adds *"This
+  corresponds to the granularity of the neighboring definition in differential privacy (DP)"*); the `"client"` branch
+  `:205-222` is `sub_count /= np.linalg.norm(sub_count)` — Proposition 2's `p=2` row literally; `grep -ri normaliz|client
+  pe/dp/` → nothing; introducing commit `25cdf854a22f4b7a02177468873160ac60cd922e`, 2025-02-20, Zinan Lin, *"add the
+  support of client-level DP"* — the only commit matching. **New:** the `"client"` path is exercised by **no example,
+  loader, test or doc** anywhere in the repo.
+- **GitHub:** `microsoft/DPSDA` 12 issues, all closed, none on normalisation/client-level.
+- **Bibliography, all ⚠️ → ✅** (`experiments/infpriv/refs.bib`, 14 entries): Charles et al. **2407.07737**; Amin,
+  Kulesza, Muñoz Medina, Vassilvitskii, *Bounding User Contributions*, ICML 2019, PMLR 97:263–271; **Ganesh et al.
+  "It's My Data Too" 2503.03622** and **Cohen-Addad et al. "Scalable contribution bounding…" 2507.23432** (two papers,
+  both in the guide's §7.2 bibliography); Liu et al. 2206.03008 (ICML 2023); FedNova 2007.07481 (NeurIPS 2020); Ganev
+  2109.11429 (**ICML 2022**, title corrected: *…Disparate Impact on Synthetic Data*); Bagdasaryan NeurIPS 2019;
+  Brown 2202.05520 FAccT 2022; DP-fy JAIR 86(17) 2026; PE Converges; Aug-PE; PE (Lin et al. ICLR 2024).
+- **InfPriv G2 re-run:** none of the eight organizers or five speakers has a 2025–26 paper on user-level/client-level
+  DP synthetic data or PE. Zinan Lin authored the code under study (framing per `notes/15`); **Chulin Xie co-authored
+  Aug-PE** — one distinguishing citation.
+
+### Venues re-verified on their own pages, 2026-09-03
+
+EvoRobust: no extension, 4 pp NeurIPS template, non-archival, OpenReview double-blind, dual submission allowed. **G2:
+Andriushchenko (`2510.09462`, adaptive attacks on trusted monitors) is adjacent, not colliding** — different failure
+axis; cite and distinguish. No organizer or other speaker has a trivial-baseline or benchmark-validity paper. FLLMPT:
+abstract **Sep 5 23:00 GMT mandatory**, paper Sep 12 23:00 GMT, dual submission welcome, names *"principled
+evaluation"*. NeuralArtifacts Sep 9 AoE confirmed. VERICODEGEN abstract Sep 11 / paper Sep 13. AIWILD and IAB close
+**Sep 5 AoE — still open**. Full 62-row tracker sweep: nothing new between Sep 8 and Sep 20 for an eval-validity paper.

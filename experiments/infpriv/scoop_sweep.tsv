@@ -1,0 +1,34 @@
+query	count	bytes_or_transport	positive_control
+"private evolution" (POSITIVE CONTROL)	15	search page	--
+"private evolution" AND "user-level"	0	search page	private evolution=15
+"private evolution" AND "client-level"	0	search page	private evolution=15
+"user-level differential privacy" AND "synthetic data"	0	search page	private evolution=15
+"contribution bounding" AND "synthetic"	3	search page	private evolution=15
+"vote normalization" AND "differential privacy"	0	search page	private evolution=15
+"normalised votes" AND "differential privacy"	0	search page	private evolution=15
+"Aug-PE" (secondary positive control)	2	search page	private evolution=15
+"Aug-PE" AND "user"	0	search page	Aug-PE=2
+"PE-means"	1	search page	private evolution=15
+"Tab-PE"	1	search page	private evolution=15
+"Cohen-Addad" AND "user-level"	0	search page	private evolution=15
+"Cohen-Addad" AND "multi-attribution"	0	search page	private evolution=15
+"Cohen-Addad" AND "hypergraph"	1	search page	private evolution=15
+"MAPLE" AND "private evolution"	NOT COMPLETED (HTTP 429 rate-limit)	429 response	uncontrolled -- do not cite as zero or nonzero
+"PCEvolve"	NOT COMPLETED (HTTP 429 rate-limit)	429 response	uncontrolled -- do not cite as zero or nonzero
+"SecPE"	NOT COMPLETED (HTTP 429 rate-limit)	429 response	uncontrolled -- do not cite as zero or nonzero
+# --- full-text grep of the 8 required papers (curl arxiv.org/html/<id>, tags stripped) ---			
+2512.03238 DP-fy guide: "user-level"	71	1641229 bytes html	full-text grep, not a search-hit count
+2512.03238 DP-fy guide: "client"	92	1641229 bytes html	full-text grep
+2512.03238 DP-fy guide: "normali"	10	1641229 bytes html	full-text grep
+2512.03238 DP-fy guide: "group privacy"	9	1641229 bytes html	full-text grep
+2512.03238 DP-fy guide: "private evolution"	45	1641229 bytes html	full-text grep
+2506.08312 PE Converges: "user-level"	0	964310 bytes html	full-text grep
+2506.08312 PE Converges: "client"	0	964310 bytes html	full-text grep
+2506.08312 PE Converges: "normali"	9	964310 bytes html	full-text grep
+2506.08312 PE Converges: "group privacy"	0	964310 bytes html	full-text grep
+2606.08259 Tab-PE full text: "user-level"/"client"/"normali"/"group privacy"	0/0/0/0	733460 bytes html	full-text grep
+2606.00342 PE-means full text: "user-level"/"client"/"normali"/"group privacy"	0/0/2/0	301270 bytes html	full-text grep
+2603.19258 MAPLE full text: "user-level"/"client"/"normali"/"group privacy"	0/0/0/0	358655 bytes html	full-text grep
+2506.05407 PCEvolve full text: "user-level"/"client"/"normali"/"group privacy"	0/18/2/0	323867 bytes html	full-text grep; "client" hits are compute-device sense, not DP privacy-unit
+2510.10990 SecPE full text: "user-level"/"client"/"normali"/"group privacy"	4/0/1/0	393441 bytes html	full-text grep; "user-level" hits are background citations only
+2403.01749 Aug-PE full text: "user-level"/"client"/"normali"/"group privacy"/"user"	0/0/1(false pos.)/0/6	909254 bytes html	full-text grep
